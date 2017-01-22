@@ -1,13 +1,5 @@
 ## Module Screeps.Stores
 
-#### `Store`
-
-``` purescript
-data Store :: *
-```
-
-Or Store == StrMap Int?
-
 #### `Stores`
 
 ``` purescript
@@ -37,6 +29,7 @@ Structural AnyStore
 Structure AnyStore
 Show AnyStore
 Stores AnyStore
+Destructible AnyStore
 ```
 
 #### `toAnyStore`
@@ -67,6 +60,30 @@ storeGet :: forall a. Stores a => a -> ResourceType -> Int
 
 ``` purescript
 storeCapacity :: forall a. Stores a => a -> Int
+```
+
+#### `Store`
+
+``` purescript
+newtype Store
+  = Store (StrMap Int)
+```
+
+##### Instances
+``` purescript
+Show Store
+```
+
+#### `heldResources`
+
+``` purescript
+heldResources :: Store -> Array ResourceType
+```
+
+#### `amountHeld`
+
+``` purescript
+amountHeld :: Store -> ResourceType -> Maybe Int
 ```
 
 

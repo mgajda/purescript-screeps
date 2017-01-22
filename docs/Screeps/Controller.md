@@ -20,6 +20,7 @@ Eq Controller
 Show Controller
 Progress Controller
 Structure Controller
+Destructible Controller
 ```
 
 #### `level`
@@ -32,6 +33,30 @@ level :: Controller -> Int
 
 ``` purescript
 reservation :: Controller -> Int
+```
+
+#### `activateSafeMode`
+
+``` purescript
+activateSafeMode :: forall e. Controller -> Eff (cmd :: CMD | e) ReturnCode
+```
+
+#### `safeMode`
+
+``` purescript
+safeMode :: Controller -> Int
+```
+
+#### `safeModeAvailable`
+
+``` purescript
+safeModeAvailable :: Controller -> Int
+```
+
+#### `safeModeCooldown`
+
+``` purescript
+safeModeCooldown :: Controller -> Int
 ```
 
 #### `ticksToDowngrade`

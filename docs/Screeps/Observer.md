@@ -19,6 +19,7 @@ Structural Observer
 Structure Observer
 Eq Observer
 Show Observer
+Destructible Observer
 ```
 
 #### `observeRoom`

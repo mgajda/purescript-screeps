@@ -19,6 +19,7 @@ Stores Container
 Structure Container
 Show Container
 Eq Container
+Destructible Container
 ```
 
 #### `toContainer`

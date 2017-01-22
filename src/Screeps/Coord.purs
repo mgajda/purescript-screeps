@@ -1,4 +1,4 @@
-module Coord(distance, coord, Coord(..), roomCoord) where
+module Screeps.Coord(distance, coord, Coord(..), roomCoord) where
 
 import Data.Eq
 import Data.Ord

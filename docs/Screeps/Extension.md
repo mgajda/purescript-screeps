@@ -20,6 +20,7 @@ Refillable Extension
 Eq Extension
 Show Extension
 Structure Extension
+Destructible Extension
 ```
 
 #### `toExtension`

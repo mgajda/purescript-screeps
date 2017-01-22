@@ -11,6 +11,7 @@ RoomName allows to enumerate rooms even if they are not active.
 ##### Instances
 ``` purescript
 Eq RoomName
+Ord RoomName
 Show RoomName
 EncodeJson RoomName
 DecodeJson RoomName
@@ -33,6 +34,7 @@ CreepName allows to enumerate creeps that are yet dead
 ##### Instances
 ``` purescript
 Eq CreepName
+Ord CreepName
 Show CreepName
 EncodeJson CreepName
 DecodeJson CreepName

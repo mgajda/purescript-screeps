@@ -21,6 +21,7 @@ Structure Link
 EncodeJson Link
 DecodeJson Link
 Show Link
+Destructible Link
 ```
 
 #### `transferEnergy`

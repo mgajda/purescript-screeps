@@ -49,6 +49,9 @@ data AnyRoomObject :: *
 ##### Instances
 ``` purescript
 RoomObject AnyRoomObject
+HasId AnyRoomObject
+EncodeJson AnyRoomObject
+DecodeJson AnyRoomObject
 ```
 
 #### `room`
@@ -61,6 +64,12 @@ room :: forall a. RoomObject a => a -> Room
 
 ``` purescript
 pos :: forall a. RoomObject a => a -> RoomPosition
+```
+
+#### `asAnyRoomObject`
+
+``` purescript
+asAnyRoomObject :: forall ro. RoomObject ro => ro -> AnyRoomObject
 ```
 
 

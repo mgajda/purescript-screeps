@@ -20,6 +20,7 @@ Structural Terminal
 Stores Terminal
 Structure Terminal
 Show Terminal
+Destructible Terminal
 ```
 
 #### `send`

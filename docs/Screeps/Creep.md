@@ -35,7 +35,7 @@ body :: Creep -> Array BodyPart
 #### `carry`
 
 ``` purescript
-carry :: Creep -> CreepCargo
+carry :: Creep -> Store
 ```
 
 #### `amtCarrying`
@@ -62,34 +62,10 @@ carryCapacity :: Creep -> Int
 fatigue :: Creep -> Int
 ```
 
-#### `hits`
-
-``` purescript
-hits :: Creep -> Int
-```
-
-#### `hitsMax`
-
-``` purescript
-hitsMax :: Creep -> Int
-```
-
-#### `my`
-
-``` purescript
-my :: Creep -> Boolean
-```
-
 #### `name`
 
 ``` purescript
 name :: Creep -> CreepName
-```
-
-#### `owner`
-
-``` purescript
-owner :: Creep -> { username :: String }
 ```
 
 #### `saying`
@@ -222,12 +198,6 @@ moveTo :: forall a e. Creep -> TargetPosition a -> Eff (cmd :: CMD, memory :: ME
 
 ``` purescript
 moveTo' :: forall a e. Creep -> TargetPosition a -> MoveOptions -> Eff (cmd :: CMD, memory :: MEMORY | e) ReturnCode
-```
-
-#### `notifyWhenAttacked`
-
-``` purescript
-notifyWhenAttacked :: forall e. Creep -> Boolean -> Eff (cmd :: CMD | e) ReturnCode
 ```
 
 #### `pickup`

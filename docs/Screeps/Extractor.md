@@ -19,6 +19,7 @@ Structural Extractor
 Structure Extractor
 Eq Extractor
 Show Extractor
+Destructible Extractor
 ```
 
 #### `toExtractor`

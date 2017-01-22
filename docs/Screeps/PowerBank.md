@@ -20,6 +20,7 @@ Structure PowerBank
 Decays PowerBank
 Eq PowerBank
 Show PowerBank
+Destructible PowerBank
 ```
 
 #### `power`

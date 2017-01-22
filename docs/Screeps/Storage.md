@@ -20,6 +20,7 @@ Stores Storage
 Show Storage
 Eq Storage
 Structure Storage
+Destructible Storage
 ```
 
 #### `toStorage`

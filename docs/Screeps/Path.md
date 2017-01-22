@@ -1,5 +1,12 @@
 ## Module Screeps.Path
 
+This module implements PathFinder API.
+
+WARNING: While PathFinder accepts any number of target objects,
+         excessive GC may occur if there are too many.
+         API author advises to sort targets by uniform distance [Screeps.Coord],
+         and use only first 10 or so.
+
 #### `TileCost`
 
 ``` purescript
@@ -17,6 +24,8 @@ defaultTerrainCost :: TileCost
 ``` purescript
 unwalkable :: TileCost
 ```
+
+Indicates an unwalkable tile.
 
 #### `PATH`
 
@@ -47,7 +56,7 @@ target :: RoomPosition -> PathFinderTarget
 #### `inRange`
 
 ``` purescript
-inRange :: RoomPosition -> Int -> PathFinderTarget
+inRange :: Int -> RoomPosition -> PathFinderTarget
 ```
 
 #### `usePathFinder`
@@ -60,6 +69,12 @@ usePathFinder :: forall e. Eff (path :: PATH | e) Unit
 
 ``` purescript
 data CostMatrix :: *
+```
+
+##### Instances
+``` purescript
+EncodeJson CostMatrix
+DecodeJson CostMatrix
 ```
 
 #### `search`
@@ -98,6 +113,8 @@ type RoomCallback e = RoomName -> Eff (path :: PATH | e) CostMatrix
 allDefaultCosts :: forall e. RoomCallback e
 ```
 
+Empty callback - just use default terrain cost.
+
 #### `PathFinderOpts`
 
 ``` purescript
@@ -111,11 +128,16 @@ newtype PathFinderOpts e
 set :: forall e. CostMatrix -> Int -> Int -> TileCost -> Eff (path :: PATH | e) Unit
 ```
 
+Set a given coordinate to any cost.
+
 #### `get`
 
 ``` purescript
 get :: forall e. CostMatrix -> Int -> Int -> Eff (path :: PATH | e) TileCost
 ```
+
+Get current cost of any coordinate.
+Zero indicates default terrain cost.
 
 #### `clone`
 
@@ -123,12 +145,16 @@ get :: forall e. CostMatrix -> Int -> Int -> Eff (path :: PATH | e) TileCost
 clone :: forall e. CostMatrix -> Eff (path :: PATH | e) CostMatrix
 ```
 
+Clone cost matrix.
+
 #### `SerializedCostMatrix`
 
 ``` purescript
 newtype SerializedCostMatrix
   = SerializedCostMatrix Json
 ```
+
+Serialized cost matrix, suitable for `JSON.stringify`.
 
 ##### Instances
 ``` purescript
@@ -138,13 +164,15 @@ Show SerializedCostMatrix
 #### `serialize`
 
 ``` purescript
-serialize :: forall e. CostMatrix -> Eff (path :: PATH | e) SerializedCostMatrix
+serialize :: CostMatrix -> SerializedCostMatrix
 ```
+
+Serialize cost matrix for storage in `Memory`.
 
 #### `deserialize`
 
 ``` purescript
-deserialize :: forall e. SerializedCostMatrix -> Eff (path :: PATH | e) CostMatrix
+deserialize :: forall e. SerializedCostMatrix -> Eff (err :: EXCEPTION | e) CostMatrix
 ```
 
 

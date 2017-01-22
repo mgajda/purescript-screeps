@@ -20,6 +20,7 @@ Decays Rampart
 Structure Rampart
 Eq Rampart
 Show Rampart
+Destructible Rampart
 ```
 
 #### `isPublic`

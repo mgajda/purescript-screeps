@@ -177,18 +177,7 @@ RoomObject AnyStructure
 Structural AnyStructure
 Structure AnyStructure
 Show AnyStructure
-```
-
-#### `hits`
-
-``` purescript
-hits :: forall a. Structure a => a -> Int
-```
-
-#### `hitsMax`
-
-``` purescript
-hitsMax :: forall a. Structure a => a -> Int
+Destructible AnyStructure
 ```
 
 #### `structureType`
@@ -209,12 +198,6 @@ destroy :: forall a e. Structure a => a -> Eff (cmd :: CMD | e) ReturnCode
 isActive :: forall a e. Structure a => a -> Eff (cmd :: CMD | e) Boolean
 ```
 
-#### `notifyWhenAttacked`
-
-``` purescript
-notifyWhenAttacked :: forall a e. Structure a => a -> Boolean -> Eff (cmd :: CMD | e) ReturnCode
-```
-
 #### `unsafeCast`
 
 ``` purescript
@@ -225,6 +208,12 @@ unsafeCast :: forall a. Structure a => StructureType -> AnyStructure -> Maybe a
 
 ``` purescript
 toAnyStructure :: forall a. Structure a => a -> AnyStructure
+```
+
+#### `fromRoomObject`
+
+``` purescript
+fromRoomObject :: AnyRoomObject -> Maybe AnyStructure
 ```
 
 #### `fromAnyStructure`

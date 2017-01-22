@@ -20,18 +20,6 @@ HasId AnyRoomObject
 fromAnyRoomObject :: forall ro. HasId ro => AnyRoomObject -> Maybe ro
 ```
 
-#### `RoomGlobal`
-
-``` purescript
-data RoomGlobal :: *
-```
-
-#### `getRoomGlobal`
-
-``` purescript
-getRoomGlobal :: forall e. Eff (tick :: TICK | e) RoomGlobal
-```
-
 #### `PathOptions`
 
 ``` purescript
@@ -86,16 +74,22 @@ storage :: Room -> Maybe Storage
 terminal :: Room -> Maybe Terminal
 ```
 
+#### `roomGlobal`
+
+``` purescript
+roomGlobal :: {  }
+```
+
 #### `serializePath`
 
 ``` purescript
-serializePath :: RoomGlobal -> Path -> String
+serializePath :: Path -> String
 ```
 
 #### `deserializePath`
 
 ``` purescript
-deserializePath :: RoomGlobal -> String -> Path
+deserializePath :: String -> Path
 ```
 
 #### `createConstructionSite`

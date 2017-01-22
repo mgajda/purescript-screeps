@@ -20,6 +20,7 @@ Refillable Tower
 Structure Tower
 Eq Tower
 Show Tower
+Destructible Tower
 ```
 
 #### `attack`

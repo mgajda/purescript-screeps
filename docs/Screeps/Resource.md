@@ -12,6 +12,7 @@ newtype ResourceType
 ##### Instances
 ``` purescript
 Generic ResourceType
+Eq ResourceType
 Show ResourceType
 ```
 

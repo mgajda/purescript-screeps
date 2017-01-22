@@ -19,6 +19,7 @@ Structure KeeperLair
 EncodeJson KeeperLair
 DecodeJson KeeperLair
 Show KeeperLair
+Destructible KeeperLair
 ```
 
 #### `ticksToSpawn`

@@ -8,6 +8,12 @@ Internal helper module for JavaScript FFI
 unsafeOptField :: forall obj val. String -> obj -> Maybe val
 ```
 
+#### `unsafeIntField`
+
+``` purescript
+unsafeIntField :: forall obj. String -> obj -> Int
+```
+
 #### `unsafeField`
 
 ``` purescript

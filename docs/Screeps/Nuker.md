@@ -21,6 +21,7 @@ Coolsdown Nuker
 Structure Nuker
 Eq Nuker
 Show Nuker
+Destructible Nuker
 ```
 
 #### `ghodium`

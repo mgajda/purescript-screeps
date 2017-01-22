@@ -20,6 +20,7 @@ DecodeJson Portal
 Structure Portal
 Eq Portal
 Show Portal
+Destructible Portal
 ```
 
 #### `destination`

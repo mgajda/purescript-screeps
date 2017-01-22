@@ -21,6 +21,7 @@ Structure Lab
 EncodeJson Lab
 DecodeJson Lab
 Show Lab
+Destructible Lab
 ```
 
 #### `mineralAmount`

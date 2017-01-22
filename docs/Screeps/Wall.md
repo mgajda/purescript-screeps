@@ -11,7 +11,6 @@ data Wall :: *
 ##### Instances
 ``` purescript
 RoomObject Wall
-Owned Wall
 HasId Wall
 EncodeJson Wall
 DecodeJson Wall
@@ -19,6 +18,7 @@ Structural Wall
 Structure Wall
 Eq Wall
 Show Wall
+Destructible Wall
 ```
 
 #### `ticksToLive`

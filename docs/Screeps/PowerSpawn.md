@@ -17,6 +17,7 @@ HasId PowerSpawn
 EncodeJson PowerSpawn
 DecodeJson PowerSpawn
 Refillable PowerSpawn
+Destructible PowerSpawn
 Structure PowerSpawn
 Eq PowerSpawn
 Show PowerSpawn

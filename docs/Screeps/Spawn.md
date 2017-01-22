@@ -26,6 +26,7 @@ Structural Spawn
 Refillable Spawn
 Structure Spawn
 Show Spawn
+Destructible Spawn
 ```
 
 #### `memory`

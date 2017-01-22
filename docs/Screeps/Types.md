@@ -34,6 +34,7 @@ Show Creep
 HasId Creep
 EncodeJson Creep
 DecodeJson Creep
+Destructible Creep
 ```
 
 #### `TerrainMask`

@@ -31,6 +31,7 @@ Show AnyRefillable
 Eq AnyRefillable
 Structure AnyRefillable
 Refillable AnyRefillable
+Destructible AnyRefillable
 ```
 
 #### `energy`

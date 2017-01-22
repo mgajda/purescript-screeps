@@ -27,4 +27,10 @@ Show ConstructionSite
 remove :: forall e. ConstructionSite -> Eff (cmd :: CMD | e) ReturnCode
 ```
 
+#### `toConstructionSite`
+
+``` purescript
+toConstructionSite :: AnyRoomObject -> Maybe ConstructionSite
+```
+
 
