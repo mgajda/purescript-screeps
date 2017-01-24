@@ -1,5 +1,15 @@
 -- | Corresponds to the Screeps API [StructureExtension](http://support.screeps.com/hc/en-us/articles/207711949-StructureExtension)
-module Screeps.Deposit where
+module Screeps.Deposit(
+    class Deposit
+  , AnyDeposit
+  , harvestDeposit
+  , depositLeft
+  , depositType
+  , toAnyDeposit
+  , asAnyDeposit
+  , caseDeposit
+  , module Screeps.Regenerates
+  ) where
 
 import Data.Argonaut.Encode.Class     (class EncodeJson, encodeJson)
 import Data.Argonaut.Decode.Class     (class DecodeJson, decodeJson)
@@ -17,12 +27,13 @@ import Screeps.FFI                    (unsafeField, instanceOf, runThisEffFn1)
 import Screeps.Id
 import Screeps.Mineral    as Mineral
 import Screeps.Resource
+import Screeps.Regenerates
 import Screeps.RoomObject             (class RoomObject)
 import Screeps.Source     as Source
 --import Screeps.Structure
 import Screeps.Types
 
-class Deposit a
+class Regenerates a <= Deposit a
 
 foreign import data AnyDeposit :: *
 instance anyDepositIsRoomObject :: RoomObject AnyDeposit
@@ -30,13 +41,14 @@ instance anyDepositHasId        :: HasId      AnyDeposit
   where
     validate o = instanceOf "Mineral" o
               || instanceOf "Source"  o
-instance encodeDeposit          :: EncodeJson AnyDeposit where encodeJson = encodeJsonWithId
-instance decodeDeposit          :: DecodeJson AnyDeposit where decodeJson = decodeJsonWithId
-instance showDeposit            :: Show       AnyDeposit where show       = caseDeposit show show
-instance eqDeposit              :: Eq         AnyDeposit where eq         = eqById
-instance anyDeposit             :: Deposit    AnyDeposit
-instance mineralIsDeposit       :: Deposit    Mineral.Mineral
-instance sourceIsDeposit        :: Deposit    Source.Source
+instance encodeDeposit          :: EncodeJson  AnyDeposit where encodeJson = encodeJsonWithId
+instance decodeDeposit          :: DecodeJson  AnyDeposit where decodeJson = decodeJsonWithId
+instance showDeposit            :: Show        AnyDeposit where show       = caseDeposit show show
+instance eqDeposit              :: Eq          AnyDeposit where eq         = eqById
+instance anyDepositRegenerates  :: Regenerates AnyDeposit
+instance anyDeposit             :: Deposit     AnyDeposit
+instance mineralIsDeposit       :: Deposit     Mineral.Mineral
+instance sourceIsDeposit        :: Deposit     Source.Source
 
 caseDeposit ::  forall  d          a.
                 Deposit d
