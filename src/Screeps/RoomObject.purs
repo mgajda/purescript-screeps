@@ -9,7 +9,8 @@ import Control.Monad.Eff.Unsafe (unsafePerformEff)
 import Data.Argonaut.Decode.Class
 import Data.Argonaut.Encode.Class
 import Data.Either
-import Data.Function (($))
+import Data.Eq
+import Data.Function (($), on)
 import Data.Maybe
 import Data.Monoid
 import Data.Show
@@ -26,6 +27,9 @@ foreign import data Room :: *
 
 instance showRoom :: Show Room where
   show = show <<< name
+
+instance eqRoom :: Eq Room where
+  eq = eq `on` name
 
 -- | Any `RoomObject` with a location, and room containing it. 
 class RoomObject     a
