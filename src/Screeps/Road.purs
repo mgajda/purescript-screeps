@@ -9,6 +9,7 @@ import Data.Show  (class Show)
 
 import Screeps.FFI (instanceOf)
 import Screeps.Decays    ( class Decays )
+import Screeps.Destructible
 import Screeps.Id
 import Screeps.RoomObject (class RoomObject)
 import Screeps.Structure
@@ -26,6 +27,7 @@ instance structureRoad   :: Structure  Road where
 instance showRoad        :: Show       Road where show       = showStructure
 instance decodeRoad      :: DecodeJson Road where decodeJson = decodeJsonWithId
 instance encodeRoad      :: EncodeJson Road where encodeJson = encodeJsonWithId
+instance destructibleRoad:: Destructible Road
 
 toRoad :: AnyStructure -> Maybe Road
 toRoad = fromAnyStructure
