@@ -10,7 +10,7 @@ import Data.Show
 
 import Screeps.Effects (CMD)
 import Screeps.Destructible (class Destructible)
-import Screeps.FFI (runThisEffFn0, unsafeField, instanceOf)
+import Screeps.FFI (runThisEffFn0, unsafeField, unsafeOptField, instanceOf)
 import Screeps.Id (class HasId, encodeJsonWithId, decodeJsonWithId, eqById)
 import Screeps.Progress (class Progress)
 import Screeps.RoomObject (class RoomObject)
@@ -39,8 +39,8 @@ level = unsafeField "level"
 type Reservation = { username :: String
                    , ticksToEnd :: Int }
 
-reservation :: Controller -> Reservation
-reservation = unsafeField "reservation"
+reservation :: Controller -> Maybe Reservation
+reservation = unsafeOptField "reservation"
 
 activateSafeMode :: forall e. Controller -> Eff (cmd :: CMD | e) ReturnCode
 activateSafeMode  = runThisEffFn0 "activateSafeMode"
