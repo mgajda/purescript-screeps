@@ -36,7 +36,10 @@ instance destructibleController :: Destructible Controller
 level :: Controller -> Int
 level = unsafeField "level"
 
-reservation :: Controller -> Int
+type Reservation = { username :: String
+                   , ticksToEnd :: Int }
+
+reservation :: Controller -> Reservation
 reservation = unsafeField "reservation"
 
 activateSafeMode :: forall e. Controller -> Eff (cmd :: CMD | e) ReturnCode

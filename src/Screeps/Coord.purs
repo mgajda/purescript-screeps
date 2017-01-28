@@ -16,8 +16,8 @@ import Control.Monad.Eff.Exception        (error)
 import Control.Monad.Eff.Exception.Unsafe (unsafeThrowException)
 
 import Screeps.Names
-import Screeps.RoomObject
-import Screeps.RoomPosition
+--import Screeps.RoomObject
+--import Screeps.RoomPosition
 import Screeps.RoomPosition.Type
 
 -- * Uniform multiroom coordinates
