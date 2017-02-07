@@ -11,7 +11,7 @@ import Data.Show
 newtype BodyPartType = BodyPartType String
 derive instance genericBodyPartType :: Generic BodyPartType
 instance eqBodyPartType :: Eq BodyPartType where eq = gEq
-instance showBodyPartType :: Show BodyPartType where show = gShow
+derive newtype instance showBodyPartType :: Show BodyPartType
 
 foreign import part_move :: BodyPartType
 foreign import part_work :: BodyPartType
