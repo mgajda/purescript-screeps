@@ -1,7 +1,7 @@
 -- | Corresponds to the Screeps API [Creep](http://support.screeps.com/hc/en-us/articles/203013212-Creep)
 module Screeps.Creep where
 
-import Prelude
+import Prelude                     (Unit, show, ($), (<$>), (<>))
 import Control.Monad.Eff           (Eff)
 import Control.Monad.Eff.Exception (EXCEPTION)
 import Data.Argonaut.Decode        (class DecodeJson, decodeJson)
@@ -20,14 +20,14 @@ import Screeps.FFI              (runThisEffFn0, runThisEffFn1, runThisEffFn2, ru
                                  unsafeGetFieldEff, unsafeField, unsafeOptField, unsafeSetFieldEff)
 import Screeps.FindType         (Path)
 import Screeps.Mineral          (Mineral)
-import Screeps.Names
+import Screeps.Names            (CreepName, asCreepName)
 import Screeps.Owned            (owner)
 import Screeps.Refillable       (class Refillable)
 import Screeps.Resource         (Resource, ResourceType, resource_energy)
 import Screeps.ReturnCode       (ReturnCode)
 import Screeps.Room             (PathOptions)
 import Screeps.Source           (Source)
-import Screeps.Stores
+import Screeps.Stores           (Store)
 import Screeps.Structure        (class Structure)
 import Screeps.Types            (Creep, TargetPosition(..))
 

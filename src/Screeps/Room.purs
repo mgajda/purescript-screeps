@@ -1,7 +1,7 @@
 -- | Corresponds to the Screeps API [Room](http://support.screeps.com/hc/en-us/articles/203079011-Room)
 module Screeps.Room where
 
-import Prelude
+import Prelude                          (map, ($), (+), (-), (<<<))
 import Control.Monad.Eff                (Eff)
 import Data.Argonaut.Core               (Json, toArray)
 import Data.Either                      (Either(Left,Right))
@@ -9,14 +9,14 @@ import Data.Maybe                       (Maybe(..), maybe)
 
 import Screeps.Color                    (Color)
 import Screeps.Controller               (Controller)
-import Screeps.Effects                  (CMD, TICK)
+import Screeps.Effects                  (CMD) 
 import Screeps.FFI (runThisEffFn1, runThisEffFn2, runThisEffFn3, runThisEffFn4, runThisEffFn5,
                     runThisFn1,    runThisFn2,    runThisFn3,    runThisFn6,
                     selectMaybes,  toMaybe,
                     unsafeField,   unsafeOptField, instanceOf)
 import Screeps.FindType                 (FindType, LookType, Path)
-import Screeps.Id
-import Screeps.Names
+import Screeps.Id                       (class HasId, validate)
+import Screeps.Names                    (RoomName)
 import Screeps.ReturnCode               (ReturnCode)
 import Screeps.RoomObject               (Room, class RoomObject)
 import Screeps.RoomPosition.Type        (RoomPosition, x, y, mkRoomPosition)
@@ -130,18 +130,15 @@ find = runThisFn1 "find"
 find' :: forall a. Room -> FindType a -> FilterFn a -> Array a
 find' room findType filter = runThisFn2 "find" room findType { filter }
 
-data RoomIdentifier = RoomName String | RoomObj Room
-
-foreign import findExitToImpl :: forall a.
+foreign import findExitToImpl ::
   Room ->
-  a ->
+  RoomName ->
   (ReturnCode -> Either ReturnCode (FindType RoomPosition)) ->
   (FindType RoomPosition -> Either ReturnCode (FindType RoomPosition)) ->
   Either ReturnCode (FindType RoomPosition)
 
-findExitTo :: Room -> RoomIdentifier -> Either ReturnCode (FindType RoomPosition)
-findExitTo room (RoomName otherRoomName) = findExitToImpl room otherRoomName Left Right
-findExitTo room (RoomObj otherRoom) = findExitToImpl room otherRoom Left Right
+findExitTo :: Room -> RoomName -> Either ReturnCode (FindType RoomPosition)
+findExitTo room otherRoomName = findExitToImpl room otherRoomName Left Right
 
 findPath :: Room -> RoomPosition -> RoomPosition -> Path
 findPath = runThisFn2 "findPath"
