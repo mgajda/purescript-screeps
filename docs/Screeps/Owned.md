@@ -11,7 +11,7 @@ my :: forall a. Owned a => a -> Boolean
 #### `owner`
 
 ``` purescript
-owner :: forall a. Owned a => a -> Maybe { username :: String }
+owner :: forall a. Owned a => a -> Maybe { "username" :: String }
 ```
 
 

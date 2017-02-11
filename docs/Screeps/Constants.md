@@ -277,7 +277,7 @@ storage_hits :: Int
 #### `construction_cost`
 
 ``` purescript
-construction_cost :: { spawn :: Int, extension :: Int, road :: Int, constructedWall :: Int, rampart :: Int, link :: Int, storage :: Int, tower :: Int, observer :: Int, powerSpawn :: Int, extractor :: Int, lab :: Int, terminal :: Int, container :: Int, nuker :: Int }
+construction_cost :: { "spawn" :: Int, "extension" :: Int, "road" :: Int, "constructedWall" :: Int, "rampart" :: Int, "link" :: Int, "storage" :: Int, "tower" :: Int, "observer" :: Int, "powerSpawn" :: Int, "extractor" :: Int, "lab" :: Int, "terminal" :: Int, "container" :: Int, "nuker" :: Int }
 ```
 
 #### `construction_cost_road_swamp_ratio`
@@ -305,7 +305,7 @@ Number of structures available on each level
 #### `controller_structures`
 
 ``` purescript
-controller_structures :: { spawn :: StructureInfo, extension :: StructureInfo, road :: StructureInfo, constructedWall :: StructureInfo, rampart :: StructureInfo, link :: StructureInfo, storage :: StructureInfo, tower :: StructureInfo, observer :: StructureInfo, powerSpawn :: StructureInfo, extractor :: StructureInfo, lab :: StructureInfo, terminal :: StructureInfo, container :: StructureInfo, nuker :: StructureInfo }
+controller_structures :: { "spawn" :: StructureInfo, "extension" :: StructureInfo, "road" :: StructureInfo, "constructedWall" :: StructureInfo, "rampart" :: StructureInfo, "link" :: StructureInfo, "storage" :: StructureInfo, "tower" :: StructureInfo, "observer" :: StructureInfo, "powerSpawn" :: StructureInfo, "extractor" :: StructureInfo, "lab" :: StructureInfo, "terminal" :: StructureInfo, "container" :: StructureInfo, "nuker" :: StructureInfo }
 ```
 
 NOTE: there is better interface Screeps.Structure.numStructures
@@ -595,7 +595,7 @@ mineral_regen_time :: Int
 #### `mineral_min_amount`
 
 ``` purescript
-mineral_min_amount :: { H :: Int, O :: Int, L :: Int, K :: Int, Z :: Int, U :: Int, X :: Int }
+mineral_min_amount :: { "H" :: Int, "O" :: Int, "L" :: Int, "K" :: Int, "Z" :: Int, "U" :: Int, "X" :: Int }
 ```
 
 #### `mineral_random_factor`
@@ -697,7 +697,7 @@ nuke_range :: Int
 #### `nuke_damage`
 
 ``` purescript
-nuke_damage :: { 0 :: Int, 1 :: Int, 4 :: Int }
+nuke_damage :: { "0" :: Int, "1" :: Int, "4" :: Int }
 ```
 
 

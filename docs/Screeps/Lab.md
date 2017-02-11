@@ -5,7 +5,7 @@ Corresponds to the Screeps API [StructureLab](http://support.screeps.com/hc/en-u
 #### `Lab`
 
 ``` purescript
-data Lab :: *
+data Lab :: Type
 ```
 
 ##### Instances
@@ -45,19 +45,19 @@ mineralCapacity :: Lab -> Int
 #### `boostCreep`
 
 ``` purescript
-boostCreep :: forall e. Lab -> Creep -> Eff (cmd :: CMD | e) ReturnCode
+boostCreep :: forall e. Lab -> Creep -> Eff ("cmd" :: CMD | e) ReturnCode
 ```
 
 #### `boostCreep'`
 
 ``` purescript
-boostCreep' :: forall e. Lab -> Creep -> Int -> Eff (cmd :: CMD | e) ReturnCode
+boostCreep' :: forall e. Lab -> Creep -> Int -> Eff ("cmd" :: CMD | e) ReturnCode
 ```
 
 #### `runReaction`
 
 ``` purescript
-runReaction :: forall e. Lab -> Lab -> Lab -> Eff (cmd :: CMD | e) ReturnCode
+runReaction :: forall e. Lab -> Lab -> Lab -> Eff ("cmd" :: CMD | e) ReturnCode
 ```
 
 #### `toLab`

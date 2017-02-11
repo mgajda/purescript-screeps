@@ -14,7 +14,7 @@ Stores AnyStore
 #### `AnyStore`
 
 ``` purescript
-data AnyStore :: *
+data AnyStore :: Type
 ```
 
 ##### Instances

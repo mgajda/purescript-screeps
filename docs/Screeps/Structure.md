@@ -164,7 +164,7 @@ showStructure :: forall s. Structure s => s -> String
 #### `AnyStructure`
 
 ``` purescript
-data AnyStructure :: *
+data AnyStructure :: Type
 ```
 
 ##### Instances
@@ -189,13 +189,13 @@ structureType :: forall a. Structural a => a -> StructureType
 #### `destroy`
 
 ``` purescript
-destroy :: forall a e. Structure a => a -> Eff (cmd :: CMD | e) ReturnCode
+destroy :: forall a e. Structure a => a -> Eff ("cmd" :: CMD | e) ReturnCode
 ```
 
 #### `isActive`
 
 ``` purescript
-isActive :: forall a e. Structure a => a -> Eff (cmd :: CMD | e) Boolean
+isActive :: forall a e. Structure a => a -> Eff ("cmd" :: CMD | e) Boolean
 ```
 
 #### `unsafeCast`

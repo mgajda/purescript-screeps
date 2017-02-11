@@ -5,12 +5,13 @@ Corresponds to the Screeps API [RoomObject](http://support.screeps.com/hc/en-us/
 #### `Room`
 
 ``` purescript
-data Room :: *
+data Room :: Type
 ```
 
 ##### Instances
 ``` purescript
 Show Room
+Eq Room
 EncodeJson Room
 DecodeJson Room
 ```
@@ -43,7 +44,7 @@ lookupRoom :: forall e. RoomName -> Eff e (NullOrUndefined Room)
 #### `AnyRoomObject`
 
 ``` purescript
-data AnyRoomObject :: *
+data AnyRoomObject :: Type
 ```
 
 ##### Instances

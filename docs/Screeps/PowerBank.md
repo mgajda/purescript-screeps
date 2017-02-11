@@ -5,7 +5,7 @@ Corresponds to the Screeps API [StructurePowerBank](http://support.screeps.com/h
 #### `PowerBank`
 
 ``` purescript
-data PowerBank :: *
+data PowerBank :: Type
 ```
 
 ##### Instances

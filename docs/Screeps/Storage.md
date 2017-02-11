@@ -5,7 +5,7 @@ Corresponds to the Screeps API [StructureStorage](http://support.screeps.com/hc/
 #### `Storage`
 
 ``` purescript
-data Storage :: *
+data Storage :: Type
 ```
 
 ##### Instances

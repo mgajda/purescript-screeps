@@ -5,7 +5,7 @@ Corresponds to the Screeps API [StructureTower](http://support.screeps.com/hc/en
 #### `Tower`
 
 ``` purescript
-data Tower :: *
+data Tower :: Type
 ```
 
 ##### Instances
@@ -26,31 +26,31 @@ Destructible Tower
 #### `attack`
 
 ``` purescript
-attack :: forall e. Tower -> Creep -> Eff (cmd :: CMD | e) ReturnCode
+attack :: forall e. Tower -> Creep -> Eff ("cmd" :: CMD | e) ReturnCode
 ```
 
 #### `heal`
 
 ``` purescript
-heal :: forall e. Tower -> Creep -> Eff (cmd :: CMD | e) ReturnCode
+heal :: forall e. Tower -> Creep -> Eff ("cmd" :: CMD | e) ReturnCode
 ```
 
 #### `repair`
 
 ``` purescript
-repair :: forall a e. Structure a => Tower -> a -> Eff (cmd :: CMD | e) ReturnCode
+repair :: forall a e. Structure a => Tower -> a -> Eff ("cmd" :: CMD | e) ReturnCode
 ```
 
 #### `transferEnergy`
 
 ``` purescript
-transferEnergy :: forall e. Tower -> Creep -> Eff (cmd :: CMD | e) ReturnCode
+transferEnergy :: forall e. Tower -> Creep -> Eff ("cmd" :: CMD | e) ReturnCode
 ```
 
 #### `transferEnergyAmt`
 
 ``` purescript
-transferEnergyAmt :: forall e. Tower -> Creep -> Int -> Eff (cmd :: CMD | e) ReturnCode
+transferEnergyAmt :: forall e. Tower -> Creep -> Int -> Eff ("cmd" :: CMD | e) ReturnCode
 ```
 
 #### `toTower`

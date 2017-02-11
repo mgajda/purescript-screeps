@@ -30,21 +30,21 @@ Indicates an unwalkable tile.
 #### `PATH`
 
 ``` purescript
-data PATH :: !
+data PATH :: Effect
 ```
 
 #### `PathFinderResult`
 
 ``` purescript
 newtype PathFinderResult
-  = PathFinderResult { path :: Array RoomPosition, opts :: Int, cost :: Int, incomplete :: Boolean }
+  = PathFinderResult { "path" :: Array RoomPosition, "opts" :: Int, "cost" :: Int, "incomplete" :: Boolean }
 ```
 
 #### `PathFinderTarget`
 
 ``` purescript
 newtype PathFinderTarget
-  = PathFinderTarget { pos :: RoomPosition, range :: Int }
+  = PathFinderTarget { "pos" :: RoomPosition, "range" :: Int }
 ```
 
 #### `target`
@@ -62,13 +62,13 @@ inRange :: Int -> RoomPosition -> PathFinderTarget
 #### `usePathFinder`
 
 ``` purescript
-usePathFinder :: forall e. Eff (path :: PATH | e) Unit
+usePathFinder :: forall e. Eff ("path" :: PATH | e) Unit
 ```
 
 #### `CostMatrix`
 
 ``` purescript
-data CostMatrix :: *
+data CostMatrix :: Type
 ```
 
 ##### Instances
@@ -80,13 +80,13 @@ DecodeJson CostMatrix
 #### `search`
 
 ``` purescript
-search :: forall e. RoomPosition -> Array PathFinderTarget -> (PathFinderOpts e) -> Eff (path :: PATH | e) PathFinderResult
+search :: forall e. RoomPosition -> Array PathFinderTarget -> (PathFinderOpts e) -> Eff ("path" :: PATH | e) PathFinderResult
 ```
 
 #### `newCostMatrix`
 
 ``` purescript
-newCostMatrix :: forall e. Eff (path :: PATH | e) CostMatrix
+newCostMatrix :: forall e. Eff ("path" :: PATH | e) CostMatrix
 ```
 
 #### `infinity`
@@ -104,7 +104,7 @@ defaultPathFinderOpts :: forall a. PathFinderOpts a
 #### `RoomCallback`
 
 ``` purescript
-type RoomCallback e = RoomName -> Eff (path :: PATH | e) CostMatrix
+type RoomCallback e = RoomName -> Eff ("path" :: PATH | e) CostMatrix
 ```
 
 #### `allDefaultCosts`
@@ -119,13 +119,13 @@ Empty callback - just use default terrain cost.
 
 ``` purescript
 newtype PathFinderOpts e
-  = PathFinderOpts { roomCallback :: RoomCallback e, plainCost :: TileCost, swampCost :: TileCost, flee :: Boolean, maxOps :: Int, maxRooms :: Int, maxCost :: Number, heuristicWeight :: Number }
+  = PathFinderOpts { "roomCallback" :: RoomCallback e, "plainCost" :: TileCost, "swampCost" :: TileCost, "flee" :: Boolean, "maxOps" :: Int, "maxRooms" :: Int, "maxCost" :: Number, "heuristicWeight" :: Number }
 ```
 
 #### `set`
 
 ``` purescript
-set :: forall e. CostMatrix -> Int -> Int -> TileCost -> Eff (path :: PATH | e) Unit
+set :: forall e. CostMatrix -> Int -> Int -> TileCost -> Eff ("path" :: PATH | e) Unit
 ```
 
 Set a given coordinate to any cost.
@@ -133,7 +133,7 @@ Set a given coordinate to any cost.
 #### `get`
 
 ``` purescript
-get :: forall e. CostMatrix -> Int -> Int -> Eff (path :: PATH | e) TileCost
+get :: forall e. CostMatrix -> Int -> Int -> Eff ("path" :: PATH | e) TileCost
 ```
 
 Get current cost of any coordinate.
@@ -142,7 +142,7 @@ Zero indicates default terrain cost.
 #### `clone`
 
 ``` purescript
-clone :: forall e. CostMatrix -> Eff (path :: PATH | e) CostMatrix
+clone :: forall e. CostMatrix -> Eff ("path" :: PATH | e) CostMatrix
 ```
 
 Clone cost matrix.
@@ -172,7 +172,7 @@ Serialize cost matrix for storage in `Memory`.
 #### `deserialize`
 
 ``` purescript
-deserialize :: forall e. SerializedCostMatrix -> Eff (err :: EXCEPTION | e) CostMatrix
+deserialize :: forall e. SerializedCostMatrix -> Eff ("err" :: EXCEPTION | e) CostMatrix
 ```
 
 

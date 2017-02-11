@@ -5,25 +5,25 @@ Corresponds to the Screeps APIs [Memory](http://support.screeps.com/hc/en-us/art
 #### `MemoryGlobal`
 
 ``` purescript
-data MemoryGlobal :: *
+data MemoryGlobal :: Type
 ```
 
 #### `getMemoryGlobal`
 
 ``` purescript
-getMemoryGlobal :: forall e. Eff (tick :: TICK | e) MemoryGlobal
+getMemoryGlobal :: forall e. Eff ("tick" :: TICK | e) MemoryGlobal
 ```
 
 #### `RawMemoryGlobal`
 
 ``` purescript
-data RawMemoryGlobal :: *
+data RawMemoryGlobal :: Type
 ```
 
 #### `getRawMemoryGlobal`
 
 ``` purescript
-getRawMemoryGlobal :: forall e. Eff (tick :: TICK | e) RawMemoryGlobal
+getRawMemoryGlobal :: forall e. Eff ("tick" :: TICK | e) RawMemoryGlobal
 ```
 
 #### `getObjectMemory`
@@ -35,49 +35,49 @@ getObjectMemory :: String -> String -> String -> Json
 #### `setObjectMemory`
 
 ``` purescript
-setObjectMemory :: forall e. String -> String -> String -> Json -> Eff (memory :: MEMORY | e) Unit
+setObjectMemory :: forall e. String -> String -> String -> Json -> Eff ("memory" :: MEMORY | e) Unit
 ```
 
 #### `get`
 
 ``` purescript
-get :: forall a e. DecodeJson a => MemoryGlobal -> String -> Eff (memory :: MEMORY | e) (Either String a)
+get :: forall a e. DecodeJson a => MemoryGlobal -> String -> Eff ("memory" :: MEMORY | e) (Either String a)
 ```
 
 #### `set`
 
 ``` purescript
-set :: forall a e. EncodeJson a => MemoryGlobal -> String -> a -> Eff (memory :: MEMORY | e) Unit
+set :: forall a e. EncodeJson a => MemoryGlobal -> String -> a -> Eff ("memory" :: MEMORY | e) Unit
 ```
 
 #### `delete`
 
 ``` purescript
-delete :: forall e. MemoryGlobal -> String -> Eff (memory :: MEMORY | e) Unit
+delete :: forall e. MemoryGlobal -> String -> Eff ("memory" :: MEMORY | e) Unit
 ```
 
 #### `getRaw`
 
 ``` purescript
-getRaw :: forall a e. DecodeJson a => RawMemoryGlobal -> Eff (memory :: MEMORY | e) (Either String a)
+getRaw :: forall a e. DecodeJson a => RawMemoryGlobal -> Eff ("memory" :: MEMORY | e) (Either String a)
 ```
 
 #### `getRaw'`
 
 ``` purescript
-getRaw' :: forall e. RawMemoryGlobal -> Eff (memory :: MEMORY | e) String
+getRaw' :: forall e. RawMemoryGlobal -> Eff ("memory" :: MEMORY | e) String
 ```
 
 #### `setRaw`
 
 ``` purescript
-setRaw :: forall a e. EncodeJson a => RawMemoryGlobal -> a -> Eff (memory :: MEMORY | e) Unit
+setRaw :: forall a e. EncodeJson a => RawMemoryGlobal -> a -> Eff ("memory" :: MEMORY | e) Unit
 ```
 
 #### `setRaw'`
 
 ``` purescript
-setRaw' :: forall e. RawMemoryGlobal -> String -> Eff (memory :: MEMORY | e) Unit
+setRaw' :: forall e. RawMemoryGlobal -> String -> Eff ("memory" :: MEMORY | e) Unit
 ```
 
 #### `fromJson`

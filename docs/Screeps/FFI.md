@@ -131,7 +131,7 @@ runThisFn6 :: forall this a b c d e f g. String -> this -> a -> b -> c -> d -> e
 #### `NullOrUndefined`
 
 ``` purescript
-data NullOrUndefined :: * -> *
+data NullOrUndefined :: Type -> Type
 ```
 
 #### `null`
@@ -191,7 +191,7 @@ toUndefinable :: forall a. Maybe a -> NullOrUndefined a
 #### `JsObject`
 
 ``` purescript
-data JsObject :: *
+data JsObject :: Type
 ```
 
 #### `selectMaybesImpl`

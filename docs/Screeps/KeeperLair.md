@@ -5,7 +5,7 @@ Corresponds to the Screeps API [StructureKeeperLair](http://support.screeps.com/
 #### `KeeperLair`
 
 ``` purescript
-data KeeperLair :: *
+data KeeperLair :: Type
 ```
 
 ##### Instances

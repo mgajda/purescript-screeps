@@ -5,7 +5,7 @@ Corresponds to the Screeps API [Flag](http://support.screeps.com/hc/en-us/articl
 #### `Flag`
 
 ``` purescript
-data Flag :: *
+data Flag :: Type
 ```
 
 ##### Instances
@@ -40,25 +40,25 @@ secondaryColor :: Flag -> Color
 #### `remove`
 
 ``` purescript
-remove :: forall e. Flag -> Eff (cmd :: CMD | e) ReturnCode
+remove :: forall e. Flag -> Eff ("cmd" :: CMD | e) ReturnCode
 ```
 
 #### `setColor`
 
 ``` purescript
-setColor :: forall e. Flag -> Color -> Eff (cmd :: CMD | e) ReturnCode
+setColor :: forall e. Flag -> Color -> Eff ("cmd" :: CMD | e) ReturnCode
 ```
 
 #### `setColors`
 
 ``` purescript
-setColors :: forall e. Flag -> Color -> Color -> Eff (cmd :: CMD | e) ReturnCode
+setColors :: forall e. Flag -> Color -> Color -> Eff ("cmd" :: CMD | e) ReturnCode
 ```
 
 #### `setPosition`
 
 ``` purescript
-setPosition :: forall a e. Flag -> TargetPosition a -> Eff (cmd :: CMD | e) ReturnCode
+setPosition :: forall a e. Flag -> TargetPosition a -> Eff ("cmd" :: CMD | e) ReturnCode
 ```
 
 

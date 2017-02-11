@@ -5,7 +5,7 @@ Corresponds to the Screeps API [Market](http://support.screeps.com/hc/en-us/arti
 #### `Market`
 
 ``` purescript
-data Market :: *
+data Market :: Type
 ```
 
 

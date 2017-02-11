@@ -12,13 +12,13 @@ newtype Cache
 #### `cached`
 
 ``` purescript
-cached :: forall a. Cache -> RoomCallback (ref :: REF | a) -> RoomCallback (ref :: REF | a)
+cached :: forall a. Cache -> RoomCallback ("ref" :: REF | a) -> RoomCallback ("ref" :: REF | a)
 ```
 
 #### `newCache`
 
 ``` purescript
-newCache :: forall e. Eff (ref :: REF | e) Cache
+newCache :: forall e. Eff ("ref" :: REF | e) Cache
 ```
 
 

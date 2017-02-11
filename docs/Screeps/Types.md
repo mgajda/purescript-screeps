@@ -5,7 +5,7 @@ Defines the main types used in the library and the relationships between them.
 #### `WorldMap`
 
 ``` purescript
-data WorldMap :: *
+data WorldMap :: Type
 ```
 
 #### `Owned`
@@ -22,7 +22,7 @@ Owned Creep
 #### `Creep`
 
 ``` purescript
-data Creep :: *
+data Creep :: Type
 ```
 
 ##### Instances

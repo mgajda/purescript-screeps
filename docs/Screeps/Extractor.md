@@ -5,7 +5,7 @@ Corresponds to the Screeps API [StructureExtractor](http://support.screeps.com/h
 #### `Extractor`
 
 ``` purescript
-data Extractor :: *
+data Extractor :: Type
 ```
 
 ##### Instances

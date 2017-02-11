@@ -259,7 +259,7 @@ Derived markers
 #### `PathStep`
 
 ``` purescript
-type PathStep = { x :: Int, y :: Int, dx :: Number, dy :: Number, direction :: Direction }
+type PathStep = { "x" :: Int, "y" :: Int, "dx" :: Number, "dy" :: Number, "direction" :: Direction }
 ```
 
 

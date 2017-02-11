@@ -65,7 +65,7 @@ part_claim :: BodyPartType
 #### `bodypart_cost`
 
 ``` purescript
-bodypart_cost :: { move :: Int, work :: Int, attack :: Int, carry :: Int, heal :: Int, ranged_attack :: Int, tough :: Int, claim :: Int }
+bodypart_cost :: { "move" :: Int, "work" :: Int, "attack" :: Int, "carry" :: Int, "heal" :: Int, "ranged_attack" :: Int, "tough" :: Int, "claim" :: Int }
 ```
 
 #### `Body`

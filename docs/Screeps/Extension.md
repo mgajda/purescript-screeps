@@ -5,7 +5,7 @@ Corresponds to the Screeps API [StructureExtension](http://support.screeps.com/h
 #### `Extension`
 
 ``` purescript
-data Extension :: *
+data Extension :: Type
 ```
 
 ##### Instances

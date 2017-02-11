@@ -5,7 +5,7 @@ Corresponds to the Screeps API [ConstructionSite](http://support.screeps.com/hc/
 #### `ConstructionSite`
 
 ``` purescript
-data ConstructionSite :: *
+data ConstructionSite :: Type
 ```
 
 ##### Instances
@@ -24,7 +24,7 @@ Show ConstructionSite
 #### `remove`
 
 ``` purescript
-remove :: forall e. ConstructionSite -> Eff (cmd :: CMD | e) ReturnCode
+remove :: forall e. ConstructionSite -> Eff ("cmd" :: CMD | e) ReturnCode
 ```
 
 #### `toConstructionSite`

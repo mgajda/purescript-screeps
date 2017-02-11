@@ -5,7 +5,7 @@ Corresponds to the Screeps API [StructureObserver](http://support.screeps.com/hc
 #### `Observer`
 
 ``` purescript
-data Observer :: *
+data Observer :: Type
 ```
 
 ##### Instances
@@ -25,7 +25,7 @@ Destructible Observer
 #### `observeRoom`
 
 ``` purescript
-observeRoom :: forall e. Observer -> String -> Eff (cmd :: CMD | e) ReturnCode
+observeRoom :: forall e. Observer -> String -> Eff ("cmd" :: CMD | e) ReturnCode
 ```
 
 #### `toObserver`

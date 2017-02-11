@@ -5,7 +5,7 @@ Corresponds to the Screeps API [StructureRampart](http://support.screeps.com/hc/
 #### `Rampart`
 
 ``` purescript
-data Rampart :: *
+data Rampart :: Type
 ```
 
 ##### Instances
@@ -32,7 +32,7 @@ isPublic :: Rampart -> Boolean
 #### `setPublic`
 
 ``` purescript
-setPublic :: forall e. Rampart -> Boolean -> Eff (cmd :: CMD | e) ReturnCode
+setPublic :: forall e. Rampart -> Boolean -> Eff ("cmd" :: CMD | e) ReturnCode
 ```
 
 #### `toRampart`

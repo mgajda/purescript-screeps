@@ -5,7 +5,7 @@ Corresponds to the Screeps API [StructurePowerSpawn](http://support.screeps.com/
 #### `PowerSpawn`
 
 ``` purescript
-data PowerSpawn :: *
+data PowerSpawn :: Type
 ```
 
 ##### Instances
@@ -38,13 +38,13 @@ powerCapacity :: PowerSpawn -> Int
 #### `createPowerCreep`
 
 ``` purescript
-createPowerCreep :: forall e. PowerSpawn -> String -> Eff (cmd :: CMD | e) ReturnCode
+createPowerCreep :: forall e. PowerSpawn -> String -> Eff ("cmd" :: CMD | e) ReturnCode
 ```
 
 #### `processPower`
 
 ``` purescript
-processPower :: forall e. PowerSpawn -> Eff (cmd :: CMD | e) ReturnCode
+processPower :: forall e. PowerSpawn -> Eff ("cmd" :: CMD | e) ReturnCode
 ```
 
 #### `toPowerSpawn`

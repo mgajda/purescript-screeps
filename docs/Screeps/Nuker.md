@@ -5,7 +5,7 @@ Corresponds to the Screeps API [StructureNuker](http://support.screeps.com/hc/en
 #### `Nuker`
 
 ``` purescript
-data Nuker :: *
+data Nuker :: Type
 ```
 
 ##### Instances
@@ -39,7 +39,7 @@ ghodiumCapacity :: Nuker -> Int
 #### `launchNuke`
 
 ``` purescript
-launchNuke :: forall e. Nuker -> RoomPosition -> Eff (cmd :: CMD | e) ReturnCode
+launchNuke :: forall e. Nuker -> RoomPosition -> Eff ("cmd" :: CMD | e) ReturnCode
 ```
 
 #### `toNuker`

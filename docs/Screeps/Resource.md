@@ -31,7 +31,7 @@ resource_power :: ResourceType
 #### `Resource`
 
 ``` purescript
-data Resource :: *
+data Resource :: Type
 ```
 
 ##### Instances

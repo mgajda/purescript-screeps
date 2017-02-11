@@ -5,7 +5,7 @@ Corresponds to the Screeps API [StructureWall](http://support.screeps.com/hc/en-
 #### `Wall`
 
 ``` purescript
-data Wall :: *
+data Wall :: Type
 ```
 
 ##### Instances

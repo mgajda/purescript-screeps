@@ -3,7 +3,7 @@
 #### `RoomPosition`
 
 ``` purescript
-data RoomPosition :: *
+data RoomPosition :: Type
 ```
 
 ##### Instances

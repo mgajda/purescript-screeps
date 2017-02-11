@@ -5,7 +5,7 @@ Corresponds to the Screeps API [Room](http://support.screeps.com/hc/en-us/articl
 #### `AnyRoomObject`
 
 ``` purescript
-data AnyRoomObject :: *
+data AnyRoomObject :: Type
 ```
 
 ##### Instances
@@ -23,7 +23,7 @@ fromAnyRoomObject :: forall ro. HasId ro => AnyRoomObject -> Maybe ro
 #### `PathOptions`
 
 ``` purescript
-type PathOptions o = { ignoreCreeps :: Maybe Boolean, ignoreDestructibleStructures :: Maybe Boolean, ignoreRoads :: Maybe Boolean, ignore :: Maybe (Array RoomPosition), avoid :: Maybe (Array RoomPosition), maxOps :: Maybe Int, heuristicWeight :: Maybe Number, serialize :: Maybe Boolean, maxRooms :: Maybe Int | o }
+type PathOptions o = { "ignoreCreeps" :: Maybe Boolean, "ignoreDestructibleStructures" :: Maybe Boolean, "ignoreRoads" :: Maybe Boolean, "ignore" :: Maybe (Array RoomPosition), "avoid" :: Maybe (Array RoomPosition), "maxOps" :: Maybe Int, "heuristicWeight" :: Maybe Number, "serialize" :: Maybe Boolean, "maxRooms" :: Maybe Int | o }
 ```
 
 #### `pathOpts`
@@ -95,31 +95,31 @@ deserializePath :: String -> Path
 #### `createConstructionSite`
 
 ``` purescript
-createConstructionSite :: forall a e. Room -> TargetPosition a -> StructureType -> Eff (cmd :: CMD | e) ReturnCode
+createConstructionSite :: forall a e. Room -> TargetPosition a -> StructureType -> Eff ("cmd" :: CMD | e) ReturnCode
 ```
 
 #### `createFlag`
 
 ``` purescript
-createFlag :: forall a e. Room -> TargetPosition a -> Eff (cmd :: CMD | e) ReturnCode
+createFlag :: forall a e. Room -> TargetPosition a -> Eff ("cmd" :: CMD | e) ReturnCode
 ```
 
 #### `createFlagWithName`
 
 ``` purescript
-createFlagWithName :: forall a e. Room -> TargetPosition a -> String -> Eff (cmd :: CMD | e) ReturnCode
+createFlagWithName :: forall a e. Room -> TargetPosition a -> String -> Eff ("cmd" :: CMD | e) ReturnCode
 ```
 
 #### `createFlagWithColor`
 
 ``` purescript
-createFlagWithColor :: forall a e. Room -> TargetPosition a -> String -> Color -> Eff (cmd :: CMD | e) ReturnCode
+createFlagWithColor :: forall a e. Room -> TargetPosition a -> String -> Color -> Eff ("cmd" :: CMD | e) ReturnCode
 ```
 
 #### `createFlagWithColors`
 
 ``` purescript
-createFlagWithColors :: forall a e. Room -> TargetPosition a -> String -> Color -> Color -> Eff (cmd :: CMD | e) ReturnCode
+createFlagWithColors :: forall a e. Room -> TargetPosition a -> String -> Color -> Color -> Eff ("cmd" :: CMD | e) ReturnCode
 ```
 
 #### `find`
@@ -134,24 +134,16 @@ find :: forall a. Room -> FindType a -> Array a
 find' :: forall a. Room -> FindType a -> FilterFn a -> Array a
 ```
 
-#### `RoomIdentifier`
-
-``` purescript
-data RoomIdentifier
-  = RoomName String
-  | RoomObj Room
-```
-
 #### `findExitToImpl`
 
 ``` purescript
-findExitToImpl :: forall a. Room -> a -> (ReturnCode -> Either ReturnCode (FindType RoomPosition)) -> (FindType RoomPosition -> Either ReturnCode (FindType RoomPosition)) -> Either ReturnCode (FindType RoomPosition)
+findExitToImpl :: Room -> RoomName -> (ReturnCode -> Either ReturnCode (FindType RoomPosition)) -> (FindType RoomPosition -> Either ReturnCode (FindType RoomPosition)) -> Either ReturnCode (FindType RoomPosition)
 ```
 
 #### `findExitTo`
 
 ``` purescript
-findExitTo :: Room -> RoomIdentifier -> Either ReturnCode (FindType RoomPosition)
+findExitTo :: Room -> RoomName -> Either ReturnCode (FindType RoomPosition)
 ```
 
 #### `findPath`
@@ -176,7 +168,7 @@ getPositionAt :: Room -> Int -> Int -> RoomPosition
 
 ``` purescript
 data LookResult a
-  = LookResult { resultType :: LookType a, terrain :: Maybe Terrain, structureType :: Maybe StructureType, x :: Int, y :: Int }
+  = LookResult { "resultType" :: LookType a, "terrain" :: Maybe Terrain, "structureType" :: Maybe StructureType, "x" :: Int, "y" :: Int }
 ```
 
 #### `decodeLookResults`

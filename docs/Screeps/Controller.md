@@ -5,7 +5,7 @@ Corresponds to the Screeps API [StructureController](http://support.screeps.com/
 #### `Controller`
 
 ``` purescript
-data Controller :: *
+data Controller :: Type
 ```
 
 ##### Instances
@@ -29,16 +29,22 @@ Destructible Controller
 level :: Controller -> Int
 ```
 
+#### `Reservation`
+
+``` purescript
+type Reservation = { "username" :: String, "ticksToEnd" :: Int }
+```
+
 #### `reservation`
 
 ``` purescript
-reservation :: Controller -> Int
+reservation :: Controller -> Maybe Reservation
 ```
 
 #### `activateSafeMode`
 
 ``` purescript
-activateSafeMode :: forall e. Controller -> Eff (cmd :: CMD | e) ReturnCode
+activateSafeMode :: forall e. Controller -> Eff ("cmd" :: CMD | e) ReturnCode
 ```
 
 #### `safeMode`
@@ -74,7 +80,7 @@ upgradeBlocked :: Controller -> Int
 #### `unclaim`
 
 ``` purescript
-unclaim :: forall e. Controller -> Eff (cmd :: CMD | e) ReturnCode
+unclaim :: forall e. Controller -> Eff ("cmd" :: CMD | e) ReturnCode
 ```
 
 #### `toController`

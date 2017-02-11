@@ -5,7 +5,7 @@ Corresponds to the Screeps API [StructureContainer](http://support.screeps.com/h
 #### `Container`
 
 ``` purescript
-data Container :: *
+data Container :: Type
 ```
 
 ##### Instances

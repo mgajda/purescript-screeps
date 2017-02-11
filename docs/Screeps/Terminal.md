@@ -5,7 +5,7 @@ Corresponds to the Screeps API [StructureTerminal](http://support.screeps.com/hc
 #### `Terminal`
 
 ``` purescript
-data Terminal :: *
+data Terminal :: Type
 ```
 
 ##### Instances
@@ -26,13 +26,13 @@ Destructible Terminal
 #### `send`
 
 ``` purescript
-send :: forall e. Terminal -> ResourceType -> Int -> String -> Eff (cmd :: CMD | e) ReturnCode
+send :: forall e. Terminal -> ResourceType -> Int -> String -> Eff ("cmd" :: CMD | e) ReturnCode
 ```
 
 #### `send'`
 
 ``` purescript
-send' :: forall e. Terminal -> ResourceType -> Int -> String -> String -> Eff (cmd :: CMD | e) ReturnCode
+send' :: forall e. Terminal -> ResourceType -> Int -> String -> String -> Eff ("cmd" :: CMD | e) ReturnCode
 ```
 
 #### `toTerminal`

@@ -5,7 +5,7 @@ Corresponds to the Screeps API [Mineral](http://support.screeps.com/hc/en-us/art
 #### `Mineral`
 
 ``` purescript
-data Mineral :: *
+data Mineral :: Type
 ```
 
 ##### Instances

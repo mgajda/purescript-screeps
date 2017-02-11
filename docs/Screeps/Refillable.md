@@ -16,7 +16,7 @@ Refillable AnyRefillable
 #### `AnyRefillable`
 
 ``` purescript
-data AnyRefillable :: *
+data AnyRefillable :: Type
 ```
 
 ##### Instances

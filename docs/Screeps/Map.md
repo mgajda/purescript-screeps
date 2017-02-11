@@ -42,7 +42,7 @@ type RoomRoute = Array ExitToRoom
 #### `ExitToRoom`
 
 ``` purescript
-type ExitToRoom = { exit :: FindType Unit, room :: RoomName }
+type ExitToRoom = { "exit" :: FindType Unit, "room" :: RoomName }
 ```
 
 #### `describeExits`

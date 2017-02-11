@@ -5,7 +5,7 @@ Corresponds to the Screeps API [Source](http://support.screeps.com/hc/en-us/arti
 #### `Source`
 
 ``` purescript
-data Source :: *
+data Source :: Type
 ```
 
 ##### Instances

@@ -21,7 +21,7 @@ hitsMax :: forall d. Destructible d => d -> Int
 #### `notifyWhenAttacked`
 
 ``` purescript
-notifyWhenAttacked :: forall o e. Destructible o => o -> Boolean -> Eff (cmd :: CMD | e) ReturnCode
+notifyWhenAttacked :: forall o e. Destructible o => o -> Boolean -> Eff ("cmd" :: CMD | e) ReturnCode
 ```
 
 

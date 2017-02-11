@@ -5,7 +5,7 @@ Corresponds to the Screeps API [Nuke](http://support.screeps.com/hc/en-us/articl
 #### `Nuke`
 
 ``` purescript
-data Nuke :: *
+data Nuke :: Type
 ```
 
 ##### Instances

@@ -5,7 +5,7 @@ Corresponds to the Screeps API [StructurePortal](http://support.screeps.com/hc/e
 #### `Portal`
 
 ``` purescript
-data Portal :: *
+data Portal :: Type
 ```
 
 ##### Instances

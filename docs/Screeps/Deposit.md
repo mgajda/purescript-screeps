@@ -5,7 +5,7 @@ Corresponds to the Screeps API [StructureExtension](http://support.screeps.com/h
 #### `Deposit`
 
 ``` purescript
-class Deposit a 
+class (Regenerates a) <= Deposit a 
 ```
 
 ##### Instances
@@ -18,7 +18,7 @@ Deposit Source
 #### `AnyDeposit`
 
 ``` purescript
-data AnyDeposit :: *
+data AnyDeposit :: Type
 ```
 
 ##### Instances
@@ -29,6 +29,7 @@ EncodeJson AnyDeposit
 DecodeJson AnyDeposit
 Show AnyDeposit
 Eq AnyDeposit
+Regenerates AnyDeposit
 Deposit AnyDeposit
 ```
 
@@ -41,7 +42,7 @@ caseDeposit :: forall d a. Deposit d => (Source -> a) -> (Mineral -> a) -> d -> 
 #### `harvestDeposit`
 
 ``` purescript
-harvestDeposit :: forall e a. Creep -> AnyDeposit -> Eff (cmd :: CMD | e) a
+harvestDeposit :: forall e a. Creep -> AnyDeposit -> Eff ("cmd" :: CMD | e) a
 ```
 
 #### `depositLeft`
@@ -68,4 +69,18 @@ toAnyDeposit :: forall r. RoomObject r => r -> Maybe AnyDeposit
 asAnyDeposit :: forall s. Deposit s => s -> AnyDeposit
 ```
 
+
+### Re-exported from Screeps.Regenerates:
+
+#### `Regenerates`
+
+``` purescript
+class Regenerates s 
+```
+
+#### `ticksToRegeneration`
+
+``` purescript
+ticksToRegeneration :: forall s. Regenerates s => s -> Int
+```
 

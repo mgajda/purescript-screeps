@@ -5,7 +5,7 @@ Corresponds to the Screeps API [StructureLink](http://support.screeps.com/hc/en-
 #### `Link`
 
 ``` purescript
-data Link :: *
+data Link :: Type
 ```
 
 ##### Instances
@@ -27,13 +27,13 @@ Destructible Link
 #### `transferEnergy`
 
 ``` purescript
-transferEnergy :: forall e. Link -> Link -> Eff (cmd :: CMD | e) ReturnCode
+transferEnergy :: forall e. Link -> Link -> Eff ("cmd" :: CMD | e) ReturnCode
 ```
 
 #### `transferEnergyAmt`
 
 ``` purescript
-transferEnergyAmt :: forall e. Link -> Link -> Int -> Eff (cmd :: CMD | e) ReturnCode
+transferEnergyAmt :: forall e. Link -> Link -> Int -> Eff ("cmd" :: CMD | e) ReturnCode
 ```
 
 #### `toLink`

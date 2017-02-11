@@ -5,7 +5,7 @@ Corresponds to the Screeps API [StructureRoad](http://support.screeps.com/hc/en-
 #### `Road`
 
 ``` purescript
-data Road :: *
+data Road :: Type
 ```
 
 ##### Instances
@@ -19,6 +19,7 @@ Structure Road
 Show Road
 DecodeJson Road
 EncodeJson Road
+Destructible Road
 ```
 
 #### `toRoad`
