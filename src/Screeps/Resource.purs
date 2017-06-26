@@ -13,7 +13,7 @@ import Screeps.FFI (unsafeField, instanceOf)
 import Screeps.Id (class HasId, encodeJsonWithId, decodeJsonWithId, eqById)
 import Screeps.RoomObject (class RoomObject, pos)
 
--- * Resource types
+-- Type Resource types
 newtype ResourceType = ResourceType String
 derive instance genericResourceType    :: Generic ResourceType
 derive newtype instance eqResourceType :: Eq ResourceType
@@ -22,8 +22,8 @@ instance        showResourceType       :: Show    ResourceType where show (Resou
 foreign import resource_energy :: ResourceType
 foreign import resource_power  :: ResourceType
 
--- * Dropped resources
-foreign import data Resource :: *
+-- Type Dropped resources
+foreign import data Resource :: Type
 instance objectResource      :: RoomObject Resource
 instance resourceHasId       :: HasId      Resource
   where

@@ -35,7 +35,7 @@ import Screeps.Types
 
 class Regenerates a <= Deposit a
 
-foreign import data AnyDeposit :: *
+foreign import data AnyDeposit :: Type
 instance anyDepositIsRoomObject :: RoomObject AnyDeposit
 instance anyDepositHasId        :: HasId      AnyDeposit
   where
@@ -58,7 +58,7 @@ caseDeposit ::  forall  d          a.
             ->                     a
 caseDeposit srcCase _       ad | instanceOf "Source"  ad = srcCase $ unsafeCoerce ad
 caseDeposit _       minCase ad | instanceOf "Mineral" ad = minCase $ unsafeCoerce ad
-caseDeposit _       _       _                            = U.unsafeThrow "This is not a deposit!"
+caseDeposit _       _       _                            = U.unsafeThrow "This is not a depositEffect"
 
 harvestDeposit :: forall                  e  a.
                   Creep

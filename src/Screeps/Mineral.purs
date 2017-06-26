@@ -12,7 +12,7 @@ import Screeps.Regenerates (class Regenerates)
 import Screeps.RoomObject  (class RoomObject, pos)
 import Screeps.Resource    (ResourceType)
 
-foreign import data Mineral :: *
+foreign import data Mineral :: Type
 instance objectMineral      :: RoomObject  Mineral
 instance mineralRegenerates :: Regenerates Mineral
 instance mineralHasId       :: HasId       Mineral

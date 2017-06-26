@@ -47,10 +47,10 @@ unsafeGetObjectById :: forall a. Id a -> Maybe a
 unsafeGetObjectById  = unsafeGetObjectById_helper Nothing Just 
 
 -- | This is unsafe method, for restoring objects by id stored in memory.
--- | WARNING: This is somewhat unsafe method, since the object is never checked for its type!
+-- | WARNING: This is somewhat unsafe method, since the object is never checked for its typeEffect
 foreign import unsafeGetObjectById_helper :: forall a r. r -> (a -> r) -> Id a -> r
 
--- | WARNING: This is somewhat unsafe method, since the object should be checked for its type!
+-- | WARNING: This is somewhat unsafe method, since the object should be checked for its typeEffect
 --foreign import unsafeGetObjectByIdEff :: forall a e. Eff (tick :: TICK | e) (Id a) -> (Maybe a)
 
 derive instance genericId       :: Generic    (Id a)
@@ -67,7 +67,7 @@ eqById :: forall a.
        -> Boolean
 eqById  = (==) `on` id
 
--- * For making class instances of objects with `HasId` easily:
+-- Type For making class instances of objects with `HasId` easily:
 encodeJsonWithId  :: forall a. HasId a => a    -> Json
 encodeJsonWithId a = encodeJson (id a)
 

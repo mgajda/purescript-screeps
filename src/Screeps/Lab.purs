@@ -20,7 +20,7 @@ import Screeps.ReturnCode (ReturnCode)
 import Screeps.RoomObject (class RoomObject)
 import Screeps.Id (class HasId, encodeJsonWithId, decodeJsonWithId, eqById)
 
-foreign import data Lab :: *
+foreign import data Lab :: Type
 instance objectLab      :: RoomObject Lab
 instance ownedLab       :: Owned      Lab
 instance structuralLab  :: Structural Lab
@@ -29,7 +29,7 @@ instance labHasId       :: HasId      Lab where
   validate = instanceOf "StructureLab"
 instance eqLab          :: Eq        Lab where eq = eqById
 instance coolsdownLab   :: Coolsdown Lab where
-  expectedCooldown = lab_cooldown
+  expectedCooldown _ = lab_cooldown
 instance structureLab   :: Structure Lab where
   _structureType _ = structure_lab
 instance encodeLab      :: EncodeJson Lab where encodeJson = encodeJsonWithId

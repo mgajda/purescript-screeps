@@ -12,7 +12,7 @@ import Screeps.Id
 import Screeps.Regenerates (class Regenerates)
 import Screeps.RoomObject (class RoomObject, pos)
 
-foreign import data Source :: *
+foreign import data Source :: Type
 instance objectSource      :: RoomObject  Source
 instance sourceHasId       :: HasId       Source
   where

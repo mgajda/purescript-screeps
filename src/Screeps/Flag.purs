@@ -10,7 +10,7 @@ import Screeps.FFI (runThisEffFn0, runThisEffFn1, runThisEffFn2, unsafeField)
 import Screeps.ReturnCode (ReturnCode)
 import Screeps.RoomObject (class RoomObject)
 
-foreign import data Flag :: *
+foreign import data Flag :: Type
 instance objectFlag      :: RoomObject Flag
 
 color :: Flag -> Color

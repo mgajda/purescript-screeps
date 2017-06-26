@@ -9,7 +9,7 @@ import Screeps.Id (class HasId, encodeJsonWithId, decodeJsonWithId)
 import Screeps.Regenerates (class Regenerates)
 import Screeps.RoomObject (class RoomObject)
 
-foreign import data Nuke :: *
+foreign import data Nuke :: Type
 instance objectNuke      :: RoomObject  Nuke
 instance nukeHasId       :: HasId       Nuke where
   validate = instanceOf "Nuke"

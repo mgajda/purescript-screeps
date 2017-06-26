@@ -20,13 +20,13 @@ import Screeps.Refillable (class Refillable)
 import Screeps.ReturnCode (ReturnCode)
 import Screeps.RoomObject (class RoomObject)
 
-foreign import data Link :: *
+foreign import data Link :: Type
 instance objectLink      :: RoomObject Link
 instance ownedLink       :: Owned      Link
 instance structuralLink  :: Structural Link
 instance linkDecays      :: Decays     Link
 instance linkCoolsdown   :: Coolsdown  Link where
-  expectedCooldown = link_cooldown
+  expectedCooldown _ = link_cooldown
 instance linkHasId       :: HasId Link      where
   validate = instanceOf "StructureLink"
 instance refillableLink  :: Refillable Link

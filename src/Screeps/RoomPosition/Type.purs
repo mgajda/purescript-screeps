@@ -16,7 +16,7 @@ import Data.Show           (class Show, show)
 import Screeps.FFI
 import Screeps.Names
 
-foreign import data RoomPosition :: *
+foreign import data RoomPosition :: Type
 
 foreign import mkRoomPosition :: Int -> Int -> RoomName -> RoomPosition
 

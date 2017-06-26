@@ -19,7 +19,7 @@ import Screeps.ReturnCode (ReturnCode)
 import Screeps.Structure  (class Structural, structureType, class Structure)
 import Screeps.RoomObject (class RoomObject, pos, AnyRoomObject)
 
-foreign import data ConstructionSite  :: *
+foreign import data ConstructionSite  :: Type
 instance constructionSiteIsRoomObject :: RoomObject ConstructionSite
 instance constructionSiteIsStructural :: Structural ConstructionSite
 instance constructionSiteProgress     :: Progress   ConstructionSite

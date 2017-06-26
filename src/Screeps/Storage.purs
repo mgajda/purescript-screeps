@@ -15,7 +15,7 @@ import Screeps.Stores
 import Screeps.Structure
 import Screeps.Types
 
-foreign import data Storage :: *
+foreign import data Storage :: Type
 instance objectStorage      :: RoomObject Storage
 instance ownedStorage       :: Owned      Storage
 instance storageHasId       :: HasId      Storage

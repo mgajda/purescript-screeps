@@ -14,7 +14,7 @@ import Screeps.RoomObject (class RoomObject)
 import Screeps.Structure
 import Screeps.Types
 
-foreign import data Extractor  :: *
+foreign import data Extractor  :: Type
 instance objectExtractor       :: RoomObject Extractor
 instance ownedExtractor        :: Owned      Extractor
 instance extractorHasId        :: HasId      Extractor where

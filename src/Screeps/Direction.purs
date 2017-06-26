@@ -3,8 +3,10 @@ module Screeps.Direction where
 
 import Prelude (class Eq, class Show, show, (<>), (==))
 
-import Data.Argonaut.Decode (class DecodeJson, decodeJson, gDecodeJson)
-import Data.Argonaut.Encode (class EncodeJson, encodeJson, gEncodeJson)
+import Data.Argonaut.Decode         (class DecodeJson, decodeJson)
+import Data.Argonaut.Decode.Generic (gDecodeJson)
+import Data.Argonaut.Encode         (class EncodeJson, encodeJson)
+import Data.Argonaut.Encode.Generic (gEncodeJson)
 import Data.Functor         ((<$>))
 import Data.Generic         (class Generic, gEq, gShow)
 

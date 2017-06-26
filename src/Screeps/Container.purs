@@ -14,7 +14,7 @@ import Screeps.RoomObject (class RoomObject)
 import Screeps.Structure
 import Screeps.Stores     (class Stores)
 
-foreign import data Container :: *
+foreign import data Container :: Type
 
 instance objectContainer      :: RoomObject Container
 instance containerHasId       :: HasId      Container where validate   = instanceOf "StructureContainer"

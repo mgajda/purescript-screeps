@@ -14,7 +14,7 @@ import Screeps.Structure
 import Screeps.Types
 import Screeps.RoomObject (class RoomObject)
 
-foreign import data Wall       :: *
+foreign import data Wall       :: Type
 instance objectWall       ::      RoomObject Wall
 --instance ownedWall             :: Owned      Wall
 instance wallHasId             :: HasId      Wall

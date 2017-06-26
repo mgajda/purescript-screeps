@@ -19,7 +19,7 @@ import Screeps.Resource   (ResourceType)
 import Screeps.ReturnCode (ReturnCode)
 import Screeps.RoomObject (class RoomObject)
 
-foreign import data Terminal :: *
+foreign import data Terminal :: Type
 instance objectTerminal      :: RoomObject Terminal
 instance ownedTerminal       :: Owned      Terminal
 instance terminalHasId       :: HasId      Terminal

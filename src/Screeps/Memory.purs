@@ -6,17 +6,17 @@ import Data.Argonaut.Core   (Json)
 import Data.Argonaut.Decode (class DecodeJson, decodeJson)
 import Data.Argonaut.Encode (class EncodeJson, encodeJson)
 import Data.Argonaut.Parser (jsonParser)
-import Data.Argonaut.Printer (printJson)
+--import Data.Argonaut.Printer (printJson)
 import Data.Either (Either)
 import Control.Monad.Eff (Eff)
 
 import Screeps.Effects (MEMORY, TICK)
 import Screeps.FFI (runThisEffFn0, runThisEffFn1, unsafeGetFieldEff, unsafeSetFieldEff, unsafeDeleteFieldEff)
 
-foreign import data MemoryGlobal :: *
+foreign import data MemoryGlobal :: Type
 foreign import getMemoryGlobal :: forall e. Eff (tick :: TICK | e) MemoryGlobal
 
-foreign import data RawMemoryGlobal :: *
+foreign import data RawMemoryGlobal :: Type
 foreign import getRawMemoryGlobal :: forall e. Eff (tick :: TICK | e) RawMemoryGlobal
 
 foreign import getObjectMemory :: String -> String -> String -> Json
@@ -49,4 +49,4 @@ fromJson :: forall a. (DecodeJson a) => String -> (Either String a)
 fromJson jsonStr = jsonParser jsonStr >>= decodeJson
 
 toJson :: forall a. (EncodeJson a) => a -> String
-toJson = printJson <<< encodeJson
+toJson = show <<< encodeJson

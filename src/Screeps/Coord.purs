@@ -20,7 +20,7 @@ import Screeps.Names
 --import Screeps.RoomPosition
 import Screeps.RoomPosition.Type
 
--- * Uniform multiroom coordinates
+-- | Type Uniform multiroom coordinates
 data Coord = Coord Int Int
 
 -- | Measure straight-line distance between rooms.

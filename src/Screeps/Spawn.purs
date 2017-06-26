@@ -26,7 +26,7 @@ type CreepInfo =
   , needTime :: Int
   , remainingTime :: Int }
 
-foreign import data Spawn :: *
+foreign import data Spawn :: Type
 instance objectSpawn      :: RoomObject Spawn
 instance ownedSpawn       :: Owned      Spawn
 instance spawnHasId       :: HasId      Spawn

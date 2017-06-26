@@ -12,11 +12,11 @@ import Screeps.Id  (class HasId, encodeJsonWithId, decodeJsonWithId, eqById)
 import Screeps.RoomObject
 import Screeps.RoomPosition.Type (RoomPosition)
 
-foreign import data WorldMap :: *
+foreign import data WorldMap :: Type
 
 class Owned          a -- my, owned
 
-foreign import data Creep  :: *
+foreign import data Creep  :: Type
 instance creepIsRoomObject :: RoomObject   Creep
 instance creepIsOwned      :: Owned        Creep
 instance creepEq           :: Eq           Creep where eq = eqById

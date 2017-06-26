@@ -16,7 +16,7 @@ import Screeps.RoomPosition.Type (RoomPosition)
 import Screeps.Structure
 import Screeps.Types
 
-foreign import data Portal :: *
+foreign import data Portal :: Type
 instance objectPortal      :: RoomObject Portal
 instance ownedPortal       :: Owned      Portal
 instance structuralPortal  :: Structural Portal

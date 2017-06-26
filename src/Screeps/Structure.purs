@@ -56,7 +56,7 @@ showStructure  :: forall s. Structure s
                => s -> String
 showStructure s = show (structureType s) <> "@" <> show (pos s)
 
-foreign import data AnyStructure  :: *
+foreign import data AnyStructure  :: Type
 
 instance anyStructureHasId        :: HasId      AnyStructure
   where

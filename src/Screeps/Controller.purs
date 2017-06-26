@@ -18,7 +18,7 @@ import Screeps.Structure
 import Screeps.Types ( class Owned )
 import Screeps.ReturnCode (ReturnCode)
 
-foreign import data Controller :: *
+foreign import data Controller :: Type
 instance objectController      :: RoomObject Controller
 instance ownedController       :: Owned      Controller
 instance controllerHasId       :: HasId      Controller where

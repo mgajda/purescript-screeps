@@ -21,7 +21,7 @@ import Screeps.RoomPosition.Type (RoomPosition)
 import Screeps.Refillable (class Refillable)
 import Screeps.ReturnCode (ReturnCode)
 
-foreign import data Nuker :: *
+foreign import data Nuker :: Type
 instance objectNuker      :: RoomObject Nuker
 instance ownedNuker       :: Owned      Nuker
 instance nukerHasId       :: HasId      Nuker where
@@ -31,7 +31,7 @@ instance decodeNuker      :: DecodeJson Nuker where decodeJson = decodeJsonWithI
 instance structuralNuker  :: Structural Nuker
 instance refillableNuker  :: Refillable Nuker
 instance coolsdownNuker   :: Coolsdown  Nuker where
-  expectedCooldown = nuker_cooldown
+  expectedCooldown _ = nuker_cooldown
 instance structureNuker        ::      Structure Nuker where
   _structureType _ = structure_nuker
 instance eqNuker          :: Eq         Nuker where eq   = eqById

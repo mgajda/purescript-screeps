@@ -18,7 +18,7 @@ import Screeps.RoomObject (class RoomObject)
 import Screeps.Structure
 import Screeps.Types
 
-foreign import data Extension  :: *
+foreign import data Extension  :: Type
 instance objectExtension       :: RoomObject Extension
 instance ownedExtension        :: Owned      Extension
 instance extensionHasId        :: HasId      Extension

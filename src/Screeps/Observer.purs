@@ -17,7 +17,7 @@ import Screeps.Types
 import Screeps.ReturnCode (ReturnCode)
 import Screeps.RoomObject (class RoomObject)
 
-foreign import data Observer :: *
+foreign import data Observer :: Type
 instance objectObserver      :: RoomObject Observer
 instance ownedObserver       :: Owned      Observer
 instance observerHasId       :: HasId      Observer where

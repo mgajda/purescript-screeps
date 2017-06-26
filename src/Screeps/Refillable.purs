@@ -20,7 +20,7 @@ import Screeps.Types
 class ( Structure a
       , Owned     a ) <= Refillable a
 
-foreign import data AnyRefillable :: *
+foreign import data AnyRefillable :: Type
 instance anyRefillableIsRoomObject :: RoomObject AnyRefillable
 instance anyRefillableHasId        :: HasId      AnyRefillable
   where

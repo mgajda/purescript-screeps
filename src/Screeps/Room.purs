@@ -26,7 +26,7 @@ import Screeps.Terminal                 (Terminal)
 import Screeps.Types                    (FilterFn, Mode, TargetPosition(..), Terrain)
 import Unsafe.Coerce                    (unsafeCoerce)
 
-foreign import data AnyRoomObject :: *
+foreign import data AnyRoomObject :: Type
 instance anyRoomObject         :: RoomObject AnyRoomObject
 instance anyRoomObjectHasId    :: HasId      AnyRoomObject where
   validate = instanceOf "RoomObject"

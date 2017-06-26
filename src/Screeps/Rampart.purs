@@ -18,7 +18,7 @@ import Screeps.Types
 import Screeps.ReturnCode (ReturnCode)
 import Screeps.RoomObject (class RoomObject)
 
-foreign import data Rampart :: *
+foreign import data Rampart :: Type
 instance objectRampart      :: RoomObject Rampart
 instance ownedRampart       :: Owned      Rampart
 instance rampartHasId       :: HasId      Rampart where

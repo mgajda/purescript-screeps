@@ -15,7 +15,7 @@ import Screeps.Structure
 import Screeps.Types
 import Screeps.RoomObject (class RoomObject)
 
-foreign import data PowerBank  :: *
+foreign import data PowerBank  :: Type
 instance objectPowerBank       :: RoomObject PowerBank
 instance ownedPowerBank        :: Owned      PowerBank
 instance structuralPowerBank   :: Structural PowerBank

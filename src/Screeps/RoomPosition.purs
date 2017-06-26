@@ -26,7 +26,7 @@ data      FindContext a =
   OfObj  (Array       a     ) | -- should be RoomObject a
   OfPos  (Array RoomPosition)
 
-tryPure :: forall a. Eff (err :: EXCEPTION) a -> Either Error a
+tryPure :: forall a. Eff (exception :: EXCEPTION) a -> Either Error a
 tryPure = runPure <<< try
 
 type ClosestPathOptions = PathOptions

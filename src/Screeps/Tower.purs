@@ -18,7 +18,7 @@ import Screeps.ReturnCode
 import Screeps.RoomObject (class RoomObject)
 import Screeps.Types
 
-foreign import data Tower :: *
+foreign import data Tower :: Type
 instance objectTower      :: RoomObject Tower
 instance ownedTower       :: Owned      Tower
 instance towerHasId       :: HasId      Tower

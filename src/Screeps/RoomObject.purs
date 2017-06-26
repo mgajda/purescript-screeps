@@ -23,7 +23,7 @@ import Screeps.FFI (unsafeField, toMaybe, NullOrUndefined, instanceOf)
 import Screeps.Names
 import Screeps.RoomPosition.Type (RoomPosition)
 
-foreign import data Room :: *
+foreign import data Room :: Type
 
 instance showRoom :: Show Room where
   show = show <<< name
@@ -51,7 +51,7 @@ instance decodeJson :: DecodeJson Room where
          Right (Nothing) -> Left  $ "Cannot access room: "     <> show roomNam
          Right (Just r ) -> Right   r
 
-foreign import data AnyRoomObject :: *
+foreign import data AnyRoomObject :: Type
 
 instance anyRoomObject       :: RoomObject AnyRoomObject
 instance anyRoomObjectHasId  :: HasId      AnyRoomObject where

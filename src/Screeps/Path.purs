@@ -21,7 +21,7 @@ import Screeps.FFI
 import Screeps.RoomPosition.Type
 import Screeps.Names (RoomName)
 
--- * Tile cost
+-- Type Tile cost
 type TileCost = Int
 
 defaultTerrainCost :: TileCost
@@ -31,7 +31,7 @@ defaultTerrainCost  = 0
 unwalkable :: TileCost
 unwalkable  = 255
 
-foreign import data PATH :: !
+foreign import data PATH :: Effect
 
 newtype PathFinderResult = PathFinderResult {
     path       :: Array RoomPosition
@@ -63,7 +63,7 @@ inRange range aPos = PathFinderTarget {
 foreign import usePathFinder :: forall              e.
                                 Eff (path :: PATH | e) Unit
 
-foreign import data CostMatrix :: *
+foreign import data CostMatrix :: Type
 
 foreign import search :: forall              e.
                                RoomPosition
@@ -107,7 +107,7 @@ newtype PathFinderOpts e = PathFinderOpts {
   , heuristicWeight :: Number
   }
 
--- * Cost matrix
+-- Type Cost matrix
 -- | Set a given coordinate to any cost.
 set :: forall              e.
        CostMatrix

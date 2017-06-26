@@ -18,7 +18,7 @@ import Screeps.RoomObject (class RoomObject)
 import Screeps.Structure
 import Screeps.Types
 
-foreign import data PowerSpawn :: *
+foreign import data PowerSpawn :: Type
 instance objectPowerSpawn      :: RoomObject PowerSpawn
 instance ownedPowerSpawn       :: Owned      PowerSpawn
 instance structuralPowerSpawn  :: Structural PowerSpawn

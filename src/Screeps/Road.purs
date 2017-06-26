@@ -14,7 +14,7 @@ import Screeps.Id
 import Screeps.RoomObject (class RoomObject)
 import Screeps.Structure
 
-foreign import data Road :: *
+foreign import data Road :: Type
 instance objectRoad      :: RoomObject Road
 instance structuralRoad  :: Structural Road
 instance roadHasId       :: HasId      Road

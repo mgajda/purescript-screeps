@@ -22,7 +22,7 @@ import Screeps.Types       (class Owned)
 
 class Stores a
 
-foreign import data AnyStore :: *
+foreign import data AnyStore :: Type
 
 instance objectAnyStore       :: RoomObject AnyStore
 instance ownedAnyStore        :: Owned      AnyStore

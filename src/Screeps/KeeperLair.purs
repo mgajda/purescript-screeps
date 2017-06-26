@@ -14,12 +14,12 @@ import Screeps.RoomObject (class RoomObject)
 import Screeps.Structure
 import Screeps.Types
 
-foreign import data KeeperLair  :: *
+foreign import data KeeperLair  :: Type
 instance objectKeeperLair       :: RoomObject KeeperLair
 instance keeperLairHasId        :: HasId      KeeperLair where
   validate = instanceOf "StructureKeeperLair"
 instance eqKeeperLair           :: Eq         KeeperLair where eq = eqById
-instance ownedKeeperLair        :: Owned      KeeperLair -- TODO: check it!
+instance ownedKeeperLair        :: Owned      KeeperLair -- TODO: check itEffect
 instance structuralKeeperLair   :: Structural KeeperLair
 instance structureKeeperLair    :: Structure  KeeperLair where
   _structureType _ = structure_keeper_lair

@@ -31,7 +31,7 @@ import Screeps.Stores           (Store)
 import Screeps.Structure        (class Structure)
 import Screeps.Types            (Creep, TargetPosition(..))
 
---foreign import data CreepCargo :: *
+--foreign import data CreepCargo :: Type
 type CreepCargo = StrMap Int
 
 type BodyPart =
@@ -196,8 +196,8 @@ transferAmtToStructure :: forall a e. Structure a => Creep -> a -> ResourceType 
 transferAmtToStructure = runThisEffFn3 "transfer"
 
 -- | Refill a structure that is refillable.
-refill :: forall e a. ( Refillable a
-                      , Structure  a )
+refill :: forall e a. Refillable a
+       =>             Structure  a
        => Creep
        ->          a
        -> Eff ( cmd :: CMD
