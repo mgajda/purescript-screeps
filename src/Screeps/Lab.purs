@@ -1,10 +1,10 @@
 -- | Corresponds to the Screeps API [StructureLab](http://support.screeps.com/hc/en-us/articles/208436195-StructureLab)
 module Screeps.Lab where
 
-import Data.Argonaut.Encode (class EncodeJson, encodeJson)
-import Data.Argonaut.Decode (class DecodeJson, decodeJson)
+import Data.Argonaut.Encode (class EncodeJson)
+import Data.Argonaut.Decode (class DecodeJson)
 import Control.Monad.Eff (Eff)
-import Data.Eq
+import Data.Eq(class Eq)
 import Data.Maybe (Maybe)
 import Data.Show (class Show, show)
 

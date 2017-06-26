@@ -1,12 +1,12 @@
 -- | Corresponds to the Screeps API [StructureNuker](http://support.screeps.com/hc/en-us/articles/208488255-StructureNuker)
 module Screeps.Nuker where
 
-import Data.Argonaut.Encode.Class (class EncodeJson, encodeJson)
-import Data.Argonaut.Decode.Class (class DecodeJson, decodeJson)
+import Data.Argonaut.Encode.Class (class EncodeJson)
+import Data.Argonaut.Decode.Class (class DecodeJson)
 import Control.Monad.Eff (Eff)
-import Data.Eq
+import Data.Eq(class Eq)
 import Data.Maybe (Maybe)
-import Data.Show
+import Data.Show(class Show)
 
 import Screeps.Constants (nuker_cooldown)
 import Screeps.Coolsdown (class Coolsdown)
@@ -15,7 +15,7 @@ import Screeps.Effects (CMD)
 import Screeps.FFI (runThisEffFn1, unsafeField, instanceOf)
 import Screeps.Id (class HasId, encodeJsonWithId, decodeJsonWithId, eqById)
 import Screeps.Structure
-import Screeps.Types
+import Screeps.Types(class Owned)
 import Screeps.RoomObject (class RoomObject)
 import Screeps.RoomPosition.Type (RoomPosition)
 import Screeps.Refillable (class Refillable)

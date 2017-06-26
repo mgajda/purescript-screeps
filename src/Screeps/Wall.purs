@@ -3,15 +3,14 @@ module Screeps.Wall where
 
 import Data.Argonaut.Encode (class EncodeJson, encodeJson)
 import Data.Argonaut.Decode (class DecodeJson, decodeJson)
-import Data.Eq
-import Data.Maybe (Maybe)
-import Data.Show
+import Data.Eq(class Eq)
+import Data.Maybe(Maybe)
+import Data.Show(class Show)
 
 import Screeps.Destructible (class Destructible)
 import Screeps.FFI (unsafeField, instanceOf)
 import Screeps.Id
 import Screeps.Structure
-import Screeps.Types
 import Screeps.RoomObject (class RoomObject)
 
 foreign import data Wall       :: Type
