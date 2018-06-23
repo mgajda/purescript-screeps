@@ -1,16 +1,15 @@
 -- | Corresponds to the Screeps API [StructureController](http://support.screeps.com/hc/en-us/articles/207711889-StructureController)
 module Screeps.Controller where
 
-import Control.Monad.Eff (Eff)
+import Effect
 import Data.Argonaut.Encode.Class (class EncodeJson, encodeJson)
 import Data.Argonaut.Decode.Class (class DecodeJson, decodeJson)
 import Data.Eq
 import Data.Maybe (Maybe)
 import Data.Show
 
-import Screeps.Effects (CMD)
 import Screeps.Destructible (class Destructible)
-import Screeps.FFI (runThisEffFn0, unsafeField, unsafeOptField, instanceOf)
+import Screeps.FFI (runThisEffectFn0, unsafeField, unsafeOptField, instanceOf)
 import Screeps.Id (class HasId, encodeJsonWithId, decodeJsonWithId, eqById)
 import Screeps.Progress (class Progress)
 import Screeps.RoomObject (class RoomObject)
@@ -42,8 +41,8 @@ type Reservation = { username :: String
 reservation :: Controller -> Maybe Reservation
 reservation = unsafeOptField "reservation"
 
-activateSafeMode :: forall e. Controller -> Eff (cmd :: CMD | e) ReturnCode
-activateSafeMode  = runThisEffFn0 "activateSafeMode"
+activateSafeMode ::  Controller -> Effect ReturnCode
+activateSafeMode  = runThisEffectFn0 "activateSafeMode"
 
 safeMode :: Controller -> Int
 safeMode  = unsafeField "safeMode"
@@ -60,8 +59,8 @@ ticksToDowngrade = unsafeField "ticksToDowngrade"
 upgradeBlocked :: Controller -> Int
 upgradeBlocked = unsafeField "upgradeBlocked"
 
-unclaim :: forall e. Controller -> Eff (cmd :: CMD | e) ReturnCode
-unclaim = runThisEffFn0 "unclaim"
+unclaim ::  Controller -> Effect ReturnCode
+unclaim = runThisEffectFn0 "unclaim"
 
 toController :: AnyStructure -> Maybe Controller
 toController = fromAnyStructure

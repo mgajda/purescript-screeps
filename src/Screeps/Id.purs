@@ -9,22 +9,21 @@ module Screeps.Id ( Id(..)
                   , eqById
                   ) where
 
-import Control.Monad              ((>=>))
-
-import Data.Argonaut.Core         (Json)
-import Data.Argonaut.Encode.Class (class EncodeJson, encodeJson)
-import Data.Argonaut.Decode.Class (class DecodeJson, decodeJson)
 import Data.Either
-import Data.Function              (on)
-import Data.Functor               ((<$>))
-import Data.Generic               (class Generic,    gEq, gShow)
-import Data.Eq                    (class Eq, (==))
-import Data.Maybe                 (Maybe(..))
-import Data.Monoid                ((<>))
-import Data.Show                  (class Show, show)
 
-import Screeps.FFI                (unsafeField)
---import Screeps.Effects            (TICK)
+import Control.Monad ((>=>))
+import Data.Argonaut.Core (Json)
+import Data.Argonaut.Decode.Class (class DecodeJson, decodeJson)
+import Data.Argonaut.Encode.Class (class EncodeJson, encodeJson)
+import Data.Eq (class Eq, (==))
+import Data.Function (on)
+import Data.Functor ((<$>))
+import Data.Generic.Rep (class Generic, Argument(..), Constructor(..))
+import Data.Maybe (Maybe(..))
+import Data.Monoid ((<>))
+import Data.Show (class Show, show)
+import Prelude (($))
+import Screeps.FFI (unsafeField)
 
 class HasId a where
   -- Check that object is valid
@@ -47,13 +46,15 @@ unsafeGetObjectById :: forall a. Id a -> Maybe a
 unsafeGetObjectById  = unsafeGetObjectById_helper Nothing Just 
 
 -- | This is unsafe method, for restoring objects by id stored in memory.
--- | WARNING: This is somewhat unsafe method, since the object is never checked for its typeEffect
+-- | WARNING: This is somewhat unsafe method, since the object is never checked for its typeEffectect
 foreign import unsafeGetObjectById_helper :: forall a r. r -> (a -> r) -> Id a -> r
 
--- | WARNING: This is somewhat unsafe method, since the object should be checked for its typeEffect
---foreign import unsafeGetObjectByIdEff :: forall a e. Eff (tick :: TICK | e) (Id a) -> (Maybe a)
+-- | WARNING: This is somewhat unsafe method, since the object should be checked for its typeEffectect
+--foreign import unsafeGetObjectByIdEffect :: forall a. Effect (Id a) -> (Maybe a)
 
-derive instance genericId       :: Generic    (Id a)
+instance genericId :: Generic (Id a) (Constructor "Id" (Argument String)) where
+  from (Id x) = Constructor $ Argument x
+  to (Constructor (Argument x)) = Id x
 derive newtype instance eqId    :: Eq         (Id a)
 instance        showId          :: Show       (Id a) where show (Id i)       = "Id #" <> i
 -- | Encode and decode as JSON String.

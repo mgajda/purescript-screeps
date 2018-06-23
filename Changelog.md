@@ -1,6 +1,8 @@
 Changelog
 =========
 
+    4.0.0  Jun 23 2018
+        * Update to PureScript 0.12
     3.0.1  Jun 26 2017
         * Added missing dependency.
     3.0.0  Jun 26 2017

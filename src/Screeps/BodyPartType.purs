@@ -1,16 +1,21 @@
 module Screeps.BodyPartType where
 
 import Control.Category
-import Data.Eq
+import Data.Eq (class Eq, (==))
+import Data.Functor (map)
+import Data.Ring (negate)
+import Data.Show (class Show)
+
 import Data.Foldable (sum)
-import Data.Functor
-import Data.Generic
-import Data.Ring
-import Data.Show
+import Data.Generic.Rep (class Generic, Argument(..), Constructor(..))
+import Data.Generic.Rep.Eq (genericEq)
+import Prelude (($))
 
 newtype BodyPartType = BodyPartType String
-derive instance genericBodyPartType :: Generic BodyPartType
-instance eqBodyPartType :: Eq BodyPartType where eq = gEq
+instance genericBodyPartType :: Generic BodyPartType (Constructor "BodyPartType" (Argument String)) where
+  from (BodyPartType x) = Constructor $ Argument x
+  to (Constructor (Argument x)) = BodyPartType x
+instance eqBodyPartType :: Eq BodyPartType where eq = genericEq
 instance showBodyPartType :: Show BodyPartType where show (BodyPartType bpt) = bpt
 
 foreign import part_move :: BodyPartType

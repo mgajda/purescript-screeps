@@ -1,25 +1,21 @@
 -- | Corresponds to the Screeps API [StructureSpawn](http://support.screeps.com/hc/en-us/articles/205990342-StructureSpawn)
 module Screeps.Spawn where
 
-import Prelude
-import Control.Monad.Eff (Eff)
+import Data.Argonaut.Decode.Class (class DecodeJson)
 import Data.Argonaut.Encode.Class (class EncodeJson, encodeJson)
-import Data.Argonaut.Decode.Class (class DecodeJson, decodeJson)
 import Data.Either (Either(Left, Right))
---import Data.Eq     (class Eq)
 import Data.Maybe (Maybe)
-
+import Effect (Effect)
+import Prelude (class Eq, class Show, ($))
 import Screeps.BodyPartType (BodyPartType)
 import Screeps.Destructible (class Destructible)
-import Screeps.Effects (CMD)
-import Screeps.FFI (NullOrUndefined, runThisEffFn1, runThisEffFn2, runThisFn1, toMaybe, toNullable
-                   , unsafeField, instanceOf)
+import Screeps.FFI (NullOrUndefined, runThisEffectFn1, runThisEffectFn2, runThisFn1, toMaybe, toNullable, unsafeField, instanceOf)
 import Screeps.Id (class HasId, decodeJsonWithId, encodeJsonWithId, eqById)
-import Screeps.Structure
-import Screeps.Types
 import Screeps.Refillable (class Refillable)
 import Screeps.ReturnCode (ReturnCode)
 import Screeps.RoomObject (class RoomObject)
+import Screeps.Structure (class Structural, class Structure, AnyStructure, fromAnyStructure, showStructure, structure_spawn)
+import Screeps.Types (class Owned, Creep)
 
 type CreepInfo =
   { name :: String
@@ -54,35 +50,35 @@ spawning spawn = toMaybe $ unsafeField "spawning" spawn
 canCreateCreep :: Spawn -> Array BodyPartType -> ReturnCode
 canCreateCreep spawn parts = runThisFn1 "canCreateCreep" spawn parts
 
-canCreateCreep' :: forall e. Spawn -> Array BodyPartType -> String -> Eff (cmd :: CMD | e) ReturnCode
-canCreateCreep' spawn parts name' = runThisEffFn2 "canCreateCreep" spawn parts name'
+canCreateCreep' ::  Spawn -> Array BodyPartType -> String -> Effect ReturnCode
+canCreateCreep' spawn parts name' = runThisEffectFn2 "canCreateCreep" spawn parts name'
 
-foreign import createCreepImpl :: forall e.
+foreign import createCreepImpl ::
   Spawn ->
   Array BodyPartType ->
   (ReturnCode -> Either ReturnCode String) ->
   (String -> Either ReturnCode String) ->
-  Eff (cmd :: CMD | e) (Either ReturnCode String)
-foreign import createCreepPrimeImpl :: forall e mem.
+  Effect (Either ReturnCode String)
+foreign import createCreepPrimeImpl :: forall mem.
   Spawn ->
   Array BodyPartType ->
   NullOrUndefined String ->
   mem ->
   (ReturnCode -> Either ReturnCode String) ->
   (String -> Either ReturnCode String) ->
-  Eff (cmd :: CMD | e) (Either ReturnCode String)
+  Effect (Either ReturnCode String)
 
-createCreep :: forall e. Spawn -> Array BodyPartType -> Eff (cmd :: CMD | e) (Either ReturnCode String)
+createCreep ::  Spawn -> Array BodyPartType -> Effect (Either ReturnCode String)
 createCreep spawn parts = createCreepImpl spawn parts Left Right
 
-createCreep' :: forall mem e. (EncodeJson mem) => Spawn -> Array BodyPartType -> Maybe String -> mem -> Eff (cmd :: CMD | e) (Either ReturnCode String)
+createCreep' :: forall mem. (EncodeJson mem) => Spawn -> Array BodyPartType -> Maybe String -> mem -> Effect (Either ReturnCode String)
 createCreep' spawn parts name' mem = createCreepPrimeImpl spawn parts (toNullable name') (encodeJson mem) Left Right
 
-recycleCreep :: forall e. Spawn -> Creep -> Eff (cmd :: CMD | e) ReturnCode
-recycleCreep = runThisEffFn1 "recycleCreep"
+recycleCreep ::  Spawn -> Creep -> Effect ReturnCode
+recycleCreep = runThisEffectFn1 "recycleCreep"
 
-renewCreep :: forall e. Spawn -> Creep -> Eff (cmd :: CMD | e) ReturnCode
-renewCreep = runThisEffFn1 "renewCreep"
+renewCreep ::  Spawn -> Creep -> Effect ReturnCode
+renewCreep = runThisEffectFn1 "renewCreep"
 
 toSpawn :: AnyStructure -> Maybe Spawn
 toSpawn = fromAnyStructure

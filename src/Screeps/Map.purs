@@ -1,34 +1,34 @@
 -- | Corresponds to the Screeps API [Map](http://support.screeps.com/hc/en-us/articles/203079191-Map)
 module Screeps.Map where
 
-import Prelude
+import Data.Maybe (Maybe)
+import Data.Tuple (Tuple(..))
+import Prelude (Unit, map, pure, show, ($), (<$>), (<*>), (<<<))
+import Screeps.Direction (Direction(..))
+import Screeps.Names (RoomName)
 
-import Data.Array   as Array
-import Data.Int                 (fromString)
-import Data.Maybe
-import Data.StrMap  as StrMap
-import Data.Tuple
-
-import Screeps.Direction
-import Screeps.FFI              (toMaybe, runThisFn1, runThisFn2, runThisFn3)
-import Screeps.FindType         (FindType)
+import Data.Array (fromFoldable)
+import Data.Array as Array
+import Data.Int (fromString)
+import Data.Map as Map
+import Screeps.FFI (toMaybe, runThisFn1, runThisFn2, runThisFn3)
+import Screeps.FindType (FindType)
 import Screeps.Game as Game
-import Screeps.Names
-import Screeps.ReturnCode       (ReturnCode)
-import Screeps.RoomObject       (Room, class RoomObject)
-import Screeps.Types            (TargetPosition(..), Terrain)
+import Screeps.ReturnCode (ReturnCode)
+import Screeps.RoomObject (Room)
+import Screeps.Types (TargetPosition(..), Terrain)
 
-newtype DirMap a = DirMap (StrMap.StrMap a)
+newtype DirMap a = DirMap (Map.Map String a)
 
 keys           :: forall a.
                   DirMap a
                -> Array Direction
-keys (DirMap m) = Array.catMaybes ((map Direction <<< fromString) <$> StrMap.keys m)
+keys (DirMap m) = Array.catMaybes $ map (map Direction <<< fromString) $ fromFoldable $ Map.keys m
 
 toArray           :: forall                 a.
                      DirMap                 a
                   -> Array (Tuple Direction a)
-toArray (DirMap m) = Array.catMaybes (parseDir <$> StrMap.toUnfoldable m)
+toArray (DirMap m) = Array.catMaybes (parseDir <$> Map.toUnfoldable m)
   where
     parseDir (Tuple k v) = Tuple <$> (Direction <$> fromString k) <*> pure v
 
@@ -36,7 +36,7 @@ lookup             :: forall a.
                       Direction
                    -> DirMap a
                    -> Maybe  a
-lookup i (DirMap m) = show i `StrMap.lookup` m
+lookup i (DirMap m) = show i `Map.lookup` m
 
 type ExitsInfo = DirMap RoomName
 

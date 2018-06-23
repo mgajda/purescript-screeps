@@ -3,9 +3,9 @@ module Screeps.RoomObject where
 
 import Control.Category
 import Control.Monad
-import Control.Monad.Eff
-import Control.Monad.Eff.Exception
-import Control.Monad.Eff.Unsafe (unsafePerformEff)
+import Effect
+import Effect.Exception (try)
+import Effect.Unsafe (unsafePerformEffect)
 import Data.Argonaut.Decode.Class
 import Data.Argonaut.Encode.Class
 import Data.Either
@@ -14,7 +14,7 @@ import Data.Function (($), on)
 import Data.Maybe
 import Data.Monoid
 import Data.Show
---import Data.StrMap as StrMap
+--import Data.Map as Map
 import Unsafe.Coerce (unsafeCoerce)
 
 import Screeps.Destructible (class Destructible)
@@ -40,12 +40,12 @@ name = unsafeField "name"
 instance encodeJson :: EncodeJson Room where
   encodeJson = encodeJson <<< name
 
-foreign import lookupRoom :: forall e. RoomName -> Eff e (NullOrUndefined Room)
+foreign import lookupRoom :: RoomName -> Effect (NullOrUndefined Room)
 
 instance decodeJson :: DecodeJson Room where
   decodeJson           json = do
     roomNam <- decodeJson json
-    case unsafePerformEff $ try $ map toMaybe $ lookupRoom roomNam of
+    case unsafePerformEffect $ try $ map toMaybe $ lookupRoom roomNam of
          Left   err      -> Left  $ "Cannot access the room: " <> show roomNam
                                  <> " because of: "            <> show err
          Right (Nothing) -> Left  $ "Cannot access room: "     <> show roomNam
