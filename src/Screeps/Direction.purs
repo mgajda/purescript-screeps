@@ -8,10 +8,11 @@ import Data.Argonaut.Decode.Generic (gDecodeJson)
 import Data.Argonaut.Encode         (class EncodeJson, encodeJson)
 import Data.Argonaut.Encode.Generic (gEncodeJson)
 import Data.Functor         ((<$>))
-import Data.Generic         (class Generic, gEq, gShow)
+import Data.Generic.Rep     (class Generic)
+import Data.Generic.Rep.Eq  (genericEq)
 
 newtype Direction = Direction Int
-derive instance genericDirection :: Generic Direction
+derive instance genericDirection :: Generic Direction _
 
 foreign import top :: Direction
 foreign import top_right :: Direction
@@ -22,7 +23,7 @@ foreign import bottom_left :: Direction
 foreign import left :: Direction
 foreign import top_left :: Direction
 
-instance eqDirection :: Eq Direction where eq = gEq
+instance eqDirection :: Eq Direction where eq = genericEq
 instance showDirection :: Show Direction
   where
     show d | d==top          = "top"

@@ -4,7 +4,9 @@ module Screeps.Types where
 import Prelude (class Eq, class Show, show, (<>), (==))
 import Data.Argonaut.Encode.Class (class EncodeJson, encodeJson)
 import Data.Argonaut.Decode.Class (class DecodeJson, decodeJson)
-import Data.Generic (class Generic, gEq, gShow)
+import Data.Generic.Rep      (class Generic)
+import Data.Generic.Rep.Eq   (genericEq)
+import Data.Generic.Rep.Show (genericShow)
 
 import Screeps.Destructible     (class Destructible)
 import Screeps.FFI (instanceOf, unsafeField)
@@ -29,8 +31,8 @@ instance destructibleCreep :: Destructible Creep
 
 newtype TerrainMask = TerrainMask Int
 derive instance genericTerrainMask :: Generic TerrainMask
-instance eqTerrainMask   :: Eq   TerrainMask where eq = gEq
-instance showTerrainMask :: Show TerrainMask where show = gShow
+instance eqTerrainMask   :: Eq   TerrainMask where eq = genericEq
+instance showTerrainMask :: Show TerrainMask where show = genericShow
 
 newtype Terrain = Terrain String
 derive instance genericTerrain :: Generic Terrain

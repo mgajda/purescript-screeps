@@ -17,7 +17,7 @@ import Data.Argonaut.Decode.Class (class DecodeJson, decodeJson)
 import Data.Either
 import Data.Function              (on)
 import Data.Functor               ((<$>))
-import Data.Generic               (class Generic,    gEq, gShow)
+import Data.Generic.Rep           (class Generic)
 import Data.Eq                    (class Eq, (==))
 import Data.Maybe                 (Maybe(..))
 import Data.Monoid                ((<>))
@@ -53,7 +53,7 @@ foreign import unsafeGetObjectById_helper :: forall a r. r -> (a -> r) -> Id a -
 -- | WARNING: This is somewhat unsafe method, since the object should be checked for its typeEffect
 --foreign import unsafeGetObjectByIdEff :: forall a e. Eff (tick :: TICK | e) (Id a) -> (Maybe a)
 
-derive instance genericId       :: Generic    (Id a)
+derive instance genericId       :: Generic    (Id a) _
 derive newtype instance eqId    :: Eq         (Id a)
 instance        showId          :: Show       (Id a) where show (Id i)       = "Id #" <> i
 -- | Encode and decode as JSON String.

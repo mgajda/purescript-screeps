@@ -5,7 +5,9 @@ import Prelude
 import Control.Monad.Eff (Eff)
 import Data.Argonaut.Encode.Class (class EncodeJson, encodeJson)
 import Data.Argonaut.Decode.Class (class DecodeJson, decodeJson)
-import Data.Generic  (class Generic, gEq, gShow)
+import Data.Generic.Rep      (class Generic)
+import Data.Generic.Rep.Eq   (genericEq)
+import Data.Generic.Rep.Show (genericShow)
 import Data.Maybe    (Maybe(Just, Nothing))
 import Unsafe.Coerce (unsafeCoerce)
 import Type.Proxy

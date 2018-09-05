@@ -7,8 +7,8 @@
 module Screeps.Path where
 
 import Control.Monad.Eff
-import Control.Monad.Eff.Unsafe
-import Control.Monad.Eff.Exception
+import Effect.Unsafe
+import Effect.Exception
 import Data.Argonaut.Core (Json)
 import Data.Argonaut.Encode.Class
 import Data.Argonaut.Decode.Class

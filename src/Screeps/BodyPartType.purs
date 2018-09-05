@@ -4,13 +4,14 @@ import Control.Category
 import Data.Eq
 import Data.Foldable (sum)
 import Data.Functor
-import Data.Generic
+import Data.Generic.Rep
+import Data.Generic.Rep.Eq
 import Data.Ring
-import Data.Show
+import Data.Show(class Show)
 
 newtype BodyPartType = BodyPartType String
-derive instance genericBodyPartType :: Generic BodyPartType
-instance eqBodyPartType :: Eq BodyPartType where eq = gEq
+derive instance genericBodyPartType :: Generic BodyPartType _
+instance eqBodyPartType :: Eq BodyPartType where eq = genericEq
 instance showBodyPartType :: Show BodyPartType where show (BodyPartType bpt) = bpt
 
 foreign import part_move :: BodyPartType

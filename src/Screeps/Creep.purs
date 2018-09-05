@@ -2,8 +2,8 @@
 module Screeps.Creep where
 
 import Prelude                     (Unit, show, ($), (<$>), (<>))
-import Control.Monad.Eff           (Eff)
-import Control.Monad.Eff.Exception (EXCEPTION)
+import Effect           (Effect)
+import Effect.Exception (EXCEPTION)
 import Data.Argonaut.Decode        (class DecodeJson, decodeJson)
 import Data.Argonaut.Encode        (class EncodeJson, encodeJson)
 import Data.Either                 (Either)
@@ -14,7 +14,6 @@ import Screeps.BodyPartType     (BodyPartType)
 import Screeps.ConstructionSite (ConstructionSite)
 import Screeps.Controller       (Controller)
 import Screeps.Direction        (Direction)
-import Screeps.Effects          (CMD, MEMORY)
 import Screeps.FFI              (runThisEffFn0, runThisEffFn1, runThisEffFn2, runThisEffFn3, runThisFn1,
                                  selectMaybes, toMaybe,
                                  unsafeGetFieldEff, unsafeField, unsafeOptField, unsafeSetFieldEff)
