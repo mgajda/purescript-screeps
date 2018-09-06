@@ -1,6 +1,6 @@
 {
   "name": "purescript-screeps-classy",
-  "version": "3.0.1",
+  "version": "4.0.0",
   "description": "Screeps.com binding - can program your Screeps AI with PureScript classes!",
   "ignore": [
     "**/.*",
@@ -31,7 +31,7 @@
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
-    "url": "git://github.com/purescript/purescript-screeps.git"
+    "url": "git://github.com/mgajda/purescript-screeps.git"
   },
   "resolutions": {
     "purescript-foldable-traversable": "^4.0.0",
