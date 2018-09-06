@@ -1,7 +1,7 @@
 -- | Corresponds to the Screeps API [RoomPosition](http://support.screeps.com/hc/en-us/articles/203079201-RoomPosition)
 module Screeps.RoomPosition where
 
-import Prelude ((<$>), (<<<))
+import Prelude ((<$>))
 import Effect
 import Effect.Exception(try, Error)
 import Data.Either (Either)
@@ -58,27 +58,27 @@ unwrapContext (OfType findType ) = unsafeCoerce findType
 unwrapContext (OfObj  objects  ) = unsafeCoerce objects
 unwrapContext (OfPos  positions) = unsafeCoerce positions
 
-createConstructionSite :: forall e. RoomPosition
+createConstructionSite :: RoomPosition
                        -> StructureType
                        -> Effect ReturnCode
 createConstructionSite = runThisEffFn1 "createConstructionSite"
 
-createFlag :: forall e. RoomPosition
+createFlag :: RoomPosition
            -> Effect ReturnCode
 createFlag = runThisEffFn0 "createFlag"
 
-createFlagWithName :: forall e. RoomPosition
+createFlagWithName :: RoomPosition
                    -> String
                    -> Effect ReturnCode
 createFlagWithName pos name = runThisEffFn1 "createFlag" pos name
 
-createFlagWithColor :: forall e. RoomPosition
+createFlagWithColor :: RoomPosition
                     -> String
                     -> Color
                     -> Effect ReturnCode
 createFlagWithColor pos name color = runThisEffFn2 "createFlag" pos name color
 
-createFlagWithColors :: forall e. RoomPosition -> String -> Color -> Color
+createFlagWithColors :: RoomPosition -> String -> Color -> Color
                      -> Effect ReturnCode
 createFlagWithColors pos name color secondaryColor = runThisEffFn3 "createFlag" pos name color secondaryColor
 

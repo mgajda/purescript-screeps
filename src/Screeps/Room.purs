@@ -96,27 +96,27 @@ serializePath = runThisFn1 "serializePath" roomGlobal
 deserializePath :: String -> Path
 deserializePath = runThisFn1 "deserializePath" roomGlobal
 
-createConstructionSite :: forall a e. Room -> TargetPosition a -> StructureType -> Effect ReturnCode
+createConstructionSite :: forall a. Room -> TargetPosition a -> StructureType -> Effect ReturnCode
 createConstructionSite room (TargetPt x' y') strucType = runThisEffFn3 "createConstructionSite" room x' y' strucType
 createConstructionSite room (TargetPos pos) strucType = runThisEffFn2 "createConstructionSite" room pos strucType
 createConstructionSite room (TargetObj obj) strucType = runThisEffFn2 "createConstructionSite" room obj strucType
 
-createFlag :: forall a e. Room -> TargetPosition a -> Effect ReturnCode
+createFlag :: forall a. Room -> TargetPosition a -> Effect ReturnCode
 createFlag room (TargetPt x' y') = runThisEffFn2 "createFlag" room x' y'
 createFlag room (TargetPos pos) = runThisEffFn1 "createFlag" room pos
 createFlag room (TargetObj obj) = runThisEffFn1 "createFlag" room obj
 
-createFlagWithName :: forall a e. Room -> TargetPosition a -> String -> Effect ReturnCode
+createFlagWithName :: forall a. Room -> TargetPosition a -> String -> Effect ReturnCode
 createFlagWithName room (TargetPt x' y') name' = runThisEffFn3 "createFlag" room x' y' name'
 createFlagWithName room (TargetPos pos) name' = runThisEffFn2 "createFlag" room pos name'
 createFlagWithName room (TargetObj obj) name' = runThisEffFn2 "createFlag" room obj name'
 
-createFlagWithColor :: forall a e. Room -> TargetPosition a -> String -> Color -> Effect ReturnCode
+createFlagWithColor :: forall a. Room -> TargetPosition a -> String -> Color -> Effect ReturnCode
 createFlagWithColor room (TargetPt x' y') name' color = runThisEffFn4 "createFlag" room x' y' name' color
 createFlagWithColor room (TargetPos pos) name' color = runThisEffFn3 "createFlag" room pos name' color
 createFlagWithColor room (TargetObj obj) name' color = runThisEffFn3 "createFlag" room obj name' color
 
-createFlagWithColors :: forall a e. Room -> TargetPosition a -> String -> Color -> Color -> Effect ReturnCode
+createFlagWithColors :: forall a. Room -> TargetPosition a -> String -> Color -> Color -> Effect ReturnCode
 createFlagWithColors room (TargetPt x' y') name' color color2 =
   runThisEffFn5 "createFlag" room x' y' name' color color2
 createFlagWithColors room (TargetPos pos) name' color color2 =

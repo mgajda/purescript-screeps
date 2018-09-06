@@ -1,19 +1,19 @@
 -- | Corresponds to the Screeps API [StructureStorage](http://support.screeps.com/hc/en-us/articles/208436805-StructureStorage)
 module Screeps.Storage where
 
-import Data.Argonaut.Encode (class EncodeJson, encodeJson)
-import Data.Argonaut.Decode (class DecodeJson, decodeJson)
-import Data.Eq
+import Data.Argonaut.Encode (class EncodeJson)
+import Data.Argonaut.Decode (class DecodeJson)
+import Data.Eq              (class Eq)
 import Data.Maybe           (Maybe)
-import Data.Show
+import Data.Show            (class Show)
 
 import Screeps.Destructible (class Destructible)
 import Screeps.FFI (instanceOf)
 import Screeps.Id (class HasId, decodeJsonWithId, encodeJsonWithId, eqById)
 import Screeps.RoomObject (class RoomObject)
-import Screeps.Stores
-import Screeps.Structure
-import Screeps.Types
+import Screeps.Stores (class Stores)
+import Screeps.Structure (class Structural, class Structure, AnyStructure, fromAnyStructure, showStructure, structure_storage)
+import Screeps.Types(class Owned)
 
 foreign import data Storage :: Type
 instance objectStorage      :: RoomObject Storage
