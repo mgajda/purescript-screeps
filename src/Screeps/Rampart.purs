@@ -3,7 +3,7 @@ module Screeps.Rampart where
 
 import Data.Argonaut.Encode (class EncodeJson, encodeJson)
 import Data.Argonaut.Decode (class DecodeJson, decodeJson)
-import Control.Monad.Eff (Eff)
+import Effect (Eff)
 import Data.Eq
 import Data.Maybe (Maybe)
 import Data.Show

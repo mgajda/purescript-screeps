@@ -2,7 +2,7 @@
 module Screeps.FFI where
 
 import Prelude
-import Control.Monad.Eff (Eff)
+import Effect (Eff)
 import Data.Maybe (Maybe(Just, Nothing), isJust, fromJust, maybe)
 import Data.Function.Uncurried (Fn3, runFn3)
 import Partial.Unsafe (unsafePartial)

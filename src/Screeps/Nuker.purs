@@ -3,7 +3,7 @@ module Screeps.Nuker where
 
 import Data.Argonaut.Encode.Class (class EncodeJson)
 import Data.Argonaut.Decode.Class (class DecodeJson)
-import Control.Monad.Eff (Eff)
+import Effect (Eff)
 import Data.Eq(class Eq)
 import Data.Maybe (Maybe)
 import Data.Show(class Show)

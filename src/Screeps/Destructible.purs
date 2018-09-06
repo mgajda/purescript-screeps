@@ -1,6 +1,6 @@
 module Screeps.Destructible where
 
-import Control.Monad.Eff (Eff)
+import Effect (Eff)
 
 import Screeps.Effects (CMD)
 import Screeps.FFI     (unsafeField, runThisEffFn1)

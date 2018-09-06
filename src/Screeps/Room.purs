@@ -2,7 +2,7 @@
 module Screeps.Room where
 
 import Prelude                          (map, ($), (+), (-), (<<<))
-import Control.Monad.Eff                (Eff)
+import Effect                (Eff)
 import Data.Argonaut.Core               (Json, toArray)
 import Data.Either                      (Either(Left,Right))
 import Data.Maybe                       (Maybe(..), maybe)

@@ -1,7 +1,7 @@
 -- | Corresponds to the Screeps API [StructurePowerSpawn](http://support.screeps.com/hc/en-us/articles/208436585-StructurePowerSpawn)
 module Screeps.PowerSpawn where
 
-import Control.Monad.Eff (Eff)
+import Effect (Eff)
 import Data.Argonaut.Encode.Class (class EncodeJson, encodeJson)
 import Data.Argonaut.Decode.Class (class DecodeJson, decodeJson)
 import Data.Eq

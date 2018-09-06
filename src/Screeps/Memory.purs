@@ -8,7 +8,7 @@ import Data.Argonaut.Encode (class EncodeJson, encodeJson)
 import Data.Argonaut.Parser (jsonParser)
 --import Data.Argonaut.Printer (printJson)
 import Data.Either (Either)
-import Control.Monad.Eff (Eff)
+import Effect (Eff)
 
 import Screeps.Effects (MEMORY, TICK)
 import Screeps.FFI (runThisEffFn0, runThisEffFn1, unsafeGetFieldEff, unsafeSetFieldEff, unsafeDeleteFieldEff)

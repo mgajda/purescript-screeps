@@ -3,7 +3,7 @@ module Screeps.Lab where
 
 import Data.Argonaut.Encode (class EncodeJson)
 import Data.Argonaut.Decode (class DecodeJson)
-import Control.Monad.Eff (Eff)
+import Effect (Eff)
 import Data.Eq(class Eq)
 import Data.Maybe (Maybe)
 import Data.Show (class Show, show)

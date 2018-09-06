@@ -6,7 +6,7 @@
 -- |          and use only first 10 or so.
 module Screeps.Path where
 
-import Control.Monad.Eff
+import Effect
 import Effect.Unsafe
 import Effect.Exception
 import Data.Argonaut.Core (Json)

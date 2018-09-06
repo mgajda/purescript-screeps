@@ -20,7 +20,6 @@
     "purescript-partial": "^2.0.0",
     "purescript-exceptions": "^4.0.0",
     "purescript-generics-rep": "^6.0.0",
-    "purescript-maps": "^3.6.0",
     "purescript-refs": "^4.0.1",
     "purescript-prelude": "^4.1.0",
     "purescript-effect": "^2.0.0",

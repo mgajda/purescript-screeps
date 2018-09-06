@@ -3,7 +3,7 @@ module Screeps.Link where
 
 import Data.Argonaut.Encode (class EncodeJson, encodeJson)
 import Data.Argonaut.Decode (class DecodeJson, decodeJson)
-import Control.Monad.Eff    (Eff)
+import Effect    (Eff)
 import Data.Maybe           (Maybe)
 import Data.Show            (class Show,       show)
 

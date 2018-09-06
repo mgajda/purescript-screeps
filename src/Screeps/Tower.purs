@@ -1,7 +1,7 @@
 -- | Corresponds to the Screeps API [StructureTower](http://support.screeps.com/hc/en-us/articles/208437105-StructureTower)
 module Screeps.Tower where
 
-import Control.Monad.Eff (Eff)
+import Effect (Eff)
 import Data.Argonaut.Encode (class EncodeJson, encodeJson)
 import Data.Argonaut.Decode (class DecodeJson, decodeJson)
 import Data.Eq

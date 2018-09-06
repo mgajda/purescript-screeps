@@ -1,6 +1,6 @@
 module Screeps.Effects where
 
-import Control.Monad.Eff(kind Effect)
+import Effect(kind Effect)
 
 -- | Tag for functions which execute a Screeps command as a side effect e.g. to move a creep.
 foreign import data CMD :: Effect

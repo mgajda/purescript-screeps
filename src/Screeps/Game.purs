@@ -2,7 +2,7 @@
 module Screeps.Game where
 
 import Prelude
-import Control.Monad.Eff (Eff)
+import Effect (Eff)
 import Data.StrMap as StrMap
 
 import Screeps.ConstructionSite (ConstructionSite)
