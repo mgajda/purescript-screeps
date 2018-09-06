@@ -1,17 +1,18 @@
 -- | Defines the main types used in the library and the relationships between them.
 module Screeps.Direction where
 
-import Prelude (class Eq, class Show, show, (<>), (==))
-
-import Data.Argonaut.Decode         (class DecodeJson, decodeJson)
-import Data.Argonaut.Decode.Generic (gDecodeJson)
-import Data.Argonaut.Encode         (class EncodeJson, encodeJson)
-import Data.Argonaut.Encode.Generic (gEncodeJson)
-import Data.Functor         ((<$>))
-import Data.Generic         (class Generic, gEq, gShow)
+import Data.Argonaut.Decode (class DecodeJson, decodeJson)
+import Data.Argonaut.Encode (class EncodeJson, encodeJson)
+import Data.Functor ((<$>))
+import Data.Generic.Rep (class Generic, Argument(..), Constructor(..))
+import Data.Generic.Rep.Eq (genericEq)
+import Prelude (class Eq, class Show, show, ($), (<>), (==))
 
 newtype Direction = Direction Int
-derive instance genericDirection :: Generic Direction
+
+instance genericDirection :: Generic Direction (Constructor "Direction" (Argument Int)) where
+  from (Direction x ) = Constructor $ Argument x
+  to (Constructor (Argument x)) = Direction x
 
 foreign import top :: Direction
 foreign import top_right :: Direction
@@ -22,7 +23,7 @@ foreign import bottom_left :: Direction
 foreign import left :: Direction
 foreign import top_left :: Direction
 
-instance eqDirection :: Eq Direction where eq = gEq
+instance eqDirection :: Eq Direction where eq = genericEq
 instance showDirection :: Show Direction
   where
     show d | d==top          = "top"

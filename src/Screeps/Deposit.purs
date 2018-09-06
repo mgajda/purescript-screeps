@@ -11,27 +11,25 @@ module Screeps.Deposit(
   , module Screeps.Regenerates
   ) where
 
-import Data.Argonaut.Encode.Class     (class EncodeJson, encodeJson)
-import Data.Argonaut.Decode.Class     (class DecodeJson, decodeJson)
+import Data.Argonaut.Encode.Class (class EncodeJson)
+import Data.Argonaut.Decode.Class (class DecodeJson)
 import Data.Eq
-import Data.Function                  (($))
-import Data.HeytingAlgebra
-import Data.Maybe                     (Maybe(..))
-import Data.Show
-import Unsafe.Coerce                  (unsafeCoerce)
-import Control.Monad.Eff
-import Control.Monad.Eff.Exception.Unsafe as U
+import Data.Function (($))
+import Data.HeytingAlgebra ((||))
+import Data.Maybe (Maybe(..))
+import Data.Show (class Show, show)
+import Unsafe.Coerce (unsafeCoerce)
+import Effect (Effect)
+import Effect.Exception.Unsafe as U
 
-import Screeps.Effects                (CMD)
-import Screeps.FFI                    (unsafeField, instanceOf, runThisEffFn1)
-import Screeps.Id
-import Screeps.Mineral    as Mineral
-import Screeps.Resource
-import Screeps.Regenerates
-import Screeps.RoomObject             (class RoomObject)
-import Screeps.Source     as Source
---import Screeps.Structure
-import Screeps.Types
+import Screeps.FFI (instanceOf, runThisEffectFn1)
+import Screeps.Id (class HasId, decodeJsonWithId, encodeJsonWithId, eqById, validate)
+import Screeps.Mineral as Mineral
+import Screeps.Resource (ResourceType, resource_energy)
+import Screeps.Regenerates (class Regenerates, ticksToRegeneration)
+import Screeps.RoomObject (class RoomObject)
+import Screeps.Source as Source
+import Screeps.Types (Creep)
 
 class Regenerates a <= Deposit a
 
@@ -58,13 +56,13 @@ caseDeposit ::  forall  d          a.
             ->                     a
 caseDeposit srcCase _       ad | instanceOf "Source"  ad = srcCase $ unsafeCoerce ad
 caseDeposit _       minCase ad | instanceOf "Mineral" ad = minCase $ unsafeCoerce ad
-caseDeposit _       _       _                            = U.unsafeThrow "This is not a depositEffect"
+caseDeposit _       _       _                            = U.unsafeThrow "This is not a depositEffectect"
 
-harvestDeposit :: forall                  e  a.
+harvestDeposit :: forall     a.
                   Creep
                -> AnyDeposit
-               -> Eff        (cmd :: CMD| e) a
-harvestDeposit  = runThisEffFn1 "harvest"
+               -> Effect     a
+harvestDeposit  = runThisEffectFn1 "harvest"
 
 depositLeft :: forall  a.
                Deposit a

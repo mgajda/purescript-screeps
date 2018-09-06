@@ -1,15 +1,17 @@
 -- | Defines the main types used in the library and the relationships between them.
 module Screeps.Types where
 
-import Prelude (class Eq, class Show, show, (<>), (==))
-import Data.Argonaut.Encode.Class (class EncodeJson, encodeJson)
-import Data.Argonaut.Decode.Class (class DecodeJson, decodeJson)
-import Data.Generic (class Generic, gEq, gShow)
-
-import Screeps.Destructible     (class Destructible)
-import Screeps.FFI (instanceOf, unsafeField)
-import Screeps.Id  (class HasId, encodeJsonWithId, decodeJsonWithId, eqById)
 import Screeps.RoomObject
+
+import Data.Argonaut.Decode.Class (class DecodeJson)
+import Data.Argonaut.Encode.Class (class EncodeJson)
+import Data.Generic.Rep (class Generic, Argument(..), Constructor(..))
+import Data.Generic.Rep.Eq (genericEq)
+import Data.Generic.Rep.Show (genericShow)
+import Prelude (class Eq, class Show, show, ($), (<>))
+import Screeps.Destructible (class Destructible)
+import Screeps.FFI (instanceOf, unsafeField)
+import Screeps.Id (class HasId, encodeJsonWithId, decodeJsonWithId, eqById)
 import Screeps.RoomPosition.Type (RoomPosition)
 
 foreign import data WorldMap :: Type
@@ -28,20 +30,26 @@ instance decodeCreep       :: DecodeJson   Creep where decodeJson = decodeJsonWi
 instance destructibleCreep :: Destructible Creep
 
 newtype TerrainMask = TerrainMask Int
-derive instance genericTerrainMask :: Generic TerrainMask
-instance eqTerrainMask   :: Eq   TerrainMask where eq = gEq
-instance showTerrainMask :: Show TerrainMask where show = gShow
+instance genericTerrainMask :: Generic TerrainMask (Constructor "TerrainMask" (Argument Int)) where
+  from (TerrainMask x) = Constructor $ Argument x
+  to (Constructor (Argument x)) = TerrainMask x
+instance eqTerrainMask :: Eq TerrainMask where eq = genericEq
+instance showTerrainMask :: Show TerrainMask where show = genericShow
 
 newtype Terrain = Terrain String
-derive instance genericTerrain :: Generic Terrain
-instance eqTerrain   :: Eq   Terrain where eq = gEq
+instance genericTerrain :: Generic Terrain (Constructor "Terrain" (Argument String)) where
+  from (Terrain x) = Constructor $ Argument x
+  to (Constructor (Argument x)) = Terrain x
+instance eqTerrain :: Eq Terrain where eq = genericEq
 instance showTerrain :: Show Terrain
   where show (Terrain s) = s
 
 newtype Mode = Mode String
-derive instance genericMode :: Generic Mode
-instance eqMode   :: Eq   Mode where eq = gEq
-instance showMode :: Show Mode where show = gShow
+instance genericMode :: Generic Mode (Constructor "Mode" (Argument String)) where
+  from (Mode x) = Constructor $ Argument x
+  to (Constructor (Argument x)) = Mode x
+instance eqMode :: Eq Mode where eq = genericEq
+instance showMode :: Show Mode where show = genericShow
 
 --------------------------------
 -- Helper types and functions --

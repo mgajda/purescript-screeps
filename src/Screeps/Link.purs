@@ -3,7 +3,7 @@ module Screeps.Link where
 
 import Data.Argonaut.Encode (class EncodeJson, encodeJson)
 import Data.Argonaut.Decode (class DecodeJson, decodeJson)
-import Control.Monad.Eff    (Eff)
+import Effect    (Effect)
 import Data.Maybe           (Maybe)
 import Data.Show            (class Show,       show)
 
@@ -11,9 +11,8 @@ import Screeps.Constants  (link_cooldown)
 import Screeps.Coolsdown  (class Coolsdown)
 import Screeps.Destructible (class Destructible)
 import Screeps.Decays     (class Decays)
-import Screeps.Effects    (CMD)
 import Screeps.Id
-import Screeps.FFI        (runThisEffFn1, runThisEffFn2, instanceOf)
+import Screeps.FFI        (runThisEffectFn1, runThisEffectFn2, instanceOf)
 import Screeps.Structure
 import Screeps.Types
 import Screeps.Refillable (class Refillable)
@@ -37,11 +36,11 @@ instance decodeLink      :: DecodeJson Link where decodeJson = decodeJsonWithId
 instance showLink        :: Show       Link where show       = showStructure
 instance destructibleLink :: Destructible Link
 
-transferEnergy :: forall e. Link -> Link -> Eff (cmd :: CMD | e) ReturnCode
-transferEnergy = runThisEffFn1 "transferEnergy"
+transferEnergy ::  Link -> Link -> Effect ReturnCode
+transferEnergy = runThisEffectFn1 "transferEnergy"
 
-transferEnergyAmt :: forall e. Link -> Link -> Int -> Eff (cmd :: CMD | e) ReturnCode
-transferEnergyAmt = runThisEffFn2 "transferEnergy"
+transferEnergyAmt ::  Link -> Link -> Int -> Effect ReturnCode
+transferEnergyAmt = runThisEffectFn2 "transferEnergy"
 
 toLink :: AnyStructure -> Maybe Link
 toLink = fromAnyStructure

@@ -12,8 +12,8 @@ import Data.Show                          (show)
 import Data.String                        as S
 import Data.String.Regex                  (regex, split)
 import Data.String.Regex.Flags            (noFlags)
-import Control.Monad.Eff.Exception        (error)
-import Control.Monad.Eff.Exception.Unsafe (unsafeThrowException)
+import Effect.Exception        (error)
+import Effect.Exception.Unsafe (unsafeThrowException)
 
 import Screeps.Names
 --import Screeps.RoomObject

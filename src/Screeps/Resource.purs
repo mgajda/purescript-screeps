@@ -1,21 +1,24 @@
 -- | Corresponds to the Screeps API [Resource](http://support.screeps.com/hc/en-us/articles/203016362-Resource)
 module Screeps.Resource where
 
-import Data.Argonaut.Encode (class EncodeJson, encodeJson)
-import Data.Argonaut.Decode (class DecodeJson, decodeJson)
-import Data.Eq              (class Eq,         (==))
-import Data.Generic         (class Generic,    gEq)
-import Data.Monoid          ((<>))
-import Data.Show            (class Show,       show)
---import Data.StrMap
-
+import Data.Argonaut.Decode (class DecodeJson)
+import Data.Argonaut.Encode (class EncodeJson)
+import Data.Eq (class Eq)
+import Data.Generic.Rep (class Generic, Argument(..), Constructor(..))
+import Data.Monoid ((<>))
+import Data.Show (class Show, show)
+import Prelude (($))
 import Screeps.FFI (unsafeField, instanceOf)
 import Screeps.Id (class HasId, encodeJsonWithId, decodeJsonWithId, eqById)
 import Screeps.RoomObject (class RoomObject, pos)
 
 -- Type Resource types
 newtype ResourceType = ResourceType String
-derive instance genericResourceType    :: Generic ResourceType
+
+instance genericResourceType :: Generic ResourceType (Constructor "ResourceType" (Argument String)) where
+  from (ResourceType x) = Constructor $ Argument x
+  to (Constructor (Argument x)) = ResourceType x
+
 derive newtype instance eqResourceType :: Eq ResourceType
 instance        showResourceType       :: Show    ResourceType where show (ResourceType s) = s
 

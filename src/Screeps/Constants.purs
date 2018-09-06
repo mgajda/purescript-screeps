@@ -1,6 +1,8 @@
 module Screeps.Constants where
 
-import Screeps.IntMap (IntMap)
+import Data.Map (Map)
+import Foreign (Foreign)
+import Screeps.FFI (unsafeObjectToIntMap)
 import Screeps.Types
 
 foreign import obstacle_object_types :: Array String
@@ -27,7 +29,9 @@ foreign import rampart_decay_amount :: Int
 foreign import rampart_decay_time :: Int
 foreign import rampart_hits :: Int
 -- | From 2 to 8
-foreign import rampart_hits_max :: IntMap Int
+foreign import _rampart_hits_max :: Foreign
+rampart_hits_max :: Map Int Int
+rampart_hits_max = unsafeObjectToIntMap _rampart_hits_max
 {-  { "2" :: Int
   , "3" :: Int
   , "4" :: Int
@@ -53,7 +57,9 @@ foreign import wall_hits_max :: Int
 
 foreign import extension_hits :: Int
 -- | From 0 to 8
-foreign import extension_energy_capacity :: IntMap Int
+foreign import _extension_energy_capacity :: Foreign
+extension_energy_capacity :: Map Int Int
+extension_energy_capacity = unsafeObjectToIntMap _extension_energy_capacity
 {-  { "0" :: Int
   , "1" :: Int
   , "2" :: Int
@@ -97,10 +103,12 @@ foreign import construction_cost ::
 foreign import construction_cost_road_swamp_ratio :: Int
 
 -- | 1 to 8
-foreign import controller_levels :: IntMap Int
+foreign import _controller_levels :: Foreign
+controller_levels :: Map Int Int
+controller_levels = unsafeObjectToIntMap _controller_levels
 
 -- | Number of structures available on each level
-type StructureInfo = IntMap Int
+type StructureInfo = Map Int Int
 
 -- | NOTE: there is better interface Screeps.Structure.numStructures
 foreign import controller_structures ::

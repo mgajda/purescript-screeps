@@ -23,7 +23,7 @@ exports.dismantle_cost = DISMANTLE_COST;
 exports.rampart_decay_amount = RAMPART_DECAY_AMOUNT;
 exports.rampart_decay_time = RAMPART_DECAY_TIME;
 exports.rampart_hits = RAMPART_HITS;
-exports.rampart_hits_max = RAMPART_HITS_MAX;
+exports._rampart_hits_max = RAMPART_HITS_MAX;
 
 exports.energy_regen_time = ENERGY_REGEN_TIME;
 exports.energy_decay = ENERGY_DECAY;
@@ -41,7 +41,7 @@ exports.wall_hits = WALL_HITS;
 exports.wall_hits_max = WALL_HITS_MAX;
 
 exports.extension_hits = EXTENSION_HITS;
-exports.extension_energy_capacity = EXTENSION_ENERGY_CAPACITY;
+exports._extension_energy_capacity = EXTENSION_ENERGY_CAPACITY;
 
 exports.road_hits = ROAD_HITS;
 exports.road_wearout = ROAD_WEAROUT;
@@ -60,7 +60,7 @@ exports.storage_hits = STORAGE_HITS;
 exports.construction_cost = CONSTRUCTION_COST;
 exports.construction_cost_road_swamp_ratio = CONSTRUCTION_COST_ROAD_SWAMP_RATIO;
 
-exports.controller_levels = CONTROLLER_LEVELS;
+exports._controller_levels = CONTROLLER_LEVELS;
 exports.controller_structures = CONTROLLER_STRUCTURES;
 exports.controller_downgrade = CONTROLLER_DOWNGRADE;
 exports.controller_claim_downgrade = CONTROLLER_CLAIM_DOWNGRADE;

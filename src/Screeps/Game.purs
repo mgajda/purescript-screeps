@@ -1,20 +1,20 @@
 -- | Corresponds to the Screeps API [Game](http://support.screeps.com/hc/en-us/articles/203016382-Game)
 module Screeps.Game where
 
-import Prelude
-import Control.Monad.Eff (Eff)
-import Data.StrMap as StrMap
-
-import Screeps.ConstructionSite (ConstructionSite)
-import Screeps.Effects    (CMD, TICK, TIME)
-import Screeps.Types
-import Screeps.Flag       (Flag)
-import Screeps.Market     (Market)
-import Screeps.RoomObject (Room, class RoomObject)
-import Screeps.Spawn      (Spawn)
 import Screeps.Structure
 
-foreign import unsafeGameField :: forall a e. String -> Eff (tick :: TICK | e) a
+import Data.Map as Map
+import Effect (Effect)
+import Prelude (Unit, (<$>))
+import Screeps.ConstructionSite (ConstructionSite)
+import Screeps.FFI (unsafeObjectToStrMap)
+import Screeps.Flag (Flag)
+import Screeps.Market (Market)
+import Screeps.RoomObject (Room)
+import Screeps.Spawn (Spawn)
+import Screeps.Types (Creep, WorldMap)
+
+foreign import unsafeGameField :: forall a. String -> Effect a
 
 type Gcl =
   { level         :: Int
@@ -26,40 +26,40 @@ type Cpu =
   , tickLimit :: Int
   , bucket    :: Int }
 
-constructionSites :: forall e. Eff (tick :: TICK | e) (StrMap.StrMap ConstructionSite)
+constructionSites :: Effect (Map.Map String ConstructionSite)
 constructionSites = unsafeGameField "constructionSites"
 
-cpu :: forall e. Eff (tick :: TICK | e) Cpu
+cpu :: Effect Cpu
 cpu = unsafeGameField "cpu"
 
-creeps :: forall e. Eff (tick :: TICK | e) (StrMap.StrMap Creep)
-creeps = unsafeGameField "creeps"
+creeps :: Effect (Map.Map String Creep)
+creeps = unsafeObjectToStrMap <$> unsafeGameField "creeps"
 
-flags :: forall e. Eff (tick :: TICK | e) (StrMap.StrMap Flag)
-flags = unsafeGameField "flags"
+flags :: Effect (Map.Map String Flag)
+flags = unsafeObjectToStrMap <$> unsafeGameField "flags"
 
 
 foreign import gcl :: Gcl
 
 foreign import map :: WorldMap
 
-market :: forall e. Eff (tick :: TICK | e) Market
+market :: Effect Market
 market = unsafeGameField "market"
 
-rooms :: forall e. Eff (tick :: TICK | e) (StrMap.StrMap Room)
-rooms = unsafeGameField "rooms"
+rooms :: Effect (Map.Map String Room)
+rooms = unsafeObjectToStrMap <$> unsafeGameField "rooms"
 
-spawns :: forall e. Eff (tick :: TICK | e) (StrMap.StrMap Spawn)
-spawns = unsafeGameField "spawns"
+spawns :: Effect (Map.Map String Spawn)
+spawns = unsafeObjectToStrMap <$> unsafeGameField "spawns"
 
-structures :: forall e. Eff (tick :: TICK | e) (StrMap.StrMap AnyStructure)
-structures = unsafeGameField "structures"
+structures :: Effect (Map.Map String AnyStructure)
+structures = unsafeObjectToStrMap <$> unsafeGameField "structures"
 
-time :: forall e. Eff (tick :: TICK | e) Int
+time :: Effect Int
 time = unsafeGameField "time"
 
-foreign import getUsedCpu :: forall e. Eff (time :: TIME | e) Number
+foreign import getUsedCpu :: Effect Number
 
-foreign import notify :: forall e. String -> Eff (cmd :: CMD | e) Unit
+foreign import notify ::  String -> Effect Unit
 
-foreign import notify_ :: forall e. String -> Int -> Eff (cmd :: CMD | e) Unit
+foreign import notify_ ::  String -> Int -> Effect Unit

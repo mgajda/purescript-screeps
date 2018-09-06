@@ -29,7 +29,7 @@ exports.unsafeOptField_helper = function(Nothing) {
   }
 }
 
-exports.unsafeGetFieldEff = function(key){
+exports.unsafeGetFieldEffect = function(key){
   return function(obj){
     return function(){
       return obj[key];
@@ -37,7 +37,7 @@ exports.unsafeGetFieldEff = function(key){
   }
 }
 
-exports.unsafeSetFieldEff = function(key){
+exports.unsafeSetFieldEffect = function(key){
   return function(obj){
     return function(val){
       return function(){
@@ -47,7 +47,7 @@ exports.unsafeSetFieldEff = function(key){
   }
 }
 
-exports.unsafeDeleteFieldEff = function(key){
+exports.unsafeDeleteFieldEffect = function(key){
   return function(obj){
       return function(){
         delete obj[key];
@@ -55,7 +55,7 @@ exports.unsafeDeleteFieldEff = function(key){
   }
 }
 
-exports.runThisEffFn0 = function(key){
+exports.runThisEffectFn0 = function(key){
   return function(self){
     return function(){
       return self[key]();
@@ -63,7 +63,7 @@ exports.runThisEffFn0 = function(key){
   }
 }
 
-exports.runThisEffFn1 = function(key){
+exports.runThisEffectFn1 = function(key){
   return function(self){
     return function(a){
       return function(){
@@ -73,7 +73,7 @@ exports.runThisEffFn1 = function(key){
   }
 }
 
-exports.runThisEffFn2 = function(key){
+exports.runThisEffectFn2 = function(key){
   return function(self){
     return function(a){
       return function(b){
@@ -85,7 +85,7 @@ exports.runThisEffFn2 = function(key){
   }
 }
 
-exports.runThisEffFn3 = function(key){
+exports.runThisEffectFn3 = function(key){
   return function(self){
     return function(a){
       return function(b){
@@ -99,7 +99,7 @@ exports.runThisEffFn3 = function(key){
   }
 }
 
-exports.runThisEffFn4 = function(key){
+exports.runThisEffectFn4 = function(key){
   return function(self){
     return function(a){
       return function(b){
@@ -115,7 +115,7 @@ exports.runThisEffFn4 = function(key){
   }
 }
 
-exports.runThisEffFn5 = function(key){
+exports.runThisEffectFn5 = function(key){
   return function(self){
     return function(a){
       return function(b){
@@ -133,7 +133,7 @@ exports.runThisEffFn5 = function(key){
   }
 }
 
-exports.runThisEffFn6 = function(key){
+exports.runThisEffectFn6 = function(key){
   return function(self){
     return function(a){
       return function(b){

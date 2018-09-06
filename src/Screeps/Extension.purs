@@ -1,22 +1,22 @@
 -- | Corresponds to the Screeps API [StructureExtension](http://support.screeps.com/hc/en-us/articles/207711949-StructureExtension)
 module Screeps.Extension where
 
-import Data.Argonaut.Encode.Class (class EncodeJson, encodeJson)
-import Data.Argonaut.Decode.Class (class DecodeJson, decodeJson)
 import Data.Eq
-import Data.Maybe (Maybe, fromMaybe)
 import Data.Ord
 import Data.Show
+import Screeps.Structure
+import Screeps.Types
 
+import Data.Argonaut.Decode.Class (class DecodeJson, decodeJson)
+import Data.Argonaut.Encode.Class (class EncodeJson, encodeJson)
+import Data.Map (lookup)
+import Data.Maybe (Maybe, fromMaybe)
 import Screeps.Constants (extension_energy_capacity)
 import Screeps.Destructible (class Destructible)
 import Screeps.FFI (instanceOf)
 import Screeps.Id (class HasId, decodeJsonWithId, encodeJsonWithId, eqById)
-import Screeps.IntMap as IntMap
 import Screeps.Refillable (class Refillable)
 import Screeps.RoomObject (class RoomObject)
-import Screeps.Structure
-import Screeps.Types
 
 foreign import data Extension  :: Type
 instance objectExtension       :: RoomObject Extension
@@ -41,5 +41,5 @@ toExtension = fromAnyStructure
 extensionCapacity :: Int -> Int
 extensionCapacity level | level > 8 = extensionCapacity 8
 extensionCapacity level             = 0
-                          `fromMaybe` IntMap.lookup level extension_energy_capacity
+                          `fromMaybe` lookup level extension_energy_capacity
 

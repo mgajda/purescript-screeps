@@ -6,19 +6,19 @@
 -- |          and use only first 10 or so.
 module Screeps.Path where
 
-import Control.Monad.Eff
-import Control.Monad.Eff.Unsafe
-import Control.Monad.Eff.Exception
-import Data.Argonaut.Core (Json)
-import Data.Argonaut.Encode.Class
-import Data.Argonaut.Decode.Class
-import Data.Either
-import Data.Function (($))
-import Data.Show
-import Data.Unit
+import Data.Argonaut.Decode.Class (class DecodeJson)
+import Data.Argonaut.Encode.Class (class EncodeJson)
+import Data.Either (Either(..))
+import Data.Show (class Show, show)
+import Data.Unit (Unit)
+import Effect
+import Effect.Exception (try)
+import Effect.Unsafe (unsafePerformEffect)
+import Screeps.FFI (runThisEffectFn0, runThisEffectFn2, runThisEffectFn3, runThisFn0)
+import Screeps.RoomPosition.Type (RoomPosition)
 
-import Screeps.FFI
-import Screeps.RoomPosition.Type
+import Data.Argonaut.Core (Json, stringify)
+import Data.Function (($))
 import Screeps.Names (RoomName)
 
 -- Type Tile cost
@@ -30,8 +30,6 @@ defaultTerrainCost  = 0
 -- | Indicates an unwalkable tile.
 unwalkable :: TileCost
 unwalkable  = 255
-
-foreign import data PATH :: Effect
 
 newtype PathFinderResult = PathFinderResult {
     path       :: Array RoomPosition
@@ -60,23 +58,20 @@ inRange range aPos = PathFinderTarget {
                      , range: range
                      }
 
-foreign import usePathFinder :: forall              e.
-                                Eff (path :: PATH | e) Unit
+foreign import usePathFinder :: Effect Unit
 
 foreign import data CostMatrix :: Type
 
-foreign import search :: forall              e.
-                               RoomPosition
+foreign import search :: RoomPosition
                       -> Array PathFinderTarget
-                      ->     (PathFinderOpts e)
-                      -> Eff (path :: PATH | e)  PathFinderResult
+                      -> PathFinderOpts
+                      -> Effect PathFinderResult
 
-foreign import newCostMatrix :: forall              e.
-                                Eff (path :: PATH | e) CostMatrix
+foreign import newCostMatrix :: Effect CostMatrix
 
 foreign import infinity :: Number
 
-defaultPathFinderOpts :: forall a. PathFinderOpts a
+defaultPathFinderOpts :: PathFinderOpts
 defaultPathFinderOpts  = PathFinderOpts {
       roomCallback:    allDefaultCosts
     , plainCost:       1
@@ -88,16 +83,15 @@ defaultPathFinderOpts  = PathFinderOpts {
     , heuristicWeight: 1.2
     }
 
-type RoomCallback e = RoomName -- ^ Room name
-                   -> Eff (path :: PATH | e)
-                           CostMatrix
+type RoomCallback = RoomName -- ^ Room name
+                 -> Effect CostMatrix
 
 -- | Empty callback - just use default terrain cost.
-allDefaultCosts          :: forall e. RoomCallback e
+allDefaultCosts          :: RoomCallback
 allDefaultCosts _roomName = newCostMatrix
 
-newtype PathFinderOpts e = PathFinderOpts {
-    roomCallback    :: RoomCallback e
+newtype PathFinderOpts = PathFinderOpts {
+    roomCallback    :: RoomCallback
   , plainCost       :: TileCost
   , swampCost       :: TileCost
   , flee            :: Boolean
@@ -109,41 +103,39 @@ newtype PathFinderOpts e = PathFinderOpts {
 
 -- Type Cost matrix
 -- | Set a given coordinate to any cost.
-set :: forall              e.
-       CostMatrix
+set :: CostMatrix
     -> Int
     -> Int
     -> TileCost
-    -> Eff (path :: PATH | e) Unit
-set  = runThisEffFn3 "set"
+    -> Effect Unit
+set  = runThisEffectFn3 "set"
 
 -- | Get current cost of any coordinate.
 -- | Zero indicates default terrain cost.
-get :: forall              e.
-       CostMatrix
+get :: CostMatrix
     -> Int
     -> Int
-    -> Eff (path :: PATH | e) TileCost
-get  = runThisEffFn2 "get"
+    -> Effect TileCost
+get  = runThisEffectFn2 "get"
 
 -- | Clone cost matrix.
-clone :: forall              e.
-                                CostMatrix
-      -> Eff (path :: PATH | e) CostMatrix
-clone  = runThisEffFn0 "clone"
+clone :: CostMatrix
+      -> Effect CostMatrix
+clone  = runThisEffectFn0 "clone"
 
 -- | Serialized cost matrix, suitable for `JSON.stringify`.
 newtype SerializedCostMatrix = SerializedCostMatrix Json
 
-derive newtype instance showSerializedCostMatrix :: Show SerializedCostMatrix
+instance showSerializedCostMatrix :: Show SerializedCostMatrix where
+  show (SerializedCostMatrix x) = stringify x
 
 -- | Serialize cost matrix for storage in `Memory`.
 serialize :: CostMatrix
           -> SerializedCostMatrix
 serialize  = runThisFn0 "serialize"
 
-foreign import deserialize :: forall                  e. SerializedCostMatrix
-                           -> Eff (err :: EXCEPTION | e)           CostMatrix
+foreign import deserialize :: SerializedCostMatrix
+                           -> Effect CostMatrix
 
 instance encodeCostMatrix :: EncodeJson CostMatrix where
   encodeJson cm = case serialize cm of
@@ -151,7 +143,7 @@ instance encodeCostMatrix :: EncodeJson CostMatrix where
 
 instance decodeCostMatrix :: DecodeJson CostMatrix where
   decodeJson json = do
-    case unsafePerformEff $ try $ deserialize $ SerializedCostMatrix json of
+    case unsafePerformEffect $ try $ deserialize $ SerializedCostMatrix json of
          Left  err -> Left  $ show err
          Right r   -> Right   r
 

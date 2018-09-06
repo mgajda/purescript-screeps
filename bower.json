@@ -1,6 +1,6 @@
 {
   "name": "purescript-screeps-classy",
-  "version": "3.0.1",
+  "version": "4.0.0",
   "description": "Screeps.com binding - can program your Screeps AI with PureScript classes!",
   "ignore": [
     "**/.*",
@@ -12,32 +12,23 @@
     "test.md"
   ],
   "dependencies": {
-    "purescript-console": "^3.0.0",
-    "purescript-functions": "^3.0.0",
-    "purescript-maybe": "^3.0.0",
-    "purescript-argonaut-core": "^3.1.0",
-    "purescript-argonaut-codecs": "^3.1.0",
-    "purescript-unsafe-coerce": "^3.0.0",
-    "purescript-partial": "^1.2.1",
-    "purescript-exceptions": "^3.0.0",
-    "purescript-generics": "^4.0.0",
-    "purescript-refs": "^3.0.0",
-    "purescript-argonaut-generic": "^1.0.0"
+    "purescript-console": "^4.0.0",
+    "purescript-functions": "^4.0.0",
+    "purescript-maybe": "^4.0.0",
+    "purescript-argonaut-core": "^4.0.0",
+    "purescript-argonaut-codecs": "^4.0.0",
+    "purescript-unsafe-coerce": "^4.0.0",
+    "purescript-partial": "^2.0.0",
+    "purescript-exceptions": "^4.0.0",
+    "purescript-refs": "^4.0.0",
+    "purescript-lists": "^5.0.0",
+    "purescript-generics-rep": "^6.0.0",
+    "purescript-effect": "^2.0.0",
+    "purescript-proxy": "^3.0.0",
+    "purescript-foreign": "^5.0.0"
   },
   "devDependencies": {
-    "purescript-psci-support": "^3.0.0"
-  },
-  "resolutions": {
-    "purescript-prelude": "^3.0.0",
-    "purescript-maybe": "^3.0.0",
-    "purescript-monoid": "^3.0.0",
-    "purescript-control": "^3.0.0",
-    "purescript-invariant": "^3.0.0",
-    "purescript-foldable-traversable": "^3.0.0",
-    "purescript-bifunctors": "^3.0.0",
-    "purescript-unfoldable": "3.0.0",
-    "purescript-tuples": "^4.0.0",
-    "purescript-identity": "^3.0.0"
+    "purescript-psci-support": "^4.0.0"
   },
   "license": "BSD-3-Clause",
   "repository": {

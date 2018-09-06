@@ -1,24 +1,24 @@
 module Screeps.Stores where
 
-import Data.Argonaut.Encode.Class (class EncodeJson, encodeJson)
-import Data.Argonaut.Decode.Class (class DecodeJson, decodeJson)
-import Data.Eq             (class Eq)
-import Data.Function       (($))
-import Data.Functor        ((<$>))
-import Data.HeytingAlgebra ((||))
-import Data.Maybe          (Maybe(..))
 import Data.Show
-import Data.StrMap     as StrMap
 
-import Unsafe.Coerce       (unsafeCoerce)
-
+import Data.Argonaut.Decode.Class (class DecodeJson)
+import Data.Argonaut.Encode.Class (class EncodeJson)
+import Data.Array (fromFoldable)
+import Data.Eq (class Eq)
+import Data.Function (($))
+import Data.HeytingAlgebra ((||))
+import Data.Map as Map
+import Data.Maybe (Maybe(..))
+import Prelude (map)
 import Screeps.Destructible (class Destructible)
-import Screeps.Id          (class HasId, eqById, validate, encodeJsonWithId, decodeJsonWithId)
-import Screeps.FFI         (unsafeField, unsafeIntField, instanceOf)
-import Screeps.Resource    (ResourceType(ResourceType))
-import Screeps.RoomObject  (class RoomObject)
-import Screeps.Structure   (class Structure, class Structural, showStructure, StructureType(..))
-import Screeps.Types       (class Owned)
+import Screeps.FFI (unsafeField, unsafeIntField, instanceOf)
+import Screeps.Id (class HasId, eqById, validate, encodeJsonWithId, decodeJsonWithId)
+import Screeps.Resource (ResourceType(ResourceType))
+import Screeps.RoomObject (class RoomObject)
+import Screeps.Structure (class Structure, class Structural, showStructure, StructureType(..))
+import Screeps.Types (class Owned)
+import Unsafe.Coerce (unsafeCoerce)
 
 class Stores a
 
@@ -66,12 +66,12 @@ storeGet s (ResourceType res) = unsafeIntField res $ store s
 storeCapacity :: forall a. Stores a => a -> Int
 storeCapacity  = unsafeField "storeCapacity"
 
-newtype Store = Store (StrMap.StrMap Int)
+newtype Store = Store (Map.Map String Int)
 derive newtype instance showCarry :: Show Store
 
 heldResources :: Store -> Array ResourceType
-heldResources (Store c)                  = ResourceType <$> StrMap.keys c
+heldResources (Store c) = map ResourceType $ fromFoldable $ Map.keys c
 
 amountHeld :: Store -> ResourceType -> Maybe Int
-amountHeld    (Store c) (ResourceType r) = StrMap.lookup r c
+amountHeld    (Store c) (ResourceType r) = Map.lookup r c
 

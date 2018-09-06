@@ -1,33 +1,33 @@
 -- | Corresponds to the Screeps API [RoomPosition](http://support.screeps.com/hc/en-us/articles/203079201-RoomPosition)
 module Screeps.RoomPosition where
 
-import Prelude ((<$>), (<<<))
-import Control.Monad.Eff (Eff, runPure)
-import Control.Monad.Eff.Exception (EXCEPTION, Error, try)
+import Effect
+
 import Data.Either (Either)
 import Data.Maybe (Maybe(Nothing))
-import Unsafe.Coerce (unsafeCoerce)
-
+import Effect.Exception (Error, try)
+import Effect.Unsafe (unsafePerformEffect)
+import Prelude ((<$>), (<<<))
 import Screeps.Color (Color)
-import Screeps.Effects (CMD)
-import Screeps.FindType (FindType, LookType, Path)
-import Screeps.Types (FilterFn, TargetPosition(..))
 import Screeps.Direction (Direction)
-import Screeps.Structure (StructureType)
+import Screeps.FFI (runThisEffectFn0, runThisEffectFn1, runThisEffectFn2, runThisEffectFn3, runThisFn1, runThisFn2, runThisFn3, selectMaybes, toMaybe)
+import Screeps.FindType (FindType, LookType, Path)
 import Screeps.ReturnCode (ReturnCode)
-import Screeps.FFI (runThisEffFn0, runThisEffFn1, runThisEffFn2, runThisEffFn3,
-                    runThisFn1,    runThisFn2,    runThisFn3,
-                    selectMaybes,  toMaybe)
 import Screeps.Room (PathOptions)
 import Screeps.RoomPosition.Type (RoomPosition)
+import Screeps.Structure (StructureType)
+import Screeps.Types (FilterFn, TargetPosition(..))
+import Unsafe.Coerce (unsafeCoerce)
 
 data      FindContext a =
   OfType (FindType    a     ) |
   OfObj  (Array       a     ) | -- should be RoomObject a
   OfPos  (Array RoomPosition)
 
-tryPure :: forall a. Eff (exception :: EXCEPTION) a -> Either Error a
-tryPure = runPure <<< try
+-- Type safety lost by dropping effect rows in PureScript 0.12. For use only
+-- with exception effects.
+tryPure :: forall a. Effect a -> Either Error a
+tryPure = unsafePerformEffect <<< try
 
 type ClosestPathOptions = PathOptions
   ( filter :: Maybe (forall a. a -> Boolean)
@@ -61,62 +61,59 @@ unwrapContext (OfType findType ) = unsafeCoerce findType
 unwrapContext (OfObj  objects  ) = unsafeCoerce objects
 unwrapContext (OfPos  positions) = unsafeCoerce positions
 
-createConstructionSite :: forall e. RoomPosition
+createConstructionSite ::  RoomPosition
                        -> StructureType
-                       -> Eff ( cmd :: CMD, err :: EXCEPTION | e) ReturnCode
-createConstructionSite = runThisEffFn1 "createConstructionSite"
+                       -> Effect ReturnCode
+createConstructionSite = runThisEffectFn1 "createConstructionSite"
 
-createFlag :: forall e. RoomPosition
-           -> Eff ( cmd :: CMD, err :: EXCEPTION | e) ReturnCode
-createFlag = runThisEffFn0 "createFlag"
+createFlag ::  RoomPosition
+           -> Effect ReturnCode
+createFlag = runThisEffectFn0 "createFlag"
 
-createFlagWithName :: forall e. RoomPosition
+createFlagWithName ::  RoomPosition
                    -> String
-                   -> Eff ( cmd :: CMD
-                          , err :: EXCEPTION | e) ReturnCode
-createFlagWithName pos name = runThisEffFn1 "createFlag" pos name
+                   -> Effect ReturnCode
+createFlagWithName pos name = runThisEffectFn1 "createFlag" pos name
 
-createFlagWithColor :: forall e. RoomPosition
+createFlagWithColor ::  RoomPosition
                     -> String
                     -> Color
-                    -> Eff ( cmd :: CMD
-                           , err :: EXCEPTION | e) ReturnCode
-createFlagWithColor pos name color = runThisEffFn2 "createFlag" pos name color
+                    -> Effect ReturnCode
+createFlagWithColor pos name color = runThisEffectFn2 "createFlag" pos name color
 
-createFlagWithColors :: forall e. RoomPosition -> String -> Color -> Color
-                     -> Eff ( cmd :: CMD
-                            , err :: EXCEPTION | e) ReturnCode
-createFlagWithColors pos name color secondaryColor = runThisEffFn3 "createFlag" pos name color secondaryColor
+createFlagWithColors ::  RoomPosition -> String -> Color -> Color
+                     -> Effect ReturnCode
+createFlagWithColors pos name color secondaryColor = runThisEffectFn3 "createFlag" pos name color secondaryColor
 
 findClosestByPath :: forall a. RoomPosition -> FindContext a -> Either Error (Maybe a)
-findClosestByPath pos ctx = tryPure (toMaybe <$> runThisEffFn1 "findClosestByPath" pos (unwrapContext ctx))
+findClosestByPath pos ctx = tryPure (toMaybe <$> runThisEffectFn1 "findClosestByPath" pos (unwrapContext ctx))
 
 findClosestByPath' :: forall a. RoomPosition -> FindContext a -> ClosestPathOptions -> Either Error (Maybe a)
-findClosestByPath' pos ctx opts = tryPure (toMaybe <$> runThisEffFn2 "findClosestByPath" pos ctx' options)
+findClosestByPath' pos ctx opts = tryPure (toMaybe <$> runThisEffectFn2 "findClosestByPath" pos ctx' options)
   where ctx' = unwrapContext ctx
         options = selectMaybes opts
 
 findClosestByRange :: forall a. RoomPosition -> FindContext a -> Either Error (Maybe a)
-findClosestByRange pos ctx = tryPure (toMaybe <$> runThisEffFn1 "findClosestByRange" pos (unwrapContext ctx))
+findClosestByRange pos ctx = tryPure (toMaybe <$> runThisEffectFn1 "findClosestByRange" pos (unwrapContext ctx))
 
 findClosestByRange' :: forall a. RoomPosition -> FindContext a -> FilterFn a -> Either Error (Maybe a)
-findClosestByRange' pos ctx filter = tryPure (toMaybe <$> runThisEffFn2 "findClosestByRange" pos (unwrapContext ctx) { filter })
+findClosestByRange' pos ctx filter = tryPure (toMaybe <$> runThisEffectFn2 "findClosestByRange" pos (unwrapContext ctx) { filter })
 
 findInRange :: forall a. RoomPosition -> FindContext a -> Int -> Either Error (Array a)
-findInRange pos ctx range = tryPure (runThisEffFn2 "findInRange" pos (unwrapContext ctx) range)
+findInRange pos ctx range = tryPure (runThisEffectFn2 "findInRange" pos (unwrapContext ctx) range)
 
 findInRange' :: forall a. RoomPosition -> FindContext a -> Int -> FilterFn a -> Either Error (Array a)
-findInRange' pos ctx range filter = tryPure (runThisEffFn3 "findInRange" pos (unwrapContext ctx) range { filter })
+findInRange' pos ctx range filter = tryPure (runThisEffectFn3 "findInRange" pos (unwrapContext ctx) range { filter })
 
 findPathTo :: forall a. RoomPosition -> TargetPosition a -> Either Error Path
-findPathTo pos (TargetPt x' y') = tryPure (runThisEffFn2 "findPathTo" pos x' y')
-findPathTo pos (TargetPos destPos) = tryPure (runThisEffFn1 "findPathTo" pos destPos)
-findPathTo pos (TargetObj obj) = tryPure (runThisEffFn1 "findPathTo" pos obj)
+findPathTo pos (TargetPt x' y') = tryPure (runThisEffectFn2 "findPathTo" pos x' y')
+findPathTo pos (TargetPos destPos) = tryPure (runThisEffectFn1 "findPathTo" pos destPos)
+findPathTo pos (TargetObj obj) = tryPure (runThisEffectFn1 "findPathTo" pos obj)
 
 findPathTo' :: forall a. RoomPosition -> TargetPosition a -> PathOptions () -> Either Error Path
-findPathTo' pos (TargetPt x' y') opts = tryPure (runThisEffFn3 "findPathTo" pos x' y' (selectMaybes opts))
-findPathTo' pos (TargetPos destPos) opts = tryPure (runThisEffFn2 "findPathTo" pos destPos (selectMaybes opts))
-findPathTo' pos (TargetObj obj) opts = tryPure (runThisEffFn2 "findPathTo" pos obj (selectMaybes opts))
+findPathTo' pos (TargetPt x' y') opts = tryPure (runThisEffectFn3 "findPathTo" pos x' y' (selectMaybes opts))
+findPathTo' pos (TargetPos destPos) opts = tryPure (runThisEffectFn2 "findPathTo" pos destPos (selectMaybes opts))
+findPathTo' pos (TargetObj obj) opts = tryPure (runThisEffectFn2 "findPathTo" pos obj (selectMaybes opts))
 
 getDirectionTo :: forall a. RoomPosition -> TargetPosition a -> Direction
 getDirectionTo pos (TargetPt x' y') = runThisFn2 "getDirectionTo" pos x' y'
@@ -147,4 +144,4 @@ isNearTo pos (TargetObj obj) = runThisFn1 "isNearTo" pos obj
 -- look function omitted - use lookFor
 
 lookFor :: forall a. RoomPosition -> LookType a -> Either Error (Array a)
-lookFor pos lookType = tryPure (runThisEffFn1 "lookFor" pos lookType)
+lookFor pos lookType = tryPure (runThisEffectFn1 "lookFor" pos lookType)
