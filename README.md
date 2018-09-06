@@ -1,9 +1,8 @@
 # purescript-screeps-classy
 
-PureScript bindings for the [Screeps API](http://support.screeps.com/hc/en-us/articles/203084991-API-Reference).
+PureScript bindings for the [Screeps API](https://docs.screeps.com/api/).
 
-This package is type-class-guided approach, which is derived, but now very different from [purescript-screeps]()
-approach.
+This package is typeclass guided approach, which diverged from the original [purescript-screeps](https://github.com/hoodunit/purescript-screeps) too far to be considered the same package or fork.
 
 ## Installation
 
@@ -27,6 +26,8 @@ To deploy your code you need to expose it to Screeps from the exported CommonJS 
 }
 ```
 
+I will soon add description of how to make unit tests with `screeps-server-mockup`.
+
 ## Usage
 
 Module documentation is [here](https://github.com/mgajda/purescript-screeps/tree/master/docs).
@@ -37,7 +38,13 @@ Additionally there are generic `AnyStructure`, `AnyRefillable` objects that can 
 
 ## Status
 
-* Market API still not implemented
-* Portals not implemented
-* Will need to add exception-based error handling, where each error will throw an exception.
+Pull requests welcome!
+Please note that I mainly come to this game in-between projects, but you may report issues in this repo.
+
+* Not yet implemented:
+  - Market API still not implemented
+  - Portals not implemented
+  - RawMemory interface
+* `Data.StrMap` should be broken into readonly `Data.StrMap` (for FFI queries), and `Data.MutableStrMap` for cache maintenance
+* Errors do not throw exceptions consistently.
 
