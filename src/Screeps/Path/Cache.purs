@@ -4,29 +4,30 @@ module Screeps.Path.Cache where --(Cache, cached, newCache) where
 import Prelude
 
 import Effect
-import Effect.Ref
-import Data.Maybe
+import Effect.Ref as Ref
+import Data.Maybe(Maybe(..))
 import Data.StrMap as StrMap
 
 import Screeps.Path as PF
 
-newtype Cache = Cache (Ref (StrMap.StrMap PF.CostMatrix))
+-- | TODO: Change into reasonable `MutStrMap`
+newtype Cache = Cache (Ref.Ref (StrMap.StrMap PF.CostMatrix))
 
-cached :: forall a. Cache
-       -> PF.RoomCallback (ref :: REF | a) -- (String -> Eff ( ref :: REF | a ) CostMatrix )
-       -> PF.RoomCallback (ref :: REF | a) -- String -> Eff ( ref :: REF | a ) CostMatrix
+cached :: Cache
+       -> PF.RoomCallback
+       -> PF.RoomCallback
 cached (Cache cache) act roomName = do
-    r <- StrMap.lookup key <$> readRef cache
+    r <- StrMap.lookup key <$> Ref.read cache
     case r of
          Nothing -> do
            v <- act roomName
-           modifyRef cache $ StrMap.insert key v
+           StrMap.insert key v `Ref.modify_` cache
            pure v
          Just   v ->
            pure v
   where
     key = show roomName
 
-newCache :: forall e. Eff ( ref :: REF | e ) Cache
-newCache =  Cache <$> newRef StrMap.empty
+newCache :: Effect Cache
+newCache  = Cache <$> Ref.new StrMap.empty
 

@@ -1,7 +1,7 @@
 -- | Corresponds to the Screeps API [StructureTower](http://support.screeps.com/hc/en-us/articles/208437105-StructureTower)
 module Screeps.Tower where
 
-import Effect (Eff)
+import Effect
 import Data.Argonaut.Encode (class EncodeJson, encodeJson)
 import Data.Argonaut.Decode (class DecodeJson, decodeJson)
 import Data.Eq
@@ -9,7 +9,7 @@ import Data.Maybe (Maybe)
 import Data.Show
 
 import Screeps.Destructible (class Destructible)
-import Screeps.Effects (CMD)
+
 import Screeps.FFI (runThisEffFn1, runThisEffFn2, instanceOf)
 import Screeps.Id
 import Screeps.Structure
@@ -34,19 +34,19 @@ instance eqTower          :: Eq         Tower where eq   = eqById
 instance showTower        :: Show       Tower where show = showStructure
 instance destructibleTower :: Destructible Tower
 
-attack :: forall e. Tower -> Creep -> Eff ( cmd :: CMD | e) ReturnCode
+attack :: forall e. Tower -> Creep -> Effect ReturnCode
 attack = runThisEffFn1 "attack"
 
-heal :: forall e. Tower -> Creep -> Eff (cmd :: CMD | e) ReturnCode
+heal :: forall e. Tower -> Creep -> Effect ReturnCode
 heal = runThisEffFn1 "heal"
 
-repair :: forall a e. Structure a => Tower -> a -> Eff (cmd :: CMD | e) ReturnCode
+repair :: forall a e. Structure a => Tower -> a -> Effect ReturnCode
 repair = runThisEffFn1 "repair"
 
-transferEnergy :: forall e. Tower -> Creep -> Eff (cmd :: CMD | e) ReturnCode
+transferEnergy :: forall e. Tower -> Creep -> Effect ReturnCode
 transferEnergy = runThisEffFn1 "transferEnergy"
 
-transferEnergyAmt :: forall e. Tower -> Creep -> Int -> Eff (cmd :: CMD | e) ReturnCode
+transferEnergyAmt :: forall e. Tower -> Creep -> Int -> Effect ReturnCode
 transferEnergyAmt = runThisEffFn2 "transferEnergy"
 
 toTower :: AnyStructure -> Maybe Tower

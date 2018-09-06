@@ -1,14 +1,12 @@
 module Screeps.Color where
 
-import Data.Eq(class Eq)
+import Data.Eq(class Eq, eq, (==))
 import Data.Generic.Rep (class Generic)
-import Data.Generic.Rep.Show (genericShow)
-import Data.Generic.Rep.Eq (genericEq)
-import Data.Show(class Show)
+import Data.Show(class Show, show)
 import Data.Semigroup
 
 newtype Color = Color Int
-derive instance genericColor :: Generic Color
+derive instance genericColor :: Generic Color _
 instance eqColor :: Eq Color where eq (Color a) (Color b) = eq a b
 
 foreign import color_red :: Color
@@ -23,16 +21,16 @@ foreign import color_grey :: Color
 foreign import color_white :: Color
 
 instance showColor :: Show Color where
-  show (Color i) | i == color_red    = "red"
-  show (Color i) | i == color_purple = "purple"
-  show (Color i) | i == color_blue   = "blue"
-  show (Color i) | i == color_cyan   = "cyan"
-  show (Color i) | i == color_green  = "green"
-  show (Color i) | i == color_yellow = "yellow"
-  show (Color i) | i == color_orange = "orange"
-  show (Color i) | i == color_brown  = "brown"
-  show (Color i) | i == color_grey   = "grey"
-  show (Color i) | i == color_white  = "white"
-  show (Color i)                     = "Color "<> show i
+  show c | c == color_red    = "red"
+  show c | c == color_purple = "purple"
+  show c | c == color_blue   = "blue"
+  show c | c == color_cyan   = "cyan"
+  show c | c == color_green  = "green"
+  show c | c == color_yellow = "yellow"
+  show c | c == color_orange = "orange"
+  show c | c == color_brown  = "brown"
+  show c | c == color_grey   = "grey"
+  show c | c == color_white  = "white"
+  show (Color i)             = "Color "<> show i
 
 

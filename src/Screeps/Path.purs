@@ -9,9 +9,11 @@ module Screeps.Path where
 import Effect
 import Effect.Unsafe
 import Effect.Exception
-import Data.Argonaut.Core (Json)
+import Data.Argonaut.Core (Json, stringify)
 import Data.Argonaut.Encode.Class
 import Data.Argonaut.Decode.Class
+import Data.Generic.Rep.Show
+import Data.Generic.Rep
 import Data.Either
 import Data.Function (($))
 import Data.Show
@@ -30,8 +32,6 @@ defaultTerrainCost  = 0
 -- | Indicates an unwalkable tile.
 unwalkable :: TileCost
 unwalkable  = 255
-
-foreign import data PATH :: Effect
 
 newtype PathFinderResult = PathFinderResult {
     path       :: Array RoomPosition
@@ -61,7 +61,7 @@ inRange range aPos = PathFinderTarget {
                      }
 
 foreign import usePathFinder :: forall              e.
-                                Eff (path :: PATH | e) Unit
+                                Effect Unit
 
 foreign import data CostMatrix :: Type
 
@@ -69,10 +69,10 @@ foreign import search :: forall              e.
                                RoomPosition
                       -> Array PathFinderTarget
                       ->     (PathFinderOpts e)
-                      -> Eff (path :: PATH | e)  PathFinderResult
+                      -> Effect PathFinderResult
 
 foreign import newCostMatrix :: forall              e.
-                                Eff (path :: PATH | e) CostMatrix
+                                Effect CostMatrix
 
 foreign import infinity :: Number
 
@@ -88,16 +88,15 @@ defaultPathFinderOpts  = PathFinderOpts {
     , heuristicWeight: 1.2
     }
 
-type RoomCallback e = RoomName -- ^ Room name
-                   -> Eff (path :: PATH | e)
-                           CostMatrix
+type RoomCallback = RoomName -- ^ Room name
+                 -> Effect CostMatrix
 
 -- | Empty callback - just use default terrain cost.
-allDefaultCosts          :: forall e. RoomCallback e
+allDefaultCosts          :: RoomCallback
 allDefaultCosts _roomName = newCostMatrix
 
 newtype PathFinderOpts e = PathFinderOpts {
-    roomCallback    :: RoomCallback e
+    roomCallback    :: RoomCallback
   , plainCost       :: TileCost
   , swampCost       :: TileCost
   , flee            :: Boolean
@@ -114,7 +113,7 @@ set :: forall              e.
     -> Int
     -> Int
     -> TileCost
-    -> Eff (path :: PATH | e) Unit
+    -> Effect Unit
 set  = runThisEffFn3 "set"
 
 -- | Get current cost of any coordinate.
@@ -123,27 +122,30 @@ get :: forall              e.
        CostMatrix
     -> Int
     -> Int
-    -> Eff (path :: PATH | e) TileCost
+    -> Effect TileCost
 get  = runThisEffFn2 "get"
 
 -- | Clone cost matrix.
 clone :: forall              e.
                                 CostMatrix
-      -> Eff (path :: PATH | e) CostMatrix
+      -> Effect CostMatrix
 clone  = runThisEffFn0 "clone"
 
 -- | Serialized cost matrix, suitable for `JSON.stringify`.
 newtype SerializedCostMatrix = SerializedCostMatrix Json
 
-derive newtype instance showSerializedCostMatrix :: Show SerializedCostMatrix
+derive instance genericSerializedCostMatrix :: Generic SerializedCostMatrix _
+
+instance showSerializedCostMatrix :: Show SerializedCostMatrix where
+  show (SerializedCostMatrix json) = stringify json
 
 -- | Serialize cost matrix for storage in `Memory`.
 serialize :: CostMatrix
           -> SerializedCostMatrix
 serialize  = runThisFn0 "serialize"
 
-foreign import deserialize :: forall                  e. SerializedCostMatrix
-                           -> Eff (err :: EXCEPTION | e)           CostMatrix
+foreign import deserialize :: SerializedCostMatrix
+                           -> Effect           CostMatrix
 
 instance encodeCostMatrix :: EncodeJson CostMatrix where
   encodeJson cm = case serialize cm of
@@ -151,7 +153,7 @@ instance encodeCostMatrix :: EncodeJson CostMatrix where
 
 instance decodeCostMatrix :: DecodeJson CostMatrix where
   decodeJson json = do
-    case unsafePerformEff $ try $ deserialize $ SerializedCostMatrix json of
+    case unsafePerformEffect $ try $ deserialize $ SerializedCostMatrix json of
          Left  err -> Left  $ show err
          Right r   -> Right   r
 

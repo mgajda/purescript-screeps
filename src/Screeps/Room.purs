@@ -2,14 +2,14 @@
 module Screeps.Room where
 
 import Prelude                          (map, ($), (+), (-), (<<<))
-import Effect                (Eff)
+import Effect
 import Data.Argonaut.Core               (Json, toArray)
 import Data.Either                      (Either(Left,Right))
 import Data.Maybe                       (Maybe(..), maybe)
 
 import Screeps.Color                    (Color)
 import Screeps.Controller               (Controller)
-import Screeps.Effects                  (CMD) 
+
 import Screeps.FFI (runThisEffFn1, runThisEffFn2, runThisEffFn3, runThisEffFn4, runThisEffFn5,
                     runThisFn1,    runThisFn2,    runThisFn3,    runThisFn6,
                     selectMaybes,  toMaybe,
@@ -96,27 +96,27 @@ serializePath = runThisFn1 "serializePath" roomGlobal
 deserializePath :: String -> Path
 deserializePath = runThisFn1 "deserializePath" roomGlobal
 
-createConstructionSite :: forall a e. Room -> TargetPosition a -> StructureType -> Eff (cmd :: CMD | e) ReturnCode
+createConstructionSite :: forall a e. Room -> TargetPosition a -> StructureType -> Effect ReturnCode
 createConstructionSite room (TargetPt x' y') strucType = runThisEffFn3 "createConstructionSite" room x' y' strucType
 createConstructionSite room (TargetPos pos) strucType = runThisEffFn2 "createConstructionSite" room pos strucType
 createConstructionSite room (TargetObj obj) strucType = runThisEffFn2 "createConstructionSite" room obj strucType
 
-createFlag :: forall a e. Room -> TargetPosition a -> Eff (cmd :: CMD | e) ReturnCode
+createFlag :: forall a e. Room -> TargetPosition a -> Effect ReturnCode
 createFlag room (TargetPt x' y') = runThisEffFn2 "createFlag" room x' y'
 createFlag room (TargetPos pos) = runThisEffFn1 "createFlag" room pos
 createFlag room (TargetObj obj) = runThisEffFn1 "createFlag" room obj
 
-createFlagWithName :: forall a e. Room -> TargetPosition a -> String -> Eff (cmd :: CMD | e) ReturnCode
+createFlagWithName :: forall a e. Room -> TargetPosition a -> String -> Effect ReturnCode
 createFlagWithName room (TargetPt x' y') name' = runThisEffFn3 "createFlag" room x' y' name'
 createFlagWithName room (TargetPos pos) name' = runThisEffFn2 "createFlag" room pos name'
 createFlagWithName room (TargetObj obj) name' = runThisEffFn2 "createFlag" room obj name'
 
-createFlagWithColor :: forall a e. Room -> TargetPosition a -> String -> Color -> Eff (cmd :: CMD | e) ReturnCode
+createFlagWithColor :: forall a e. Room -> TargetPosition a -> String -> Color -> Effect ReturnCode
 createFlagWithColor room (TargetPt x' y') name' color = runThisEffFn4 "createFlag" room x' y' name' color
 createFlagWithColor room (TargetPos pos) name' color = runThisEffFn3 "createFlag" room pos name' color
 createFlagWithColor room (TargetObj obj) name' color = runThisEffFn3 "createFlag" room obj name' color
 
-createFlagWithColors :: forall a e. Room -> TargetPosition a -> String -> Color -> Color -> Eff (cmd :: CMD | e) ReturnCode
+createFlagWithColors :: forall a e. Room -> TargetPosition a -> String -> Color -> Color -> Effect ReturnCode
 createFlagWithColors room (TargetPt x' y') name' color color2 =
   runThisEffFn5 "createFlag" room x' y' name' color color2
 createFlagWithColors room (TargetPos pos) name' color color2 =

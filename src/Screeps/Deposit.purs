@@ -22,7 +22,6 @@ import Unsafe.Coerce                  (unsafeCoerce)
 import Effect
 import Effect.Exception.Unsafe as U
 
-import Screeps.Effects                (CMD)
 import Screeps.FFI                    (unsafeField, instanceOf, runThisEffFn1)
 import Screeps.Id
 import Screeps.Mineral    as Mineral
@@ -63,7 +62,7 @@ caseDeposit _       _       _                            = U.unsafeThrow "This i
 harvestDeposit :: forall                  e  a.
                   Creep
                -> AnyDeposit
-               -> Eff        (cmd :: CMD| e) a
+               -> Effect a
 harvestDeposit  = runThisEffFn1 "harvest"
 
 depositLeft :: forall  a.

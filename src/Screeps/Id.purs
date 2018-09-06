@@ -51,7 +51,7 @@ unsafeGetObjectById  = unsafeGetObjectById_helper Nothing Just
 foreign import unsafeGetObjectById_helper :: forall a r. r -> (a -> r) -> Id a -> r
 
 -- | WARNING: This is somewhat unsafe method, since the object should be checked for its typeEffect
---foreign import unsafeGetObjectByIdEff :: forall a e. Eff (tick :: TICK | e) (Id a) -> (Maybe a)
+--foreign import unsafeGetObjectByIdEff :: forall a e. Effect (Id a) -> (Maybe a)
 
 derive instance genericId       :: Generic    (Id a) _
 derive newtype instance eqId    :: Eq         (Id a)

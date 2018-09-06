@@ -30,20 +30,20 @@ instance decodeCreep       :: DecodeJson   Creep where decodeJson = decodeJsonWi
 instance destructibleCreep :: Destructible Creep
 
 newtype TerrainMask = TerrainMask Int
-derive instance genericTerrainMask :: Generic TerrainMask
+derive instance genericTerrainMask :: Generic TerrainMask _
 instance eqTerrainMask   :: Eq   TerrainMask where eq = genericEq
 instance showTerrainMask :: Show TerrainMask where show = genericShow
 
 newtype Terrain = Terrain String
-derive instance genericTerrain :: Generic Terrain
-instance eqTerrain   :: Eq   Terrain where eq = gEq
+derive instance genericTerrain :: Generic Terrain _
+instance eqTerrain   :: Eq   Terrain where eq = genericEq
 instance showTerrain :: Show Terrain
   where show (Terrain s) = s
 
 newtype Mode = Mode String
-derive instance genericMode :: Generic Mode
-instance eqMode   :: Eq   Mode where eq = gEq
-instance showMode :: Show Mode where show = gShow
+derive instance genericMode :: Generic Mode _
+instance eqMode   :: Eq   Mode where eq = genericEq
+instance showMode :: Show Mode where show = genericShow
 
 --------------------------------
 -- Helper types and functions --

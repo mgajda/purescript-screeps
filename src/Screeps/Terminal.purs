@@ -1,7 +1,7 @@
 -- | Corresponds to the Screeps API [StructureTerminal](http://support.screeps.com/hc/en-us/articles/207713399-StructureTerminal)
 module Screeps.Terminal where
 
-import Effect (Eff)
+import Effect
 import Data.Argonaut.Encode (class EncodeJson, encodeJson)
 import Data.Argonaut.Decode (class DecodeJson, decodeJson)
 import Data.Eq
@@ -9,7 +9,6 @@ import Data.Maybe (Maybe)
 import Data.Show  (class Show, show)
 
 import Screeps.Destructible (class Destructible)
-import Screeps.Effects    (CMD)
 import Screeps.FFI        (runThisEffFn3, runThisEffFn4, unsafeField, instanceOf)
 import Screeps.Id
 import Screeps.Stores     (class Stores)
@@ -35,10 +34,10 @@ instance structureTerminal   :: Structure  Terminal where
 instance showTerminal        :: Show       Terminal where  show = showStructure
 instance destructibleTerminal :: Destructible Terminal
 
-send :: forall e. Terminal -> ResourceType -> Int -> String -> Eff ( cmd :: CMD | e) ReturnCode
+send :: forall e. Terminal -> ResourceType -> Int -> String -> Effect ReturnCode
 send term res amount destRoomName = runThisEffFn3 "send" term res amount destRoomName
 
-send' :: forall e. Terminal -> ResourceType -> Int -> String -> String -> Eff ( cmd :: CMD | e) ReturnCode
+send' :: forall e. Terminal -> ResourceType -> Int -> String -> String -> Effect ReturnCode
 send' term res amount destRoomName description = runThisEffFn4 "send" term res amount destRoomName description
 
 toTerminal :: AnyStructure -> Maybe Terminal

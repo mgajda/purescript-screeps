@@ -1,7 +1,7 @@
 -- | Corresponds to the Screeps API [StructurePowerSpawn](http://support.screeps.com/hc/en-us/articles/208436585-StructurePowerSpawn)
 module Screeps.PowerSpawn where
 
-import Effect (Eff)
+import Effect
 import Data.Argonaut.Encode.Class (class EncodeJson, encodeJson)
 import Data.Argonaut.Decode.Class (class DecodeJson, decodeJson)
 import Data.Eq
@@ -9,7 +9,6 @@ import Data.Show
 import Data.Maybe (Maybe)
 
 import Screeps.Destructible (class Destructible)
-import Screeps.Effects (CMD)
 import Screeps.FFI (runThisEffFn0, runThisEffFn1, unsafeField, instanceOf)
 import Screeps.Id
 import Screeps.Refillable
@@ -41,12 +40,12 @@ power = unsafeField "power"
 powerCapacity :: PowerSpawn -> Int
 powerCapacity = unsafeField "powerCapacity"
 
-createPowerCreep :: forall e. PowerSpawn -> String -> Eff (cmd :: CMD | e) ReturnCode
+createPowerCreep :: PowerSpawn -> String -> Effect ReturnCode
 createPowerCreep spawn name = runThisEffFn1 "createPowerCreep" spawn name
 
-processPower :: forall e. PowerSpawn -> Eff (cmd :: CMD | e) ReturnCode
-processPower = runThisEffFn0 "processPower"
+processPower :: PowerSpawn -> Effect ReturnCode
+processPower  = runThisEffFn0 "processPower"
 
 toPowerSpawn :: AnyStructure -> Maybe PowerSpawn
-toPowerSpawn = fromAnyStructure
+toPowerSpawn  = fromAnyStructure
 

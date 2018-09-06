@@ -1,7 +1,7 @@
 -- | Corresponds to the Screeps API [ConstructionSite](http://support.screeps.com/hc/en-us/articles/203016342-ConstructionSite)
 module Screeps.ConstructionSite where
 
-import Effect (Eff)
+import Effect
 import Data.Argonaut.Encode.Class (class EncodeJson, encodeJson)
 import Data.Argonaut.Decode.Class (class DecodeJson, decodeJson)
 import Data.Eq
@@ -10,7 +10,6 @@ import Data.Semigroup             ((<>))
 import Data.Show                  (class Show, show)
 import Unsafe.Coerce              (unsafeCoerce)
 
-import Screeps.Effects (CMD)
 import Screeps.Id (class HasId, decodeJsonWithId, encodeJsonWithId, id, eqById, validate)
 import Screeps.Progress (class Progress)
 import Screeps.Types --(ConstructionSite, Id, StructureType)
@@ -35,8 +34,8 @@ instance showConstructionSite         :: Show       ConstructionSite where
         <> "@"  <> show (pos c)
         <> " [" <> show (id  c) <> "]"
 
-remove :: forall e. ConstructionSite -> Eff (cmd :: CMD | e) ReturnCode
-remove = runThisEffFn0 "remove"
+remove :: ConstructionSite -> Effect ReturnCode
+remove  = runThisEffFn0 "remove"
 
 toConstructionSite   :: AnyRoomObject
                      -> Maybe ConstructionSite

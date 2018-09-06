@@ -3,14 +3,14 @@ module Screeps.Rampart where
 
 import Data.Argonaut.Encode (class EncodeJson, encodeJson)
 import Data.Argonaut.Decode (class DecodeJson, decodeJson)
-import Effect (Eff)
+import Effect
 import Data.Eq
 import Data.Maybe (Maybe)
 import Data.Show
 
 import Screeps.Decays  (class Decays)
 import Screeps.Destructible (class Destructible)
-import Screeps.Effects (CMD)
+
 import Screeps.FFI (unsafeField, instanceOf)
 import Screeps.Id (class HasId, decodeJsonWithId, encodeJsonWithId, eqById)
 import Screeps.Structure
@@ -36,7 +36,7 @@ instance destructibleRampart :: Destructible Rampart
 isPublic :: Rampart -> Boolean
 isPublic = unsafeField "isPublic"
 
-setPublic :: forall e. Rampart -> Boolean -> Eff (cmd :: CMD | e) ReturnCode
+setPublic :: forall e. Rampart -> Boolean -> Effect ReturnCode
 setPublic = unsafeField "setPublic"
 
 toRampart :: AnyStructure -> Maybe Rampart

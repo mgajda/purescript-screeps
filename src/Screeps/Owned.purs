@@ -5,7 +5,6 @@ import Prelude
 
 import Data.Maybe        (Maybe, fromMaybe)
 
-import Screeps.Effects   (CMD)
 import Screeps.ReturnCode(ReturnCode)
 import Screeps.Types     (class Owned)
 import Screeps.FFI       (toMaybe, unsafeField, runThisEffFn1)

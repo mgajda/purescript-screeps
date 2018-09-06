@@ -2,7 +2,7 @@
 module Screeps.Structure where
 
 import Prelude
-import Effect (Eff)
+import Effect
 import Data.Argonaut.Encode.Class (class EncodeJson, encodeJson)
 import Data.Argonaut.Decode.Class (class DecodeJson, decodeJson)
 import Data.Generic.Rep      (class Generic)
@@ -13,7 +13,6 @@ import Unsafe.Coerce (unsafeCoerce)
 import Type.Proxy
 
 import Screeps.Destructible (class Destructible)
-import Screeps.Effects    (CMD)
 import Screeps.Id         (class HasId, encodeJsonWithId, decodeJsonWithId, eqById, validate)
 import Screeps.ReturnCode (ReturnCode)
 import Screeps.RoomObject
@@ -30,7 +29,7 @@ class ( RoomObject a
 -- | This class fixes an omission in original hierarchy class,
 --   where both Structure and ConstructionSite share the field `structureType`
 newtype StructureType = StructureType String
-derive         instance genericStructureType :: Generic StructureType
+derive         instance genericStructureType :: Generic StructureType _
 derive newtype instance eqStructureType      :: Eq      StructureType
 instance                showStructureType    :: Show    StructureType where show (StructureType strTy) = strTy
 
@@ -76,10 +75,10 @@ instance destructibleAnyStructure :: Destructible AnyStructure
 structureType :: forall a. Structural a => a -> StructureType
 structureType = unsafeField "structureType"
 
-destroy :: forall a e. Structure a => a -> Eff (cmd :: CMD | e) ReturnCode
+destroy :: forall a e. Structure a => a -> Effect ReturnCode
 destroy = runThisEffFn0 "destroy"
 
-isActive :: forall a e. Structure a => a -> Eff (cmd :: CMD | e) Boolean
+isActive :: forall a e. Structure a => a -> Effect Boolean
 isActive = runThisEffFn0 "isActive"
 
 unsafeCast :: forall a. Structure a => StructureType -> AnyStructure -> Maybe a

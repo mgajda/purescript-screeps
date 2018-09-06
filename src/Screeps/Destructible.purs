@@ -1,8 +1,7 @@
 module Screeps.Destructible where
 
-import Effect (Eff)
+import Effect
 
-import Screeps.Effects (CMD)
 import Screeps.FFI     (unsafeField, runThisEffFn1)
 import Screeps.ReturnCode (ReturnCode)
 
@@ -20,10 +19,10 @@ hitsMax :: forall       d.
         -> Int
 hitsMax  = unsafeField "hitsMax"
 
-notifyWhenAttacked :: forall       o    e.
+notifyWhenAttacked :: forall       o.
                       Destructible o
                    =>              o
                    -> Boolean
-                   -> Eff (cmd :: CMD | e) ReturnCode
+                   -> Effect ReturnCode
 notifyWhenAttacked = runThisEffFn1 "notifyWhenAttacked"
 

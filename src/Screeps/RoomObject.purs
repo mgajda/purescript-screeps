@@ -45,11 +45,11 @@ foreign import lookupRoom :: RoomName -> Effect (NullOrUndefined Room)
 instance decodeJson :: DecodeJson Room where
   decodeJson           json = do
     roomNam <- decodeJson json
-    case unsafePerformEff $ try $ map toMaybe $ lookupRoom roomNam of
-         Left   err      -> Left  $ "Cannot access the room: " <> show roomNam
-                                 <> " because of: "            <> show err
-         Right (Nothing) -> Left  $ "Cannot access room: "     <> show roomNam
-         Right (Just r ) -> Right   r
+    case unsafePerformEffect $ try $ map toMaybe $ lookupRoom roomNam of
+         Left   err         -> Left  $ "Cannot access the room: " <> show roomNam
+                                    <> " because of: "            <> show err
+         Right (Nothing)    -> Left  $ "Cannot access room: "     <> show roomNam
+         Right (Just r )    -> Right   r
 
 foreign import data AnyRoomObject :: Type
 

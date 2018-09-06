@@ -3,7 +3,6 @@ module Screeps.Flag where
 
 import Effect
 
-import Screeps.Effects (CMD)
 import Screeps.Types
 import Screeps.Color (Color)
 import Screeps.FFI (runThisEffFn0, runThisEffFn1, runThisEffFn2, unsafeField)

@@ -2,8 +2,7 @@
 module Screeps.Creep where
 
 import Prelude                     (Unit, show, ($), (<$>), (<>))
-import Effect           (Effect)
-import Effect.Exception (EXCEPTION)
+import Effect(Effect)
 import Data.Argonaut.Decode        (class DecodeJson, decodeJson)
 import Data.Argonaut.Encode        (class EncodeJson, encodeJson)
 import Data.Either                 (Either)
@@ -92,124 +91,121 @@ spawning = unsafeField "spawning"
 ticksToLive :: Creep -> Int
 ticksToLive = unsafeField "ticksToLive"
 
-attackCreep :: forall e. Creep -> Creep -> Eff ( cmd :: CMD | e) ReturnCode
+attackCreep :: Creep -> Creep -> Effect ReturnCode
 attackCreep = runThisEffFn1 "attack"
 
-attackStructure :: forall a e. Structure a => Creep -> a -> Eff ( cmd :: CMD | e) ReturnCode
+attackStructure :: forall a. Structure a => Creep -> a -> Effect ReturnCode
 attackStructure = runThisEffFn1 "attack"
 
-attackController :: forall a e. Structure a => Creep -> a -> Eff (cmd :: CMD | e) ReturnCode
+attackController :: forall a. Structure a => Creep -> a -> Effect ReturnCode
 attackController = runThisEffFn1 "attackController"
 
-build :: forall e. Creep -> ConstructionSite -> Eff (cmd :: CMD | e) ReturnCode
+build :: Creep -> ConstructionSite -> Effect ReturnCode
 build = runThisEffFn1 "build"
 
-cancelOrder :: forall e. Creep -> String -> Eff (cmd :: CMD | e) ReturnCode
+cancelOrder :: Creep -> String -> Effect ReturnCode
 cancelOrder = runThisEffFn1 "cancelOrder"
 
-claimController :: forall e. Creep -> Controller -> Eff (cmd :: CMD | e) ReturnCode
+claimController :: Creep -> Controller -> Effect ReturnCode
 claimController = runThisEffFn1 "claimController"
 
-dismantle :: forall a e. Structure a => Creep -> a -> Eff (cmd :: CMD | e) ReturnCode
+dismantle :: forall a. Structure a => Creep -> a -> Effect ReturnCode
 dismantle = runThisEffFn1 "dismantle"
 
-drop :: forall e. Creep -> ResourceType -> Eff (cmd :: CMD | e) ReturnCode
+drop :: Creep -> ResourceType -> Effect ReturnCode
 drop = runThisEffFn1 "drop"
 
-dropAmt :: forall e. Creep -> ResourceType -> Int -> Eff (cmd :: CMD | e) ReturnCode
+dropAmt :: Creep -> ResourceType -> Int -> Effect ReturnCode
 dropAmt = runThisEffFn2 "drop"
 
 getActiveBodyparts :: Creep -> BodyPartType -> Int
 getActiveBodyparts = runThisFn1 "getActiveBodyparts"
 
-harvestSource :: forall e. Creep -> Source -> Eff (cmd :: CMD | e) ReturnCode
+harvestSource :: Creep -> Source -> Effect ReturnCode
 harvestSource = runThisEffFn1 "harvest"
 
-harvestMineral :: forall e. Creep -> Mineral -> Eff (cmd :: CMD | e) ReturnCode
+harvestMineral :: Creep -> Mineral -> Effect ReturnCode
 harvestMineral = runThisEffFn1 "harvest"
 
-heal :: forall e. Creep -> Creep -> Eff (cmd :: CMD | e) ReturnCode
+heal :: Creep -> Creep -> Effect ReturnCode
 heal = runThisEffFn1 "heal"
 
-getMemory :: forall a e. (DecodeJson a) => Creep -> String -> Eff ( memory :: MEMORY | e ) (Either String a)
+getMemory :: forall a. (DecodeJson a) => Creep -> String -> Effect (Either String a)
 getMemory creep key = decodeJson <$> unsafeGetFieldEff key creepMemory
   where creepMemory = unsafeField "memory" creep
 
-setMemory :: forall a e. (EncodeJson a) => Creep -> String -> a -> Eff ( memory :: MEMORY | e ) Unit
+setMemory :: forall a. (EncodeJson a) => Creep -> String -> a -> Effect Unit
 setMemory creep key val = unsafeSetFieldEff key creepMemory (encodeJson val)
   where creepMemory = unsafeField "memory" creep
 
-move :: forall e. Creep -> Direction -> Eff (cmd :: CMD | e) ReturnCode
+move :: Creep -> Direction -> Effect ReturnCode
 move = runThisEffFn1 "move"
 
-moveByPath :: forall e. Creep -> Path -> Eff (cmd :: CMD | e) ReturnCode
+moveByPath :: Creep -> Path -> Effect ReturnCode
 moveByPath = runThisEffFn1 "moveByPath"
 
-moveTo :: forall a e. Creep -> TargetPosition a -> Eff (cmd :: CMD, memory :: MEMORY | e) ReturnCode
+moveTo :: forall a. Creep -> TargetPosition a -> Effect ReturnCode
 moveTo creep (TargetPt x y) = runThisEffFn2 "moveTo" creep x y
 moveTo creep (TargetPos pos) = runThisEffFn1 "moveTo" creep pos
 moveTo creep (TargetObj obj) = runThisEffFn1 "moveTo" creep obj
 
-moveTo' :: forall a e. Creep -> TargetPosition a -> MoveOptions -> Eff (cmd :: CMD, memory :: MEMORY | e) ReturnCode
+moveTo' :: forall a. Creep -> TargetPosition a -> MoveOptions -> Effect ReturnCode
 moveTo' creep (TargetPt x y) opts = runThisEffFn3 "moveTo" creep x y (selectMaybes opts)
 moveTo' creep (TargetPos pos) opts = runThisEffFn2 "moveTo" creep pos (selectMaybes opts)
 moveTo' creep (TargetObj obj) opts = runThisEffFn2 "moveTo" creep obj (selectMaybes opts)
 
-pickup :: forall e. Creep -> Resource -> Eff (cmd :: CMD | e) ReturnCode
+pickup :: Creep -> Resource -> Effect ReturnCode
 pickup = runThisEffFn1 "pickup"
 
-rangedAttackCreep :: forall e. Creep -> Creep -> Eff (cmd :: CMD | e) ReturnCode
+rangedAttackCreep :: Creep -> Creep -> Effect ReturnCode
 rangedAttackCreep = runThisEffFn1 "rangedAttack"
 
-rangedAttackStructure :: forall a e. Structure a => Creep -> a -> Eff (cmd :: CMD | e) ReturnCode
+rangedAttackStructure :: forall a. Structure a => Creep -> a -> Effect ReturnCode
 rangedAttackStructure = runThisEffFn1 "rangedAttack"
 
-rangedHeal :: forall e. Creep -> Creep -> Eff (cmd :: CMD | e) ReturnCode
+rangedHeal :: Creep -> Creep -> Effect ReturnCode
 rangedHeal = runThisEffFn1 "rangedHeal"
 
-rangedMassAttack :: forall e. Creep -> Eff (cmd :: CMD | e) ReturnCode
+rangedMassAttack :: Creep -> Effect ReturnCode
 rangedMassAttack = runThisEffFn0 "rangedMassAttack"
 
-repair :: forall a e. Structure a => Creep -> a -> Eff (cmd :: CMD | e) ReturnCode
+repair :: forall a. Structure a => Creep -> a -> Effect ReturnCode
 repair = runThisEffFn1 "repair"
 
-reserveController :: forall e. Creep -> Controller -> Eff (cmd :: CMD | e) ReturnCode
+reserveController :: Creep -> Controller -> Effect ReturnCode
 reserveController = runThisEffFn1 "reserveController"
 
-say :: forall e. Creep -> String -> Eff (cmd :: CMD | e) ReturnCode
+say :: Creep -> String -> Effect ReturnCode
 say creep msg = runThisEffFn1 "say" creep msg
 
-sayPublic :: forall e. Creep -> String -> Eff (cmd :: CMD | e) ReturnCode
+sayPublic :: Creep -> String -> Effect ReturnCode
 sayPublic creep msg = runThisEffFn2 "say" creep msg true
 
-suicide :: forall e. Creep -> Eff (cmd :: CMD | e) ReturnCode
+suicide :: Creep -> Effect ReturnCode
 suicide = runThisEffFn0 "suicide"
 
-transferToCreep :: forall e. Creep -> Creep -> ResourceType -> Int -> Eff (cmd :: CMD | e) ReturnCode
+transferToCreep :: Creep -> Creep -> ResourceType -> Int -> Effect ReturnCode
 transferToCreep = runThisEffFn3 "transfer"
 
-transferToStructure :: forall a e. Structure a => Creep -> a -> ResourceType -> Eff (cmd :: CMD | e) ReturnCode
+transferToStructure :: forall a. Structure a => Creep -> a -> ResourceType -> Effect ReturnCode
 transferToStructure = runThisEffFn2 "transfer"
 
-transferAmtToStructure :: forall a e. Structure a => Creep -> a -> ResourceType -> Int -> Eff (cmd :: CMD | e) ReturnCode
+transferAmtToStructure :: forall a. Structure a => Creep -> a -> ResourceType -> Int -> Effect ReturnCode
 transferAmtToStructure = runThisEffFn3 "transfer"
 
 -- | Refill a structure that is refillable.
-refill :: forall e a. Refillable a
-       =>             Structure  a
+refill :: forall a. Refillable a
+       =>           Structure  a
        => Creep
-       ->          a
-       -> Eff ( cmd :: CMD
-              , err :: EXCEPTION
-              | e                )
-              ReturnCode
+       ->        a
+       -> Effect ReturnCode
 refill creep structure = transferToStructure creep structure resource_energy
 
-upgradeController :: forall e. Creep -> Controller -> Eff (cmd :: CMD | e) ReturnCode
+upgradeController :: Creep -> Controller -> Effect ReturnCode
 upgradeController = runThisEffFn1 "upgradeController"
 
-withdraw :: forall a e. Structure a => Creep -> a -> ResourceType -> Eff (cmd :: CMD | e) ReturnCode
+withdraw :: forall a. Structure a => Creep -> a -> ResourceType -> Effect ReturnCode
 withdraw = runThisEffFn2 "withdraw"
 
-withdrawAmt :: forall a e. Structure a => Creep -> a -> ResourceType -> Int -> Eff (cmd :: CMD | e) ReturnCode
+withdrawAmt :: forall a. Structure a => Creep -> a -> ResourceType -> Int -> Effect ReturnCode
 withdrawAmt = runThisEffFn3 "withdraw"

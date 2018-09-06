@@ -3,7 +3,7 @@ module Screeps.Lab where
 
 import Data.Argonaut.Encode (class EncodeJson)
 import Data.Argonaut.Decode (class DecodeJson)
-import Effect (Eff)
+import Effect
 import Data.Eq(class Eq)
 import Data.Maybe (Maybe)
 import Data.Show (class Show, show)
@@ -11,11 +11,10 @@ import Data.Show (class Show, show)
 import Screeps.Constants  (lab_cooldown)
 import Screeps.Coolsdown  (class Coolsdown)
 import Screeps.Destructible (class Destructible)
-import Screeps.Effects    (CMD)
 import Screeps.FFI        (runThisEffFn1, runThisEffFn2, unsafeField, instanceOf)
 import Screeps.Refillable (class Refillable)
 import Screeps.Structure
-import Screeps.Types
+import Screeps.Types(class Owned, Creep)
 import Screeps.ReturnCode (ReturnCode)
 import Screeps.RoomObject (class RoomObject)
 import Screeps.Id (class HasId, encodeJsonWithId, decodeJsonWithId, eqById)
@@ -46,13 +45,13 @@ mineralType = unsafeField "mineralType"
 mineralCapacity :: Lab -> Int
 mineralCapacity = unsafeField "mineralCapacity"
 
-boostCreep :: forall e. Lab -> Creep -> Eff (cmd :: CMD | e) ReturnCode
+boostCreep :: Lab -> Creep -> Effect ReturnCode
 boostCreep = runThisEffFn1 "boostCreep"
 
-boostCreep' :: forall e. Lab -> Creep -> Int -> Eff (cmd :: CMD | e) ReturnCode
+boostCreep' :: Lab -> Creep -> Int -> Effect ReturnCode
 boostCreep' lab creep bodyPartsCount = runThisEffFn2 "boostCreep" lab creep bodyPartsCount
 
-runReaction :: forall e. Lab -> Lab -> Lab -> Eff (cmd :: CMD | e) ReturnCode
+runReaction :: Lab -> Lab -> Lab -> Effect ReturnCode
 runReaction lab lab1 lab2 = runThisEffFn2 "runReaction" lab lab1 lab2
 
 toLab :: AnyStructure -> Maybe Lab

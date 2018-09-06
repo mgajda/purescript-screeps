@@ -3,7 +3,7 @@ module Screeps.Nuker where
 
 import Data.Argonaut.Encode.Class (class EncodeJson)
 import Data.Argonaut.Decode.Class (class DecodeJson)
-import Effect (Eff)
+import Effect
 import Data.Eq(class Eq)
 import Data.Maybe (Maybe)
 import Data.Show(class Show)
@@ -11,7 +11,6 @@ import Data.Show(class Show)
 import Screeps.Constants (nuker_cooldown)
 import Screeps.Coolsdown (class Coolsdown)
 import Screeps.Destructible (class Destructible)
-import Screeps.Effects (CMD)
 import Screeps.FFI (runThisEffFn1, unsafeField, instanceOf)
 import Screeps.Id (class HasId, encodeJsonWithId, decodeJsonWithId, eqById)
 import Screeps.Structure
@@ -44,7 +43,7 @@ ghodium = unsafeField "ghodium"
 ghodiumCapacity :: Nuker -> Int
 ghodiumCapacity = unsafeField "ghodiumCapacity"
 
-launchNuke :: forall e. Nuker -> RoomPosition -> Eff (cmd :: CMD | e) ReturnCode
+launchNuke :: forall e. Nuker -> RoomPosition -> Effect ReturnCode
 launchNuke = runThisEffFn1 "launchNuke"
 
 toNuker :: AnyStructure -> Maybe Nuker
