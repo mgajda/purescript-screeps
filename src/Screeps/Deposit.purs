@@ -19,8 +19,8 @@ import Data.HeytingAlgebra
 import Data.Maybe                     (Maybe(..))
 import Data.Show
 import Unsafe.Coerce                  (unsafeCoerce)
-import Control.Monad.Eff
-import Control.Monad.Eff.Exception.Unsafe as U
+import Effect
+import Effect.Exception.Unsafe as U
 
 import Screeps.Effects                (CMD)
 import Screeps.FFI                    (unsafeField, instanceOf, runThisEffFn1)

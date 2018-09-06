@@ -2,8 +2,8 @@
 module Screeps.RoomPosition where
 
 import Prelude ((<$>), (<<<))
-import Control.Monad.Eff (Eff, runPure)
-import Control.Monad.Eff.Exception (EXCEPTION, Error, try)
+import Effect
+import Effect.Exception(try)
 import Data.Either (Either)
 import Data.Maybe (Maybe(Nothing))
 import Unsafe.Coerce (unsafeCoerce)

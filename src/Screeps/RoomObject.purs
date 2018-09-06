@@ -3,9 +3,9 @@ module Screeps.RoomObject where
 
 import Control.Category
 import Control.Monad
-import Control.Monad.Eff
-import Control.Monad.Eff.Exception
-import Control.Monad.Eff.Unsafe (unsafePerformEff)
+import Effect
+import Effect.Exception
+import Effect.Unsafe (unsafePerformEffect)
 import Data.Argonaut.Decode.Class
 import Data.Argonaut.Encode.Class
 import Data.Either
@@ -40,7 +40,7 @@ name = unsafeField "name"
 instance encodeJson :: EncodeJson Room where
   encodeJson = encodeJson <<< name
 
-foreign import lookupRoom :: forall e. RoomName -> Eff e (NullOrUndefined Room)
+foreign import lookupRoom :: RoomName -> Effect (NullOrUndefined Room)
 
 instance decodeJson :: DecodeJson Room where
   decodeJson           json = do

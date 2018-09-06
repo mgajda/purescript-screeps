@@ -3,8 +3,8 @@ module Screeps.Path.Cache where --(Cache, cached, newCache) where
 
 import Prelude
 
-import Control.Monad.Eff
-import Control.Monad.Eff.Ref
+import Effect
+import Effect.Ref
 import Data.Maybe
 import Data.StrMap as StrMap
 

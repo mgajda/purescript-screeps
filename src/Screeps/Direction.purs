@@ -4,9 +4,9 @@ module Screeps.Direction where
 import Prelude (class Eq, class Show, show, (<>), (==))
 
 import Data.Argonaut.Decode         (class DecodeJson, decodeJson)
-import Data.Argonaut.Decode.Generic (gDecodeJson)
+import Data.Argonaut.Decode.Generic.Rep (genericDecodeJson)
 import Data.Argonaut.Encode         (class EncodeJson, encodeJson)
-import Data.Argonaut.Encode.Generic (gEncodeJson)
+import Data.Argonaut.Encode.Generic.Rep (genericEncodeJson)
 import Data.Functor         ((<$>))
 import Data.Generic.Rep     (class Generic)
 import Data.Generic.Rep.Eq  (genericEq)
