@@ -37,10 +37,12 @@ type BodyPart =
   , type :: BodyPartType
   , hits :: Int }
 
+-- TODO: elaborate visualizePathStyle
 type MoveOptions = PathOptions
   ( reusePath :: Maybe Int
   , serializeMemory :: Maybe Boolean
-  , noPathFinding :: Maybe Boolean )
+  , noPathFinding :: Maybe Boolean
+  , visualizePathStyle :: Maybe {} )
 
 moveOpts :: MoveOptions
 moveOpts =
@@ -55,7 +57,8 @@ moveOpts =
   , maxRooms: Nothing
   , reusePath: Nothing
   , serializeMemory: Nothing
-  , noPathFinding: Nothing }
+  , noPathFinding: Nothing
+  , visualizePathStyle: Nothing }
 
 body :: Creep -> Array BodyPart
 body creep = unsafeField "body" creep
