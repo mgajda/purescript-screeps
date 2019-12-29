@@ -1,6 +1,6 @@
 module Screeps.Progress where
 
-import Screeps.FFI(unsafeField)
+import Screeps.FFI (unsafeField)
 
 class Progress a
 
@@ -9,4 +9,3 @@ progress = unsafeField "progress"
 
 progressTotal :: forall a. Progress a => a -> Int
 progressTotal = unsafeField "progressTotal"
-

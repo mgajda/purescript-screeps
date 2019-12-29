@@ -7,4 +7,3 @@ class Structure a <= Decays a
 
 ticksToDecay :: forall a. Decays a => a -> Int
 ticksToDecay = unsafeField "ticksToDecay"
-
