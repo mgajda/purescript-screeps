@@ -8,7 +8,6 @@ import Data.Map (Map)
 import Data.Maybe (Maybe(..))
 import Effect (Effect)
 import Prelude (class Eq, class Show, Unit, show, ($), (<$>), (<>))
-import Screeps (class Owned)
 import Screeps.BodyPartType (BodyPartType)
 import Screeps.ConstructionSite (ConstructionSite)
 import Screeps.Controller (Controller)
@@ -27,7 +26,7 @@ import Screeps.RoomObject (class RoomObject, pos)
 import Screeps.Source (Source)
 import Screeps.Stores (class Stores, Store)
 import Screeps.Structure (class Structure)
-import Screeps.Types (TargetPosition(..))
+import Screeps.Types (class Owned, TargetPosition(..))
 
 foreign import data Creep :: Type
 
