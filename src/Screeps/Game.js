@@ -1,7 +1,7 @@
 "use strict";
 
 exports.unsafeGameField = function (fieldName) {
-    return function () { return Game[fieldName]; }
+    return Game[fieldName];
 }
 exports.map = Game.map;
 exports.gcl = Game.gcl;
