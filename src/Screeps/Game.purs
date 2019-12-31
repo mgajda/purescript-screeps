@@ -4,7 +4,7 @@ module Screeps.Game where
 import Screeps.Structure
 import Data.Map as Map
 import Effect (Effect)
-import Prelude (Unit, ($))
+import Prelude (Unit, (<$>))
 import Screeps.ConstructionSite (ConstructionSite)
 import Screeps.FFI (unsafeObjectToStrMap)
 import Screeps.Flag (Flag)
@@ -14,7 +14,7 @@ import Screeps.Spawn (Spawn)
 import Screeps.Creep (Creep)
 import Screeps.Types (WorldMap)
 
-foreign import unsafeGameField :: forall a. String -> a
+foreign import unsafeGameField :: forall a. String -> Effect a
 
 type Gcl
   = { level :: Int
@@ -28,38 +28,38 @@ type Cpu
     , bucket :: Int
     }
 
-constructionSites :: Map.Map String ConstructionSite
+constructionSites :: Effect (Map.Map String ConstructionSite)
 constructionSites = unsafeGameField "constructionSites"
 
-cpu :: Cpu
+cpu :: Effect Cpu
 cpu = unsafeGameField "cpu"
 
-creeps :: Map.Map String Creep
-creeps = unsafeObjectToStrMap $ unsafeGameField "creeps"
+creeps :: Effect (Map.Map String Creep)
+creeps = unsafeObjectToStrMap <$> unsafeGameField "creeps"
 
-flags :: Map.Map String Flag
-flags = unsafeObjectToStrMap $ unsafeGameField "flags"
+flags :: Effect (Map.Map String Flag)
+flags = unsafeObjectToStrMap <$> unsafeGameField "flags"
 
 foreign import gcl :: Gcl
 
 foreign import map :: WorldMap
 
-market :: Market
+market :: Effect Market
 market = unsafeGameField "market"
 
-rooms :: Map.Map String Room
-rooms = unsafeObjectToStrMap $ unsafeGameField "rooms"
+rooms :: Effect (Map.Map String Room)
+rooms = unsafeObjectToStrMap <$> unsafeGameField "rooms"
 
-spawns :: Map.Map String Spawn
-spawns = unsafeObjectToStrMap $ unsafeGameField "spawns"
+spawns :: Effect (Map.Map String Spawn)
+spawns = unsafeObjectToStrMap <$> unsafeGameField "spawns"
 
-structures :: Map.Map String AnyStructure
-structures = unsafeObjectToStrMap $ unsafeGameField "structures"
+structures :: Effect (Map.Map String AnyStructure)
+structures = unsafeObjectToStrMap <$> unsafeGameField "structures"
 
-time :: Int
+time :: Effect Int
 time = unsafeGameField "time"
 
-foreign import getUsedCpu :: Number
+foreign import getUsedCpu :: Effect Number
 
 foreign import notify :: String -> Effect Unit
 
