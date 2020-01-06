@@ -17,7 +17,7 @@ type RoomVisualStyle
     , backgroundPadding :: Number
     , align :: String
     , radius :: Number
-    , fill :: String
+    , fill :: Maybe String
     , width :: Number
     , opacity :: Number
     , stroke :: Maybe String
@@ -33,11 +33,11 @@ defaultRoomVisualStyle =
   , backgroundPadding: 0.3
   , align: "center"
   , radius: 0.15
-  , fill: "#ffffff"
+  , fill: Just "#ffffff"
   , width: 0.1
-  , opacity: 1.0
+  , opacity: 0.5
   , stroke: Nothing
-  , strokeWidth: 0.15
+  , strokeWidth: 0.1
   , lineStyle: Nothing
   }
 
@@ -80,19 +80,19 @@ rectWithStyle' style x y w h rv = runThisEffectFn5 "rect" rv x y w h style
 
 -- TODO: poly' taking Array of Array of 2 numbers?
 poly :: Array RoomPosition → RoomVisual → Effect RoomVisual
-poly = polyWithStyle defaultRoomVisualStyle
+poly = polyWithStyle (defaultRoomVisualStyle { fill = Nothing })
 
 polyWithStyle :: RoomVisualStyle → Array RoomPosition → RoomVisual → Effect RoomVisual
 polyWithStyle style vertices rv = runThisEffectFn2 "poly" rv vertices style
 
 text :: String → RoomPosition → RoomVisual → Effect RoomVisual
-text = textWithStyle defaultRoomVisualStyle
+text = textWithStyle (defaultRoomVisualStyle { opacity = 1.0, strokeWidth = 0.15 })
 
 textWithStyle :: RoomVisualStyle → String → RoomPosition → RoomVisual → Effect RoomVisual
 textWithStyle style t p rv = runThisEffectFn3 "text" rv t p style
 
 text' :: String → Number → Number → RoomVisual → Effect RoomVisual
-text' = textWithStyle' defaultRoomVisualStyle
+text' = textWithStyle' (defaultRoomVisualStyle { opacity = 1.0, strokeWidth = 0.15 })
 
 textWithStyle' :: RoomVisualStyle → String → Number → Number → RoomVisual → Effect RoomVisual
 textWithStyle' style x y p rv = runThisEffectFn4 "text" rv x y p style
