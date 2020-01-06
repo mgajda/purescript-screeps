@@ -4,15 +4,13 @@ module Screeps.Direction where
 import Prelude hiding (bottom, top)
 import Data.Argonaut.Decode (class DecodeJson, decodeJson)
 import Data.Argonaut.Encode (class EncodeJson, encodeJson)
-import Data.Generic.Rep (class Generic, Argument(..), Constructor(..))
+import Data.Generic.Rep (class Generic)
 import Data.Generic.Rep.Eq (genericEq)
 
 newtype Direction
   = Direction Int
 
-instance genericDirection :: Generic Direction (Constructor "Direction" (Argument Int)) where
-  from (Direction x) = Constructor $ Argument x
-  to (Constructor (Argument x)) = Direction x
+derive instance genericDirection :: Generic Direction _
 
 foreign import top :: Direction
 

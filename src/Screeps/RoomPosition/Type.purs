@@ -33,6 +33,9 @@ instance eqRoomPosition :: Eq RoomPosition where
       && roomName a
       == roomName b
 
+instance ordRoomPosition :: Ord RoomPosition where
+  compare a b = compare (roomName a) (roomName b) <> compare (x a) (x b) <> compare (y a) (y b)
+
 instance encodeRoomPosition :: EncodeJson RoomPosition where
   encodeJson aPos =
     do

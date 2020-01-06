@@ -2,7 +2,7 @@
 module Screeps.Types where
 
 import Prelude
-import Data.Generic.Rep (class Generic, Argument(..), Constructor(..))
+import Data.Generic.Rep (class Generic)
 import Data.Generic.Rep.Eq (genericEq)
 import Data.Generic.Rep.Show (genericShow)
 import Screeps.RoomPosition.Type (RoomPosition)
@@ -14,9 +14,7 @@ class Owned a -- my, owned
 newtype TerrainMask
   = TerrainMask Int
 
-instance genericTerrainMask :: Generic TerrainMask (Constructor "TerrainMask" (Argument Int)) where
-  from (TerrainMask x) = Constructor $ Argument x
-  to (Constructor (Argument x)) = TerrainMask x
+derive instance genericTerrainMask :: Generic TerrainMask _
 
 instance eqTerrainMask :: Eq TerrainMask where
   eq = genericEq
@@ -27,9 +25,7 @@ instance showTerrainMask :: Show TerrainMask where
 newtype Terrain
   = Terrain String
 
-instance genericTerrain :: Generic Terrain (Constructor "Terrain" (Argument String)) where
-  from (Terrain x) = Constructor $ Argument x
-  to (Constructor (Argument x)) = Terrain x
+derive instance genericTerrain :: Generic Terrain _
 
 instance eqTerrain :: Eq Terrain where
   eq = genericEq
@@ -40,9 +36,7 @@ instance showTerrain :: Show Terrain where
 newtype Mode
   = Mode String
 
-instance genericMode :: Generic Mode (Constructor "Mode" (Argument String)) where
-  from (Mode x) = Constructor $ Argument x
-  to (Constructor (Argument x)) = Mode x
+derive instance genericMode :: Generic Mode _
 
 instance eqMode :: Eq Mode where
   eq = genericEq

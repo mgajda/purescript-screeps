@@ -6,7 +6,7 @@ import Screeps.RoomObject (class RoomObject, AnyRoomObject, pos)
 import Type.Proxy (Proxy(..))
 import Data.Argonaut.Decode.Class (class DecodeJson)
 import Data.Argonaut.Encode.Class (class EncodeJson)
-import Data.Generic.Rep (class Generic, Argument(..), Constructor(..))
+import Data.Generic.Rep (class Generic)
 import Data.Maybe (Maybe(Just, Nothing))
 import Effect (Effect)
 import Screeps.Destructible (class Destructible)
@@ -30,9 +30,7 @@ class
 newtype StructureType
   = StructureType String
 
-instance genericStructureType :: Generic StructureType (Constructor "StructureType" (Argument String)) where
-  from (StructureType x) = Constructor $ Argument x
-  to (Constructor (Argument x)) = StructureType x
+derive instance genericStructureType :: Generic StructureType _
 
 derive newtype instance eqStructureType :: Eq StructureType
 

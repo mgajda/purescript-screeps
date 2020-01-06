@@ -16,7 +16,7 @@ import Data.Argonaut.Core (Json)
 import Data.Argonaut.Decode.Class (class DecodeJson, decodeJson)
 import Data.Argonaut.Encode.Class (class EncodeJson, encodeJson)
 import Data.Function (on)
-import Data.Generic.Rep (class Generic, Argument(..), Constructor(..))
+import Data.Generic.Rep (class Generic)
 import Data.Maybe (Maybe(..))
 import Screeps.FFI (unsafeField)
 
@@ -48,9 +48,7 @@ foreign import unsafeGetObjectById_helper :: forall a r. r -> (a -> r) -> Id a -
 
 -- | WARNING: This is somewhat unsafe method, since the object should be checked for its typeEffectect
 --foreign import unsafeGetObjectByIdEffect :: forall a. Effect (Id a) -> (Maybe a)
-instance genericId :: Generic (Id a) (Constructor "Id" (Argument String)) where
-  from (Id x) = Constructor $ Argument x
-  to (Constructor (Argument x)) = Id x
+derive instance genericId :: Generic (Id a) _
 
 derive newtype instance eqId :: Eq (Id a)
 

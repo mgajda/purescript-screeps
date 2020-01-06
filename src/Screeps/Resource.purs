@@ -4,7 +4,7 @@ module Screeps.Resource where
 import Prelude
 import Data.Argonaut.Decode (class DecodeJson)
 import Data.Argonaut.Encode (class EncodeJson)
-import Data.Generic.Rep (class Generic, Argument(..), Constructor(..))
+import Data.Generic.Rep (class Generic)
 import Screeps.FFI (unsafeField, instanceOf)
 import Screeps.Id (class HasId, encodeJsonWithId, decodeJsonWithId, eqById)
 import Screeps.RoomObject (class RoomObject, pos)
@@ -13,9 +13,7 @@ import Screeps.RoomObject (class RoomObject, pos)
 newtype ResourceType
   = ResourceType String
 
-instance genericResourceType :: Generic ResourceType (Constructor "ResourceType" (Argument String)) where
-  from (ResourceType x) = Constructor $ Argument x
-  to (Constructor (Argument x)) = ResourceType x
+derive instance genericResourceType :: Generic ResourceType _
 
 derive newtype instance eqResourceType :: Eq ResourceType
 

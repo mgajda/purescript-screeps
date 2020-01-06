@@ -1,17 +1,14 @@
 module Screeps.ReturnCode where
 
 import Data.Eq (class Eq, (==))
-import Data.Generic.Rep (class Generic, Argument(..), Constructor(..))
+import Data.Generic.Rep (class Generic)
 import Data.Generic.Rep.Eq (genericEq)
 import Data.Show (class Show, show)
-import Prelude (($))
 
 newtype ReturnCode
   = ReturnCode Int
 
-instance genericReturnCode :: Generic ReturnCode (Constructor "ReturnCode" (Argument Int)) where
-  from (ReturnCode x) = Constructor $ Argument x
-  to (Constructor (Argument x)) = ReturnCode x
+derive instance genericReturnCode :: Generic ReturnCode _
 
 instance eqReturnCode :: Eq ReturnCode where
   eq = genericEq

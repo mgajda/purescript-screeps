@@ -2,15 +2,13 @@ module Screeps.BodyPartType where
 
 import Prelude
 import Data.Foldable (sum)
-import Data.Generic.Rep (class Generic, Argument(..), Constructor(..))
+import Data.Generic.Rep (class Generic)
 import Data.Generic.Rep.Eq (genericEq)
 
 newtype BodyPartType
   = BodyPartType String
 
-instance genericBodyPartType :: Generic BodyPartType (Constructor "BodyPartType" (Argument String)) where
-  from (BodyPartType x) = Constructor $ Argument x
-  to (Constructor (Argument x)) = BodyPartType x
+derive instance genericBodyPartType :: Generic BodyPartType _
 
 instance eqBodyPartType :: Eq BodyPartType where
   eq = genericEq
