@@ -2,19 +2,20 @@
 module Screeps.RoomObject where
 
 import Prelude
-import Effect (Effect)
-import Effect.Exception (try)
-import Effect.Unsafe (unsafePerformEffect)
+
 import Data.Argonaut.Decode.Class (class DecodeJson, decodeJson)
 import Data.Argonaut.Encode.Class (class EncodeJson, encodeJson)
 import Data.Either (Either(..))
 import Data.Function (on)
 import Data.Maybe (Maybe(..))
-import Unsafe.Coerce (unsafeCoerce)
-import Screeps.Id (class HasId, encodeJsonWithId, decodeJsonWithId)
+import Effect (Effect)
+import Effect.Exception (try)
+import Effect.Unsafe (unsafePerformEffect)
 import Screeps.FFI (unsafeField, toMaybe, NullOrUndefined, instanceOf)
+import Screeps.Id (class HasId, decodeJsonWithId, encodeJsonWithId, validate)
 import Screeps.Names (RoomName)
 import Screeps.RoomPosition.Type (RoomPosition)
+import Unsafe.Coerce (unsafeCoerce)
 
 foreign import data Room :: Type
 
@@ -70,3 +71,16 @@ asAnyRoomObject ::
   RoomObject ro =>
   ro -> AnyRoomObject
 asAnyRoomObject = unsafeCoerce
+
+fromAnyRoomObject ::
+  forall ro.
+  HasId ro =>
+  AnyRoomObject ->
+  Maybe ro
+fromAnyRoomObject ro =
+  if validate o then
+    Just o
+  else
+    Nothing
+  where
+  o = unsafeCoerce ro

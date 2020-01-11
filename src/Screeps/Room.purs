@@ -2,60 +2,25 @@
 module Screeps.Room where
 
 import Prelude
-import Effect (Effect)
+
 import Data.Argonaut.Core (Json, toArray)
 import Data.Either (Either(Left, Right))
-import Data.Maybe (Maybe(..), maybe)
+import Data.Maybe (Maybe, maybe)
+import Effect (Effect)
 import Screeps.Color (Color)
 import Screeps.Controller (Controller)
-import Screeps.FFI
-  ( runThisEffectFn1
-  , runThisEffectFn2
-  , runThisEffectFn3
-  , runThisEffectFn4
-  , runThisEffectFn5
-  , runThisFn1
-  , runThisFn2
-  , runThisFn3
-  , runThisFn6
-  , selectMaybes
-  , toMaybe
-  , unsafeField
-  , unsafeOptField
-  , instanceOf
-  )
+import Screeps.FFI (runThisEffectFn1, runThisEffectFn2, runThisEffectFn3, runThisEffectFn4, runThisEffectFn5, runThisFn1, runThisFn2, runThisFn3, runThisFn6, selectMaybes, toMaybe, unsafeField, unsafeOptField)
 import Screeps.FindType (FindType, LookType)
-import Screeps.Id (class HasId, validate)
 import Screeps.Names (RoomName)
+import Screeps.Path (Path, PathOptions)
 import Screeps.ReturnCode (ReturnCode)
-import Screeps.RoomObject (Room, class RoomObject)
+import Screeps.RoomObject (Room)
 import Screeps.RoomPosition.Type (RoomPosition, x, y, mkRoomPosition)
 import Screeps.Storage (Storage)
 import Screeps.Structure (StructureType)
 import Screeps.Terminal (Terminal)
 import Screeps.Types (FilterFn, Mode, TargetPosition(..), Terrain)
-import Screeps.Path (Path, PathOptions)
-import Unsafe.Coerce (unsafeCoerce)
 
-foreign import data AnyRoomObject :: Type
-
-instance anyRoomObject :: RoomObject AnyRoomObject
-
-instance anyRoomObjectHasId :: HasId AnyRoomObject where
-  validate = instanceOf "RoomObject"
-
-fromAnyRoomObject ::
-  forall ro.
-  HasId ro =>
-  AnyRoomObject ->
-  Maybe ro
-fromAnyRoomObject ro =
-  if validate o then
-    Just o
-  else
-    Nothing
-  where
-  o = unsafeCoerce ro
 
 controller :: Room -> Maybe Controller
 controller room = toMaybe $ unsafeField "controller" room
