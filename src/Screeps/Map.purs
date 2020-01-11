@@ -6,7 +6,6 @@ import Data.Tuple (Tuple(..))
 import Prelude (Unit, map, pure, show, ($), (<$>), (<*>), (<<<))
 import Screeps.Direction (Direction(..))
 import Screeps.Names (RoomName)
-
 import Data.Array (fromFoldable)
 import Data.Array as Array
 import Data.Int (fromString)
@@ -18,46 +17,52 @@ import Screeps.ReturnCode (ReturnCode)
 import Screeps.RoomObject (Room)
 import Screeps.Types (TargetPosition(..), Terrain)
 
-newtype DirMap a = DirMap (Map.Map String a)
+newtype DirMap a
+  = DirMap (Map.Map String a)
 
-keys           :: forall a.
-                  DirMap a
-               -> Array Direction
+keys ::
+  forall a.
+  DirMap a ->
+  Array Direction
 keys (DirMap m) = Array.catMaybes $ map (map Direction <<< fromString) $ fromFoldable $ Map.keys m
 
-toArray           :: forall                 a.
-                     DirMap                 a
-                  -> Array (Tuple Direction a)
+toArray ::
+  forall a.
+  DirMap a ->
+  Array (Tuple Direction a)
 toArray (DirMap m) = Array.catMaybes (parseDir <$> Map.toUnfoldable m)
   where
-    parseDir (Tuple k v) = Tuple <$> (Direction <$> fromString k) <*> pure v
+  parseDir (Tuple k v) = Tuple <$> (Direction <$> fromString k) <*> pure v
 
-lookup             :: forall a.
-                      Direction
-                   -> DirMap a
-                   -> Maybe  a
+lookup ::
+  forall a.
+  Direction ->
+  DirMap a ->
+  Maybe a
 lookup i (DirMap m) = show i `Map.lookup` m
 
-type ExitsInfo = DirMap RoomName
+type ExitsInfo
+  = DirMap RoomName
 
 --type ExitsInfo =
 --  { "1" :: String
 --  , "3" :: String
 --  , "5" :: String
 --  , "7" :: String }
+type RoomRoute
+  = Array ExitToRoom
 
-type RoomRoute = Array ExitToRoom
-
-type ExitToRoom =
-  { exit :: FindType Unit
-  , room :: RoomName }
+type ExitToRoom
+  = { exit :: FindType Unit
+    , room :: RoomName
+    }
 
 describeExits :: RoomName -> Maybe ExitsInfo
 describeExits name = toMaybe $ runThisFn1 "describeExits" Game.map name
 
 -- TODO: options
-findExit  :: Room -> Room -> ReturnCode
-findExit  from to = runThisFn2 "findExit" Game.map from to
+findExit :: Room -> Room -> ReturnCode
+findExit from to = runThisFn2 "findExit" Game.map from to
 
 findExit' :: RoomName -> RoomName -> ReturnCode
 findExit' from to = runThisFn2 "findExit" Game.map from to
@@ -75,7 +80,9 @@ getRoomLinearDistance name1 name2 = runThisFn2 "getRoomLinearDistance" Game.map 
 
 getTerrainAt :: forall a. TargetPosition a -> RoomName -> Terrain
 getTerrainAt (TargetPt x y) roomName = runThisFn3 "getTerrainAt" Game.map x y roomName
+
 getTerrainAt (TargetPos pos) roomName = runThisFn2 "getTerrainAt" Game.map pos roomName
+
 getTerrainAt (TargetObj obj) roomName = runThisFn2 "getTerrainAt" Game.map obj roomName
 
 isRoomAvailable :: RoomName -> Boolean

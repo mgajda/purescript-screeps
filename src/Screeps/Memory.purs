@@ -1,8 +1,7 @@
 -- | Corresponds to the Screeps APIs [Memory](http://support.screeps.com/hc/en-us/articles/203084991-API-Reference) and [RawMemory](http://support.screeps.com/hc/en-us/articles/205619121-RawMemory)
 module Screeps.Memory where
 
-import Prelude (Unit, (<$>), (<<<), (>>=))
-
+import Prelude
 import Data.Argonaut.Core (Json, stringify)
 import Data.Argonaut.Decode (class DecodeJson, decodeJson)
 import Data.Argonaut.Encode (class EncodeJson, encodeJson)
@@ -12,14 +11,21 @@ import Effect (Effect)
 import Screeps.FFI (runThisEffectFn0, runThisEffectFn1, unsafeGetFieldEffect, unsafeSetFieldEffect, unsafeDeleteFieldEffect)
 
 foreign import data MemoryGlobal :: Type
+
 foreign import getMemoryGlobal :: Effect MemoryGlobal
 
 foreign import data RawMemoryGlobal :: Type
+
 foreign import getRawMemoryGlobal :: Effect RawMemoryGlobal
 
 foreign import getObjectMemory :: String -> String -> String -> Json
-foreign import setObjectMemory :: String -> String -> String -> Json
-                               -> Effect Unit
+
+foreign import setObjectMemory ::
+  String ->
+  String ->
+  String ->
+  Json ->
+  Effect Unit
 
 get :: forall a. (DecodeJson a) => MemoryGlobal -> String -> Effect (Either String a)
 get memoryGlobal key = decodeJson <$> unsafeGetFieldEffect key memoryGlobal

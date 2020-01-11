@@ -1,8 +1,9 @@
 -- | Corresponds to the Screeps API [StructureContainer](http://support.screeps.com/hc/en-us/articles/208435885-StructureContainer)
 module Screeps.Container where
 
-import Data.Argonaut.Encode.Class (class EncodeJson, encodeJson)
-import Data.Argonaut.Decode.Class (class DecodeJson, decodeJson)
+import Screeps.Structure
+import Data.Argonaut.Encode.Class (class EncodeJson)
+import Data.Argonaut.Decode.Class (class DecodeJson)
 import Data.Maybe         (Maybe)
 import Data.Show          (class Show)
 import Data.Eq            (class Eq)
@@ -11,7 +12,6 @@ import Screeps.Destructible (class Destructible)
 import Screeps.FFI        (instanceOf)
 import Screeps.Id         (class HasId, decodeJsonWithId, encodeJsonWithId, eqById)
 import Screeps.RoomObject (class RoomObject)
-import Screeps.Structure
 import Screeps.Stores     (class Stores)
 
 foreign import data Container :: Type

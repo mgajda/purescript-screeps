@@ -2,7 +2,6 @@
 module Screeps.Game where
 
 import Screeps.Structure
-
 import Data.Map as Map
 import Effect (Effect)
 import Prelude (Unit, (<$>))
@@ -12,19 +11,22 @@ import Screeps.Flag (Flag)
 import Screeps.Market (Market)
 import Screeps.RoomObject (Room)
 import Screeps.Spawn (Spawn)
-import Screeps.Types (Creep, WorldMap)
+import Screeps.Creep (Creep)
+import Screeps.Types (WorldMap)
 
 foreign import unsafeGameField :: forall a. String -> Effect a
 
-type Gcl =
-  { level         :: Int
-  , progress      :: Int
-  , progressTotal :: Int }
+type Gcl
+  = { level :: Int
+    , progress :: Int
+    , progressTotal :: Int
+    }
 
-type Cpu =
-  { limit     :: Int
-  , tickLimit :: Int
-  , bucket    :: Int }
+type Cpu
+  = { limit :: Int
+    , tickLimit :: Int
+    , bucket :: Int
+    }
 
 constructionSites :: Effect (Map.Map String ConstructionSite)
 constructionSites = unsafeGameField "constructionSites"
@@ -37,7 +39,6 @@ creeps = unsafeObjectToStrMap <$> unsafeGameField "creeps"
 
 flags :: Effect (Map.Map String Flag)
 flags = unsafeObjectToStrMap <$> unsafeGameField "flags"
-
 
 foreign import gcl :: Gcl
 
@@ -60,6 +61,6 @@ time = unsafeGameField "time"
 
 foreign import getUsedCpu :: Effect Number
 
-foreign import notify ::  String -> Effect Unit
+foreign import notify :: String -> Effect Unit
 
-foreign import notify_ ::  String -> Int -> Effect Unit
+foreign import notify_ :: String -> Int -> Effect Unit
